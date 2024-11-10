@@ -1,0 +1,48 @@
+{
+  "platforms": [
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 0, "y": 0, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 2, "y": 0, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 4, "y": 0, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 6, "y": 0, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 6, "y": 0, "z": 2 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 4, "y": 0, "z": 2 }
+    }
+  ],
+  "quads": [
+    { "width": 2, "height": 2, "position": { "x": 0, "y": 1, "z": 0 } },
+    { "width": 2, "height": 2, "position": { "x": 2, "y": 1, "z": 0 } },
+    { "width": 2, "height": 2, "position": { "x": 4, "y": 1, "z": 0 } },
+    { "width": 2, "height": 2, "position": { "x": 6, "y": 1, "z": 0 } },
+    { "width": 2, "height": 2, "position": { "x": 6, "y": 1, "z": 2 } },
+    { "width": 2, "height": 2, "position": { "x": 4, "y": 1, "z": 2 } }
+  ]
+}
