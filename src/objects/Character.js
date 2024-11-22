@@ -22,8 +22,9 @@ export default class Character {
   loadModel() {
     return new Promise((resolve, reject) => {
       const loader = new THREE.GLTFLoader();
+      const basePath = window.location.pathname.replace(/\/[^/]*$/, '/');
       loader.load(
-        '../../assets/Parrot.glb',
+        `${basePath}assets/Parrot.glb`,
         (gltf) => {
           const model = gltf.scene.children[0];
           this.mesh = model;
@@ -76,7 +77,6 @@ export default class Character {
   }
 
   moveToNextPhase() {
-    console.log("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
     if (this.path.length > 0) {
       const nextQuad = this.path[0]; // 获取目标 Quad
       
@@ -84,8 +84,8 @@ export default class Character {
       const { currentKeypoint, targetKeypoint } = this.findKeypoints(this.currentQuad, nextQuad);
       this.currentKeypoint = currentKeypoint;
       this.targetKeypoint = targetKeypoint;
-      console.log("currentKeypoint", currentKeypoint);
-      console.log("targetKeypoint", targetKeypoint);
+      // console.log("currentKeypoint", currentKeypoint);
+      // console.log("targetKeypoint", targetKeypoint);
 
       // 设置目标位置为当前 Quad 的交点
       this.targetPosition.copy(currentKeypoint);
