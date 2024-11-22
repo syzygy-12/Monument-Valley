@@ -1,6 +1,7 @@
 import Platform from "../objects/Platform.js";
 import Quad from "../objects/Quad.js";
 import Character from "../objects/Character.js";
+import TriangularPrism from "../objects/TriangularPrism.js";
 
 export default class LevelManager {
   constructor(sceneManager) {
@@ -13,15 +14,26 @@ export default class LevelManager {
 
   async loadLevel(levelNumber) {
     const { scene, updatables } = this.sceneManager;
-
+    
     // 使用 fetch 加载 JSON 文件
     const response = await fetch(`./src/levels/level${levelNumber}.json`);
     const levelData = await response.json();
+
+    levelData.Platforms = levelData.Platforms || [];
+    levelData.triangularprisms = levelData.triangularprisms || [];
+    levelData.quads = levelData.quads || [];
+
 
     levelData.platforms.forEach((platformData) => {
       const platform = new Platform(platformData);
       scene.add(platform.mesh);
       updatables.push(platform);
+    });
+
+    levelData.triangularprisms.forEach((triangularPrismData) => {
+      const triangularPrism = new TriangularPrism(triangularPrismData);
+      scene.add(triangularPrism.mesh);
+      updatables.push(triangularPrism);
     });
 
     levelData.quads.forEach((quadData) => {
@@ -33,13 +45,17 @@ export default class LevelManager {
 
     // 构建quad连通性图
     this.buildGraph();
-    //console.log(this.graph);
 
     // 初始化角色
-    this.character = new Character();
-    this.character.setInitialQuad(this.quads[0]);
-    scene.add(this.character.mesh);
-    updatables.push(this.character);
+    (async () => {
+      const character = new Character(this.sceneManager);
+      await character.loadModel();
+      character.setInitialQuad(this.quads[0]);
+      this.character = character;
+      scene.add(character.mesh);
+      updatables.push(character);
+    })();
+
 
     // 添加点击事件监听器
     window.addEventListener("click", (event) => this.onScreenClick(event));
@@ -48,6 +64,9 @@ export default class LevelManager {
   // 处理点击quad之后的事件
   onScreenClick(event) {
     const { scene, camera } = this.sceneManager;
+    if (this.character.movementPhase != null) {
+      return;
+    }
 
     const mouse = new THREE.Vector2(
       (event.clientX / window.innerWidth) * 2 - 1,
@@ -64,15 +83,49 @@ export default class LevelManager {
       const clickedQuad = this.quads.find(
         (quad) => quad.mesh === intersects[0].object,
       );
-      if (clickedQuad) {
+      if (clickedQuad && clickedQuad !== this.character.currentQuad) {
         const currentQuad = this.character.currentQuad;
         const path = this.findPath(currentQuad, clickedQuad);
-        //console.log(path);
         if (path) {
           this.character.followPath(path);
         }
       }
     }
+  }
+
+  // 判断两个quad是否相连
+  isConnectedTo(quadA, quadB, i, j) {
+    const threshold = 1e-3;
+    for (const key in quadA.keyPoints) {
+      for (const otherKey in quadB.keyPoints) {
+        // 获取两个点在相机正交投影平面上的对应点，（屏幕空间），只取x，y坐标，忽略z坐标
+        // 将 NDC 转换为屏幕像素坐标
+        const width = window.innerWidth; // 屏幕宽度
+        const height = window.innerHeight; // 屏幕高度
+
+        // 获取 quadA 的屏幕位置
+        const ndcPointA = quadA.keyPoints[key].clone().project(this.sceneManager.camera);
+        const pointPixelA = new THREE.Vector2(
+          (ndcPointA.x + 1) * 0.5 * width, // 转换到 [0, width]
+          (1 - ndcPointA.y) * 0.5 * height // 转换到 [0, height]，注意 Y 轴反转
+        );
+
+        // 获取 quadB 的屏幕位置
+        const ndcPointB = quadB.keyPoints[otherKey].clone().project(this.sceneManager.camera);
+        const pointPixelB = new THREE.Vector2(
+          (ndcPointB.x + 1) * 0.5 * width,
+          (1 - ndcPointB.y) * 0.5 * height
+        );
+        
+        const point = new THREE.Vector2(pointPixelA.x, pointPixelA.y);
+        const otherPoint = new THREE.Vector2(pointPixelB.x, pointPixelB.y);
+          
+        if (point.distanceTo(otherPoint) < threshold) {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 
   // 构建quad连通性图
@@ -85,7 +138,7 @@ export default class LevelManager {
       const quadA = this.quads[i];
       for (let j = i + 1; j < this.quads.length; j++) {
         const quadB = this.quads[j];
-        if (quadA.isConnectedTo(quadB)) {
+        if (this.isConnectedTo(quadA, quadB, i, j)) {
           this.graph.get(quadA).push(quadB);
           this.graph.get(quadB).push(quadA);
         }

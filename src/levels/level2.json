@@ -1,0 +1,113 @@
+{
+  "platforms": [
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 0, "y": 0, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 0, "y": 2, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 0, "y": 4, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 0, "y": 6, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 0, "y": 8, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 0, "y": 10, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 0, "y": 10, "z": 2 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 0, "y": 10, "z": 4 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 0, "y": 10, "z": 6 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 2, "y": 0, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 4, "y": 0, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 6, "y": 0, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 8, "y": 0, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 10, "y": 0, "z": 0 }
+    }
+  ],
+
+  "triangularprisms": [
+    {
+      
+        "width": 2,
+        "height": 2,
+        "depth": 2,
+        "position": { "x": 0, "y": 10, "z": 8 },
+        "cutDirection": "x"
+    }
+  ],
+
+  "quads": [
+    { "width": 2, "height": 2, "position": { "x": 2, "y": 1, "z": 0 } },
+    { "width": 2, "height": 2, "position": { "x": 4, "y": 1, "z": 0 } },
+    { "width": 2, "height": 2, "position": { "x": -4, "y": 11, "z": 10 } },
+    { "width": 2, "height": 2, "position": { "x": -2, "y": 11, "z": 10 } },
+    { "width": 2, "height": 2, "position": { "x": 0, "y": 11, "z": 10 } },
+    { "width": 2, "height": 2, "position": { "x": 0, "y": 11, "z": 0 } },
+    { "width": 2, "height": 2, "position": { "x": 0, "y": 11, "z": 2 } },
+    { "width": 2, "height": 2, "position": { "x": 0, "y": 11, "z": 4 } },
+    { "width": 2, "height": 2, "position": { "x": 0, "y": 11, "z": 6 } },
+    { "width": 2, "height": 2, "position": { "x": 0, "y": 11, "z": 8 } }
+
+  ]
+}

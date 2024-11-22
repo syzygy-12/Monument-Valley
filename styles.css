@@ -1,0 +1,99 @@
+/* 通用样式 */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: rgba(135, 206, 235, 1);
+  /*0x87ceeb 或设置为适合你游戏的背景颜色 */
+}
+
+
+/* 初始界面样式 */
+#start-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url('./assets/start-background.jpg') no-repeat center/cover;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+
+  /* 动画基础样式 */
+  transform: translateY(0);
+  transition: transform 0.8s ease-in-out;
+}
+
+#start-screen.hidden {
+  transform: translateY(-100%);
+}
+
+#start-screen h1 {
+  color: white;
+  font-size: 4rem;
+  font-family: 'Arial', sans-serif;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+#start-screen p {
+  color: white;
+  font-size: 1.5rem;
+  font-family: 'Arial', sans-serif;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+}
+
+/* 选关界面 */
+#level-select {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(25, 25, 25, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 9;
+
+  /* 动画基础样式 */
+  transform: translateY(100%);
+  transition: transform 0.8s ease-in-out;
+}
+
+#level-select.show {
+  transform: translateY(0);
+}
+
+#level-select h2 {
+  color: white;
+  font-size: 3rem;
+  font-family: 'Arial', sans-serif;
+}
+
+#level-select div {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+/* 按钮样式 */
+.level-btn {
+  background: #4caf50;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  color: white;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.level-btn:hover {
+  background: #45a049;
+}
