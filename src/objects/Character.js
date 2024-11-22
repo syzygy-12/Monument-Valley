@@ -23,7 +23,7 @@ export default class Character {
     return new Promise((resolve, reject) => {
       const loader = new THREE.GLTFLoader();
       loader.load(
-        '/assets/Parrot.glb',
+        '../../assets/Parrot.glb',
         (gltf) => {
           const model = gltf.scene.children[0];
           this.mesh = model;
