@@ -1,5 +1,7 @@
 export default class Character {
   constructor(sceneManager) {
+
+    // TODO: 增加角色响应signal的功能
     
     this.sceneManager = sceneManager;
     this.mesh = null; // 3D 模型
@@ -84,8 +86,6 @@ export default class Character {
       const { currentKeypoint, targetKeypoint } = this.findKeypoints(this.currentQuad, nextQuad);
       this.currentKeypoint = currentKeypoint;
       this.targetKeypoint = targetKeypoint;
-      // console.log("currentKeypoint", currentKeypoint);
-      // console.log("targetKeypoint", targetKeypoint);
 
       // 设置目标位置为当前 Quad 的交点
       this.targetPosition.copy(currentKeypoint);

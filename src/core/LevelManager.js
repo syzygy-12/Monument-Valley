@@ -2,14 +2,20 @@ import Platform from "../objects/Platform.js";
 import Quad from "../objects/Quad.js";
 import Character from "../objects/Character.js";
 import TriangularPrism from "../objects/TriangularPrism.js";
+import Button from "../objects/Button.js";
 
 export default class LevelManager {
   constructor(sceneManager) {
     this.sceneManager = sceneManager;
     this.character = null;
+    this.platforms = [];
     this.quads = [];
+    this.triangularPrisms = [];
+    this.buttons = [];
+    this.signals = null;
 
     this.graph = new Map();
+    this.animatingObjects = [];
   }
 
   async loadLevel(levelNumber) {
@@ -22,18 +28,21 @@ export default class LevelManager {
     levelData.Platforms = levelData.Platforms || [];
     levelData.triangularprisms = levelData.triangularprisms || [];
     levelData.quads = levelData.quads || [];
+    levelData.buttons = levelData.buttons || [];
 
 
     levelData.platforms.forEach((platformData) => {
       const platform = new Platform(platformData);
       scene.add(platform.mesh);
       updatables.push(platform);
+      this.platforms.push(platform);
     });
 
     levelData.triangularprisms.forEach((triangularPrismData) => {
       const triangularPrism = new TriangularPrism(triangularPrismData);
       scene.add(triangularPrism.mesh);
       updatables.push(triangularPrism);
+      this.triangularPrisms.push(triangularPrism);
     });
 
     levelData.quads.forEach((quadData) => {
@@ -41,6 +50,14 @@ export default class LevelManager {
       scene.add(quad.mesh);
       updatables.push(quad);
       this.quads.push(quad);
+    });
+
+    levelData.buttons.forEach((buttonData) => {
+      // button要加入levelManager的信息
+      const button = new Button({ ...buttonData, levelManager: this });
+      scene.add(button.mesh);
+      updatables.push(button);
+      this.buttons.push(button);
     });
 
     // 构建quad连通性图
@@ -56,9 +73,56 @@ export default class LevelManager {
       updatables.push(character);
     })();
 
+    updatables.push(this);
+
 
     // 添加点击事件监听器
     window.addEventListener("click", (event) => this.onScreenClick(event));
+  }
+
+  // TODO: 增加转变之后的graph重新计算
+  setSignal(signal) {
+    this.signals = signal;
+    this.animatingObjects = [];
+
+    for (const platform of this.platforms) {
+      platform.setSignal(signal);
+      if (platform.isAnimating) {
+        this.animatingObjects.push(platform);
+      }
+    }
+    for (const quad of this.quads) {
+      quad.setSignal(signal);
+      if (quad.isAnimating) {
+        this.animatingObjects.push(quad);
+      }
+    }
+    for (const button of this.buttons) {
+      button.setSignal(signal);
+      if (button.isAnimating) {
+        this.animatingObjects.push(button);
+      }
+    }
+    for (const triangularPrism of this.triangularPrisms) {
+      triangularPrism.setSignal(signal);
+      if (triangularPrism.isAnimating) {
+        this.animatingObjects.push(triangularPrism);
+      }
+    }
+  }
+
+  tick(delta) {  
+    //console.log(this.animatingObjects);
+    // 检查动画状态
+    if (this.animatingObjects.length > 0) {
+      this.animatingObjects = this.animatingObjects.filter((obj) => obj.isAnimating);
+      if (this.animatingObjects.length === 0) {
+        // 所有动画完成后重新生成连通图
+        //console.log("rebuild graph");
+        this.buildGraph();
+        //console.log(this.graph);
+      }
+    }
   }
 
   // 处理点击quad之后的事件
@@ -95,7 +159,7 @@ export default class LevelManager {
 
   // 判断两个quad是否相连
   isConnectedTo(quadA, quadB, i, j) {
-    const threshold = 1e-3;
+    const threshold = 1;
     for (const key in quadA.keyPoints) {
       for (const otherKey in quadB.keyPoints) {
         // 获取两个点在相机正交投影平面上的对应点，（屏幕空间），只取x，y坐标，忽略z坐标

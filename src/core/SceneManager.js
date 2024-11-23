@@ -25,10 +25,10 @@ export default class SceneManager {
     this.camera.position.set(-10, 10, 10);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0)); // 让相机指向场景中心
     this.updatables = [];
-    // this.controls = new THREE.OrbitControls(
-    //   this.camera,
-    //   this.renderer.domElement,
-    // );
+    this.controls = new THREE.OrbitControls(
+      this.camera,
+      this.renderer.domElement,
+    );
 
     document.body.appendChild(this.renderer.domElement);
     window.addEventListener("resize", () => this.onWindowResize());
@@ -59,12 +59,13 @@ export default class SceneManager {
     this.scene.add(directionalLight);
 
     this.renderer.setSize(window.innerWidth, window.innerHeight);
-    //this.controls.enableDamping = true;
+    this.controls.enableDamping = true;
   }
 
   onWindowResize() {
     this.camera.aspect = window.innerWidth / window.innerHeight;
-    this.camera.updateOrthogonalMatrix();
+    // 更新相机的投影矩阵
+    this.camera.updateProjectionMatrix();
     this.renderer.setSize(window.innerWidth, window.innerHeight);
   }
 
