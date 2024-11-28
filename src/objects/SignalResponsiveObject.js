@@ -1,12 +1,24 @@
 export default class SignalResponsiveObject {
     constructor({ geometry, material, position, signalIdList }) {
       this.signalIdList = signalIdList || [];
+
+      this.mesh = null;
+      if (geometry && material) {
+        this.mesh = new THREE.Mesh(geometry, material);
+        if (position) {
+          this.mesh.position.set(position.x, position.y, position.z);
+        }
+    
+        this.mesh.receiveShadow = true;
+      }
+      
+
+      this.initialQuaternion = new THREE.Quaternion();
+      this.initialQuaternion.set(0, 0, 0, 1);
   
-      this.mesh = new THREE.Mesh(geometry, material);
-      this.mesh.position.set(position.x, position.y, position.z);
-      this.mesh.receiveShadow = true;
-  
-      this.position = new THREE.Vector3(position.x, position.y, position.z);
+      if (position) {
+        this.position = new THREE.Vector3(position.x, position.y, position.z);
+      }
   
       // 动画控制变量
       this.pivot = new THREE.Vector3(); // 旋转的中心点
@@ -16,8 +28,10 @@ export default class SignalResponsiveObject {
       this.currentAngle = 0; // 当前已经旋转的角度
       this.targetAngle = 0; // 目标旋转角度
       this.targetQuaternion = new THREE.Quaternion(); // 目标旋转四元数
+      this.translateTarget = new THREE.Vector3(); // 目标平移位置
       this.animationSpeed = Math.PI; // 控制动画速度，单位：弧度/秒
       this.isAnimating = false; // 动画状态
+      this.animationType = null; // 动画类型
     }
   
     /**
@@ -26,21 +40,36 @@ export default class SignalResponsiveObject {
      */
     setSignal(signal) {
         if (this.signalIdList.includes(signal.id)) {
-          const { axis, angle, pivot } = signal;
-      
-          this.pivot = new THREE.Vector3(pivot.x, pivot.y, pivot.z);
-          this.axis = new THREE.Vector3(axis.x, axis.y, axis.z).normalize();
-          this.targetAngle = angle;
-      
-          // 计算初始偏移
-          this.startPositionOffset = new THREE.Vector3().subVectors(this.mesh.position, this.pivot);
-      
-          // 初始化动画状态
-          this.currentAngle = 0;
-          this.targetQuaternion = new THREE.Quaternion().setFromAxisAngle(this.axis, angle);
-          this.isAnimating = true; // 开始动画
+          if (signal.type === "rotation") {
+
+            const { axis, angle, pivot } = signal;
+        
+            this.pivot = new THREE.Vector3(pivot.x, pivot.y, pivot.z);
+            this.axis = new THREE.Vector3(axis.x, axis.y, axis.z).normalize();
+            this.targetAngle = angle;
+        
+            // 计算初始偏移
+            this.startPositionOffset = new THREE.Vector3().subVectors(this.mesh.position, this.pivot);
+        
+            // 初始化动画状态
+            this.currentAngle = 0;
+            this.targetQuaternion = new THREE.Quaternion().setFromAxisAngle(this.axis, angle);
+            this.animationType = "rotation";
+            this.isAnimating = true; // 开始动画
+          }
+          else if (signal.type === "translation") {
+            this.animationType = "translation";
+            this.translateTarget = new THREE.Vector3().addVectors
+              (signal.currentTranslationVector, this.mesh.position);
+            console.log(signal.currentTranslationVector);
+            this.isAnimating = true; // 开始动画
+          }
         }
       }
+
+    animationComplete() {
+      ; // 空方法，由子类实现
+    }
   
     /**
      * 动画更新方法，在每帧调用。
@@ -48,7 +77,31 @@ export default class SignalResponsiveObject {
      */
     tick(delta) {
         if (!this.isAnimating) return;
-      
+        if (this.animationType === "rotation") {
+          this.tickRotation(delta);
+        } 
+        else if (this.animationType === "translation") {
+          this.tickTranslation(delta);
+        }
+        
+      }
+
+      tickTranslation(delta) {
+        const direction = new THREE.Vector3().subVectors(this.translateTarget, this.mesh.position);
+        const distance = direction.length();
+        const moveDistance = 4 * delta;
+        if (moveDistance < distance) {
+          this.mesh.position.addScaledVector(direction.normalize(), moveDistance);
+        } else {
+          this.mesh.position.copy(this.translateTarget);
+          this.animationComplete();
+          this.position.copy(this.mesh.position);
+          this.isAnimating = false;
+          this.animationType = null;
+        }
+      }
+
+      tickRotation(delta) {
         // 计算旋转增量
         this.angleDelta = this.animationSpeed * delta;
       
@@ -66,9 +119,12 @@ export default class SignalResponsiveObject {
           );
           const finalPosition = new THREE.Vector3().addVectors(this.pivot, this.startPositionOffset);
           this.mesh.position.copy(finalPosition);
-          this.mesh.quaternion.copy(this.targetQuaternion);
+          this.mesh.quaternion.copy(this.initialQuaternion);
+          this.mesh.quaternion.premultiply(this.targetQuaternion);
           this.position.copy(finalPosition); // 更新逻辑位置
+          this.animationComplete();
           this.isAnimating = false; // 动画完成
+          this.animationType = null
           return; // 动画结束
         }
       

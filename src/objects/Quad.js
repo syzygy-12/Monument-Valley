@@ -34,7 +34,7 @@ export default class Quad extends SignalResponsiveObject {
     // TODO: 增加不同方向的旋转
     // TODO: 改为每条边的中点
   calculateKeyPoints() {
-    const { x, y, z } = this.position;
+    const { x, y, z } = this.mesh.position;
     return {
       north: new THREE.Vector3(x, y, z + this.height / 2),
       south: new THREE.Vector3(x, y, z - this.height / 2),
@@ -43,49 +43,9 @@ export default class Quad extends SignalResponsiveObject {
     };
   }
 
-  tick(delta) {
-    if (!this.isAnimating) return;
-  
-    // 计算旋转增量
-    this.angleDelta = this.animationSpeed * delta;
-  
-    // 剩余角度计算
-    const remainingAngle = this.targetAngle - this.currentAngle;
-    const angleThreshold = Math.PI / 180; // 阈值（1度）
-  
-    if (remainingAngle <= angleThreshold) {
-      this.angleDelta = remainingAngle; // 直接到目标角度
-      this.currentAngle = this.targetAngle; // 更新为目标角度
-  
-      // 更新位置和旋转到目标
-      this.startPositionOffset.applyQuaternion(
-        new THREE.Quaternion().setFromAxisAngle(this.axis, remainingAngle)
-      );
-      const finalPosition = new THREE.Vector3().addVectors(this.pivot, this.startPositionOffset);
-      this.mesh.position.copy(finalPosition);
-      this.mesh.quaternion.copy(this.initialQuaternion);
-      this.mesh.quaternion.premultiply(this.targetQuaternion);
-      this.position.copy(finalPosition); // 更新逻辑位置
-      this.keyPoints = this.calculateKeyPoints(); // 更新关键点
-      this.isAnimating = false; // 动画完成
-      return; // 动画结束
-    }
-  
-    // 累计旋转角度
-    this.currentAngle += this.angleDelta;
-  
-    // 应用旋转
-    const quaternion = new THREE.Quaternion().setFromAxisAngle(this.axis, this.angleDelta);
-    this.startPositionOffset.applyQuaternion(quaternion);
-  
-    // 计算新的位置
-    const newPosition = new THREE.Vector3().addVectors(this.pivot, this.startPositionOffset);
-  
-    // 应用位置和旋转
-    this.mesh.position.copy(newPosition);
-    this.mesh.quaternion.premultiply(quaternion);
-  
-    // 更新逻辑位置
-    this.position.copy(this.mesh.position);
+  animationComplete() {
+    this.keyPoints = this.calculateKeyPoints(); // 更新关键点
+    console.log(this.keyPoints);
   }
+
 }

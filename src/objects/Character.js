@@ -1,8 +1,12 @@
-export default class Character {
-  constructor(sceneManager) {
+import SignalResponsiveObject from "./SignalResponsiveObject.js";
+
+// 注意:角色的SignalResponse是错误的，需要修改
+export default class Character extends SignalResponsiveObject{
+  constructor(sceneManager, signalIdList) {
 
     // TODO: 增加角色响应signal的功能
-    
+    super({ signalIdList });
+
     this.sceneManager = sceneManager;
     this.mesh = null; // 3D 模型
     this.speed = 4; // 移动速度，单位：单位/秒
@@ -83,7 +87,12 @@ export default class Character {
       const nextQuad = this.path[0]; // 获取目标 Quad
       
       // 获取当前 Quad 和目标 Quad 的交点
-      const { currentKeypoint, targetKeypoint } = this.findKeypoints(this.currentQuad, nextQuad);
+      const tuple = this.findKeypoints(this.currentQuad, nextQuad);
+      if (!tuple) {
+        this.path = []; // 无法找到路径，清空路径
+        return
+      }
+      const { currentKeypoint, targetKeypoint } = tuple;
       this.currentKeypoint = currentKeypoint;
       this.targetKeypoint = targetKeypoint;
 
@@ -135,6 +144,12 @@ export default class Character {
   // 每帧更新位置的 tick 方法
   tick(delta) {
     if (this.mixer) this.mixer.update(delta); // 更新动画混合器
+    // 如果当前 Quad 正在动画中，跟随移动
+    if (this.currentQuad.isAnimating) {
+      this.mesh.position.copy(this.currentQuad.mesh.position);
+      this.targetPosition.copy(this.currentQuad.mesh.position);
+      return;
+    }
 
     const direction = new THREE.Vector3().subVectors(this.targetPosition, this.mesh.position);
     const distance = direction.length();

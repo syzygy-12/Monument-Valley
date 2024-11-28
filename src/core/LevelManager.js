@@ -15,6 +15,7 @@ export default class LevelManager {
     this.buttons = [];
     this.surfaces = [];
     this.signals = null;
+    this.isSignalReceived = false;
 
     this.graph = new Map();
     this.animatingObjects = [];
@@ -90,8 +91,15 @@ export default class LevelManager {
     window.addEventListener("click", (event) => this.onScreenClick(event));
   }
 
-  // TODO: 增加转变之后的graph重新计算
+  // 设置信号
   setSignal(signal) {
+    if (this.isSignalReceived) {
+      return;
+    }
+    if (this.animatingObjects.length > 0 || this.character.movementPhase != null) {
+      return;
+    }
+    this.isSignalReceived = true;
     this.signals = signal;
     this.animatingObjects = [];
 
@@ -136,6 +144,7 @@ export default class LevelManager {
         // 所有动画完成后重新生成连通图
         //console.log("rebuild graph");
         this.buildGraph();
+        this.isSignalReceived = false;
         //console.log(this.graph);
       }
     }
@@ -143,6 +152,9 @@ export default class LevelManager {
 
   // 处理点击quad之后的事件
   onScreenClick(event) {
+    if (this.animatingObjects.length > 0 || this.character.movementPhase != null) {
+      return;
+    }
     const { scene, camera } = this.sceneManager;
     if (this.character.movementPhase != null) {
       return;

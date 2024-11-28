@@ -18,6 +18,7 @@ export default class Surface extends SignalResponsiveObject {
     } else if (normal === "z") {
       quaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), 0);
     }
+      this.initialQuaternion = quaternion.clone();
       this.mesh.quaternion.copy(quaternion);
     }
   }

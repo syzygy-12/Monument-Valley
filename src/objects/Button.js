@@ -34,6 +34,10 @@ export default class Button extends SignalResponsiveObject {
   }
 
   emitSignal() {
+    if (this.levelManager.isSignalReceived) {
+      return;
+    }
+    this.signal.addCount();
     this.levelManager.setSignal(this.signal);
   }
 }
