@@ -11,13 +11,13 @@ export default class Surface extends SignalResponsiveObject {
     // 设置法向量
     if (normal) {
       const quaternion = new THREE.Quaternion();
-    if (normal === "x") {
-      quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
-    } else if (normal === "y") {
-      quaternion.setFromAxisAngle(new THREE.Vector3(1, 0, 0), Math.PI / 2);
-    } else if (normal === "z") {
-      quaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), 0);
-    }
+      if (normal === "x") {
+        quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
+      } else if (normal === "y") {
+        quaternion.setFromAxisAngle(new THREE.Vector3(1, 0, 0), Math.PI / 2);
+      } else if (normal === "z") {
+        quaternion.setFromAxisAngle(new THREE.Vector3(0, 0, 1), 0);
+      }
       this.initialQuaternion = quaternion.clone();
       this.mesh.quaternion.copy(quaternion);
     }

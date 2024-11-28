@@ -61,7 +61,7 @@ export default class SignalResponsiveObject {
             this.animationType = "translation";
             this.translateTarget = new THREE.Vector3().addVectors
               (signal.currentTranslationVector, this.mesh.position);
-            console.log(signal.currentTranslationVector);
+            //console.log(signal.currentTranslationVector);
             this.isAnimating = true; // 开始动画
           }
         }
@@ -121,6 +121,7 @@ export default class SignalResponsiveObject {
           this.mesh.position.copy(finalPosition);
           this.mesh.quaternion.copy(this.initialQuaternion);
           this.mesh.quaternion.premultiply(this.targetQuaternion);
+          this.initialQuaternion.premultiply(this.targetQuaternion);
           this.position.copy(finalPosition); // 更新逻辑位置
           this.animationComplete();
           this.isAnimating = false; // 动画完成
