@@ -10,53 +10,131 @@
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 2, "y": 0, "z": 0 }
+      "position": { "x": 0, "y": 0, "z": -2 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 4, "y": 0, "z": 0 }
+      "position": { "x": 0, "y": 0, "z": -4 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 6, "y": 0, "z": 0 }
+      "position": { "x": 0, "y": 0, "z": -6 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 6, "y": 0, "z": 2 },
+      "position": { "x": 2, "y": 0, "z": -6 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 8, "y": -4, "z": -6 },
       "signalIdList": [1]
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 4, "y": 0, "z": 2 }
+      "position": { "x": 8, "y": -2, "z": -6 },
+      "signalIdList": [1]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 8, "y": 0, "z": -6 },
+      "signalIdList": [1]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 8, "y": 0, "z": -8 },
+      "signalIdList": [1]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 8, "y": 0, "z": -10 },
+      "signalIdList": [1]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 8, "y": 0, "z": -12 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 8, "y": 0, "z": -14 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 0, "y": 0, "z": 2 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 0, "y": 2, "z": 2 }
+    }
+  ],
+  "surfaces": [
+    {
+      "width": 2,
+      "height": 2,
+      "position": { "x": -1, "y": 4, "z": 2 },
+      "normal": "x"
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "position": { "x": 0, "y": 4, "z": 3 },
+      "normal": "z"
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "position": { "x": 8, "y": -3, "z": -6 },
+      "normal": "y"
     }
   ],
   "quads": [
     { "width": 2, "height": 2, "position": { "x": 0, "y": 1, "z": 0 } },
-    { "width": 2, "height": 2, "position": { "x": 2, "y": 1, "z": 0 } },
-    { "width": 2, "height": 2, "position": { "x": 4, "y": 1, "z": 0 } },
-    { "width": 2, "height": 2, "position": { "x": 6, "y": 1, "z": 0 } },
-    { "width": 2, "height": 2, "position": { "x": 6, "y": 1, "z": 2 }, "signalIdList": [1] },
-    { "width": 2, "height": 2, "position": { "x": 4, "y": 1, "z": 2 } }
+    { "width": 2, "height": 2, "position": { "x": 0, "y": 1, "z": -2 } },
+    { "width": 2, "height": 2, "position": { "x": 0, "y": 1, "z": -4 } },
+    { "width": 2, "height": 2, "position": { "x": 0, "y": 1, "z": -6 } },
+    { "width": 2, "height": 2, "position": { "x": 2, "y": 1, "z": -6 } },
+    { "width": 2, "height": 2, "position": { "x": 7, "y": -4, "z": -6 }, "signalIdList": [1] },
+    { "width": 2, "height": 2, "position": { "x": 7, "y": -2, "z": -6 }, "signalIdList": [1] },
+    { "width": 2, "height": 2, "position": { "x": 7, "y": 0, "z": -6 }, "signalIdList": [1] },
+    { "width": 2, "height": 2, "position": { "x": 7, "y": 0, "z": -8 }, "signalIdList": [1] },
+    { "width": 2, "height": 2, "position": { "x": 7, "y": 0, "z": -10 }, "signalIdList": [1] },
+    { "width": 2, "height": 2, "position": { "x": 8, "y": 1, "z": -12 } },
+    { "width": 2, "height": 2, "position": { "x": 8, "y": 1, "z": -14 } }
   ],
   "buttons": [
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 2, "y": 4, "z": 2 },
+      "position": { "x": 8, "y": 0, "z": -2 },
       "signal": {
         "id": 1,
-        "axis": { "x": 0, "y": 1, "z": 0 },
+        "axis": { "x": 0, "y": 0, "z": -1 },
         "angle": 90,
-        "pivot": { "x": 0, "y": 0, "z": 0 }
+        "pivot": { "x": 8, "y": 0, "z": -4 }
       }
     }
   ]

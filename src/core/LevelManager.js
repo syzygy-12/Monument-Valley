@@ -3,6 +3,7 @@ import Quad from "../objects/Quad.js";
 import Character from "../objects/Character.js";
 import TriangularPrism from "../objects/TriangularPrism.js";
 import Button from "../objects/Button.js";
+import Surface from "../objects/Surface.js";
 
 export default class LevelManager {
   constructor(sceneManager) {
@@ -12,6 +13,7 @@ export default class LevelManager {
     this.quads = [];
     this.triangularPrisms = [];
     this.buttons = [];
+    this.surfaces = [];
     this.signals = null;
 
     this.graph = new Map();
@@ -29,6 +31,7 @@ export default class LevelManager {
     levelData.triangularprisms = levelData.triangularprisms || [];
     levelData.quads = levelData.quads || [];
     levelData.buttons = levelData.buttons || [];
+    levelData.surfaces = levelData.surfaces || [];
 
 
     levelData.platforms.forEach((platformData) => {
@@ -50,6 +53,13 @@ export default class LevelManager {
       scene.add(quad.mesh);
       updatables.push(quad);
       this.quads.push(quad);
+    });
+
+    levelData.surfaces.forEach((surfaceData) => {
+      const surface = new Surface(surfaceData);
+      scene.add(surface.mesh);
+      updatables.push(surface);
+      this.surfaces.push(surface);
     });
 
     levelData.buttons.forEach((buttonData) => {
@@ -97,6 +107,12 @@ export default class LevelManager {
         this.animatingObjects.push(quad);
       }
     }
+    for (const surface of this.surfaces) {
+      surface.setSignal(signal);
+      if (surface.isAnimating) {
+        this.animatingObjects.push(surface);
+      }
+    }  
     for (const button of this.buttons) {
       button.setSignal(signal);
       if (button.isAnimating) {
