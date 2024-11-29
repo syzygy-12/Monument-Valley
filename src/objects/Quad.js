@@ -1,11 +1,13 @@
 import SignalResponsiveObject from "./SignalResponsiveObject.js";
+import Plate from "./Plate.js";
+import DoublePlate from "./DoublePlate.js";
 
 export default class Quad extends SignalResponsiveObject {
-  constructor({ width, height, position, normal, initialQuaternion, signalIdList }) {
+  constructor({ width, height, position, normal, initialQuaternion, plate, doublePlate, signalIdList, levelManager }) {
     const geometry = new THREE.PlaneGeometry(width, height);
     const material = new THREE.MeshStandardMaterial({
       color: 0x00ff00,
-      opacity: 0.0,
+      opacity: 0.5,
       transparent: true,
       side: THREE.DoubleSide,
     });
@@ -37,17 +39,12 @@ export default class Quad extends SignalResponsiveObject {
       this.mesh.quaternion.copy(quat);
     }
 
-    // 先x轴顺时针90，再z轴逆时针45的四元数，不要使用euler，要分成两个阶段相乘
-    // const quat = new THREE.Quaternion();
-    // quat.setFromAxisAngle(new THREE.Vector3(1, 0, 0), Math.PI / 2);
-    // const quat2 = new THREE.Quaternion();
-    // quat2.setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 4);
-    // quat.premultiply(quat2);
-    // console.log(quat);
-    // this.initialQuaternion = quat.clone();
-    // this.mesh.quaternion.copy(quat);
-    // console.log(this.mesh.quaternion);
-
+    if (plate) {
+      this.plate = new Plate({...plate, levelManager});
+    }
+    if (doublePlate) {
+      this.doublePlate = new DoublePlate({...doublePlate, levelManager});
+    }
 
     // 计算四个关键点
     this.width = width;
@@ -60,8 +57,6 @@ export default class Quad extends SignalResponsiveObject {
   }
 
   // 计算四个关键点
-    // TODO: 增加不同方向的旋转
-    // TODO: 改为每条边的中点
   calculateKeyPoints() {
     const mesh = this.mesh;
     const geometry = mesh.geometry;
@@ -100,6 +95,12 @@ export default class Quad extends SignalResponsiveObject {
 
   animationComplete() {
     this.keyPoints = this.calculateKeyPoints(); // 更新关键点
+  }
+
+  toggleCharacterOn() {
+    if (this.doublePlate) {
+      this.doublePlate.toggleCharacterOn();
+    }
   }
 
 }

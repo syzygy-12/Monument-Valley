@@ -43,8 +43,9 @@ export default class Character extends SignalResponsiveObject{
           }
           );
           this.mesh.position.set(0, 0, 0);
-          this.mesh.scale.set(0.01, 0.01, 0.01);
+          this.mesh.scale.set(0.03, 0.03, 0.03);
           this.mesh.castShadow = true;
+          //console.log(this.animations);
           
   
           if (gltf.animations.length > 0) {
@@ -73,6 +74,7 @@ export default class Character extends SignalResponsiveObject{
     this.currentQuad = quad;
     this.mesh.position.copy(quad.getCenter());
     this.targetPosition.copy(quad.getCenter());
+    this.currentQuad.toggleCharacterOn();
   }
 
   followPath(path) {
@@ -89,7 +91,7 @@ export default class Character extends SignalResponsiveObject{
       // 获取当前 Quad 和目标 Quad 的交点
       const tuple = this.findKeypoints(this.currentQuad, nextQuad);
       if (!tuple) {
-        this.path = []; // 无法找到路径，清空路径
+        this.terminateMovement();
         return
       }
       const { currentKeypoint, targetKeypoint } = tuple;
@@ -141,8 +143,17 @@ export default class Character extends SignalResponsiveObject{
     return null;
   }
 
+  terminateMovement() {
+    this.path = [];
+    this.movementPhase = null;
+    this.keypoint = null;
+    this.targetKeypoint = null;
+    this.targetPosition.copy(this.currentQuad.getCenter());
+  }
+
   // 每帧更新位置的 tick 方法
   tick(delta) {
+    //console.log(this.path, this.currentQuad, this.targetPosition);
     if (this.mixer) this.mixer.update(delta); // 更新动画混合器
     // 如果当前 Quad 正在动画中，跟随移动
     if (!this.currentQuad) return;
@@ -151,10 +162,15 @@ export default class Character extends SignalResponsiveObject{
       this.targetPosition.copy(this.currentQuad.mesh.position);
       return;
     }
+    
+    if (this.currentQuad.plate && !this.currentQuad.plate.isEmitted) {
+      this.terminateMovement();
+      this.currentQuad.plate.emitSignal();      
+    }
 
     const direction = new THREE.Vector3().subVectors(this.targetPosition, this.mesh.position);
     const distance = direction.length();
-    //console.log(this.movementPhase, this.currentQuad, this.path, this.currentKeypoint, this.targetKeypoint, this.targetPosition);
+    //console.log(this.direction, this.movementPhase, this.currentQuad, this.path, this.currentKeypoint, this.targetKeypoint, this.targetPosition);
 
     if (distance > 0.01) {
         direction.normalize();
@@ -195,7 +211,9 @@ export default class Character extends SignalResponsiveObject{
       this.movementPhase = "TO_CENTER";
     } else if (this.movementPhase === "TO_CENTER") {
       // 移动到目标 Quad 的中心
+      this.currentQuad.toggleCharacterOn();
       this.currentQuad = this.path.shift();
+      this.currentQuad.toggleCharacterOn();
       this.moveToNextPhase();
     }
   }

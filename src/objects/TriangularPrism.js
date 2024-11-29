@@ -56,51 +56,7 @@ export default class TriangularPrism extends Platform {
     geometry.setIndex(indices);
     geometry.computeVertexNormals();
   
-    return geometry;
-  
-    if (cutDirection === "x") {
-      // 沿 X 轴切割（对角切成三角体）
-      
-    } else if (cutDirection === "y") {
-      // 沿 Y 轴切割
-      vertices.push(
-        // 左侧矩形
-        0, 0, 0, // 0
-        width, 0, 0, // 1
-        0, height, depth, // 2
-        // 顶部三角面
-        width, height, depth // 3
-      );
-  
-      indices.push(
-        // 底面三角形
-        0, 1, 2,
-        // 两侧面
-        0, 1, 3,
-        1, 2, 3,
-        2, 0, 3
-      );
-    } else if (cutDirection === "z") {
-      // 沿 Z 轴切割
-      vertices.push(
-        // 前侧矩形
-        0, 0, 0, // 0
-        width, 0, 0, // 1
-        0, height, 0, // 2
-        // 顶部三角面
-        width, height, depth // 3
-      );
-  
-      indices.push(
-        // 底面三角形
-        0, 1, 2,
-        // 两侧面
-        0, 1, 3,
-        1, 2, 3,
-        2, 0, 3
-      );
-    }
-  
+    return geometry; 
     
   }
 }

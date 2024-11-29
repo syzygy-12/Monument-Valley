@@ -22,7 +22,7 @@ export default class SceneManager {
     document.body.appendChild(this.renderer.domElement);
 
 
-    this.camera.position.set(-10, 10, 10);
+    this.camera.position.set(-30, 30, 30);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0)); // 让相机指向场景中心
     this.updatables = [];
     this.controls = new THREE.OrbitControls(
@@ -39,11 +39,11 @@ export default class SceneManager {
     
     this.scene.background = new THREE.Color(0x87ceeb);
     this.renderer.domElement.style.zIndex = "0"; // 确保在背景层
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.8); // 环境光
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1); // 环境光
     this.scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 3); // 方向光
-    directionalLight.position.set(-10, 10, 0); // 设置光源位置
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 3.5); // 方向光
+    directionalLight.position.set(-10, 20, 0); // 设置光源位置
     // 启用方向光的影子
     directionalLight.castShadow = true;
 

@@ -29,58 +29,42 @@
       "height": 2,
       "depth": 2,
       "position": { "x": 6, "y": 0, "z": 2 },
-      "signalIdList": [1]
+      "signalIdList": [1, 2]
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 4, "y": 0, "z": 2 },
-      "signalIdList": [2]
+      "position": { "x": 4, "y": 0, "z": 2 }
     }
   ],
   "quads": [
     { "width": 2, "height": 2, "normal": "y", "position": { "x": 0, "y": 1, "z": 0 } },
     { "width": 2, "height": 2, "normal": "y", "position": { "x": 2, "y": 1, "z": 0 } },
     { "width": 2, "height": 2, "normal": "y", "position": { "x": 4, "y": 1, "z": 0 } ,
-      "plate": {
+      "doublePlate": {
         "width": 1,
         "height": 0.5,
         "depth": 1,
         "position": { "x": 4, "y": 1, "z": 0 },
-        "signal": {
+        "signalOn": {
+          "id": 1,
+          "type": "translation",
+          "translationVectorList": [
+            { "x": 0, "y": 0, "z": 2 }
+          ]
+        },
+        "signalOff": {
           "id": 2,
           "type": "translation",
           "translationVectorList": [
-            { "x": 0, "y": 0, "z": 2 },
-            { "x": 0, "y": 0, "z": 2 },
-            { "x": 0, "y": 0, "z": -2 },
             { "x": 0, "y": 0, "z": -2 }
           ]
         }
       }
     },
     { "width": 2, "height": 2, "normal": "y", "position": { "x": 6, "y": 1, "z": 0 } },
-    { "width": 2, "height": 2, "normal": "y", "position": { "x": 6, "y": 1, "z": 2 }, "signalIdList": [1] },
+    { "width": 2, "height": 2, "normal": "y", "position": { "x": 6, "y": 1, "z": 2 }, "signalIdList": [1, 2] },
     { "width": 2, "height": 2, "normal": "y", "position": { "x": 4, "y": 1, "z": 2 } }
-  ],
-  "buttons": [
-    {
-      "width": 2,
-      "height": 2,
-      "depth": 2,
-      "position": { "x": 2, "y": 6, "z": 2 },
-      "signal": {
-        "id": 1,
-        "type": "translation",
-        "translationVectorList": [
-          { "x": 0, "y": 0, "z": 2 },
-          { "x": 0, "y": 0, "z": 2 },
-          { "x": 0, "y": 0, "z": -2 },
-          { "x": 0, "y": 0, "z": -2 }
-
-        ]
-      }
-    }
   ]
 }

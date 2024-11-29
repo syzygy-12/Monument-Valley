@@ -30,6 +30,7 @@ export default class SignalResponsiveObject {
       this.targetQuaternion = new THREE.Quaternion(); // 目标旋转四元数
       this.translateTarget = new THREE.Vector3(); // 目标平移位置
       this.animationSpeed = Math.PI; // 控制动画速度，单位：弧度/秒
+      this.tranlateSpeed = 5; // 控制平移速度，单位：米/秒
       this.isAnimating = false; // 动画状态
       this.animationType = null; // 动画类型
     }
@@ -89,7 +90,7 @@ export default class SignalResponsiveObject {
       tickTranslation(delta) {
         const direction = new THREE.Vector3().subVectors(this.translateTarget, this.mesh.position);
         const distance = direction.length();
-        const moveDistance = 4 * delta;
+        const moveDistance = delta * this.tranlateSpeed;
         if (moveDistance < distance) {
           this.mesh.position.addScaledVector(direction.normalize(), moveDistance);
         } else {

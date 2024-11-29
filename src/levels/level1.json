@@ -268,7 +268,17 @@
     { "width": 2, "height": 2, "normal": "y", "position": { "x": 8, "y": 1, "z": -18 } },
     { "width": 2, "height": 2, "normal": "y", "position": { "x": 8, "y": 1, "z": -20 } },
     { "width": 2, "height": 2, "normal": "y", "position": { "x": 18, "y": 9, "z": -20 } },
-    { "width": 4, "height": 4, "normal": "y", "position": { "x": 21, "y": 9, "z": -20 } },
+    { "width": 4, "height": 4, "normal": "y", "position": { "x": 21, "y": 9, "z": -20 },
+      "plate": {
+        "width": 3,
+        "height": 0.5,
+        "depth": 3,
+        "position": { "x": 21, "y": 9, "z": -20 },
+        "signal": {
+          "id": -1
+        }
+      }
+    },
     { "width": 2.828427125, "height": 2, 
       "initialQuaternion": { "x": 0.6532814824381882, "y": 0.27059805007309845, 
                               "z": 0.2705980500730985, "w": 0.6532814824381883 },

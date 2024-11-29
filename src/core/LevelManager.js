@@ -53,10 +53,19 @@ export default class LevelManager {
     });
 
     levelData.quads.forEach((quadData) => {
-      const quad = new Quad(quadData);
+      const quad = new Quad({ ...quadData, levelManager: this });
       scene.add(quad.mesh);
       updatables.push(quad);
       this.quads.push(quad);
+
+      if(quad.plate) {
+        scene.add(quad.plate.mesh);
+        updatables.push(quad.plate);
+      }
+      if(quad.doublePlate) {
+        scene.add(quad.doublePlate.mesh);
+        updatables.push(quad.doublePlate);
+      }
     });
 
     levelData.surfaces.forEach((surfaceData) => {
@@ -96,10 +105,16 @@ export default class LevelManager {
 
   // 设置信号
   setSignal(signal) {
+    if (signal.id == -1) {
+      // 游戏胜利
+      console.log("Game Win!");
+      window.location.href = 'pages/victory.html'; // 跳转到胜利页面
+    }
+    
     if (this.isSignalReceived) {
       return;
     }
-    if (this.animatingObjects.length > 0 || this.character.movementPhase != null) {
+    if (this.animatingObjects.length > 0 ) {
       return;
     }
     this.isSignalReceived = true;
@@ -136,6 +151,20 @@ export default class LevelManager {
         this.animatingObjects.push(triangularPrism);
       }
     }
+    for (const quad of this.quads) {
+      if (quad.plate) {
+        quad.plate.setSignal(signal);
+        if (quad.plate.isAnimating) {
+          this.animatingObjects.push(quad.plate);
+        }
+      }
+      if (quad.doublePlate) {
+        quad.doublePlate.setSignal(signal);
+        if (quad.doublePlate.isAnimating) {
+          this.animatingObjects.push(quad.doublePlate);
+        }
+      }
+    }
   }
 
   tick(delta) {  
@@ -155,13 +184,10 @@ export default class LevelManager {
 
   // 处理点击quad之后的事件
   onScreenClick(event) {
-    if (this.animatingObjects.length > 0 || this.character.movementPhase != null) {
+    if (this.animatingObjects.length > 0 ) {
       return;
     }
     const { scene, camera } = this.sceneManager;
-    if (this.character.movementPhase != null) {
-      return;
-    }
 
     const mouse = new THREE.Vector2(
       (event.clientX / window.innerWidth) * 2 - 1,
@@ -182,6 +208,8 @@ export default class LevelManager {
         const currentQuad = this.character.currentQuad;
         const path = this.findPath(currentQuad, clickedQuad);
         if (path) {
+          //console.log(path);
+          this.character.terminateMovement();
           this.character.followPath(path);
         }
       }

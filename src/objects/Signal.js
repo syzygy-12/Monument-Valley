@@ -13,7 +13,7 @@ export default class Signal {
             this.translationVectorList = translationVectorList.map(
                 (vector) => new THREE.Vector3(vector.x, vector.y, vector.z));
             this.currentTranslationVector = this.translationVectorList[0];
-            console.log(translationVectorList);
+            //console.log(translationVectorList);
         }
     }
     
@@ -25,11 +25,3 @@ export default class Signal {
         this.count++;
     }
 }
-
-/*
-"signal": {
-        "id": 1,
-        "axis": { "x": 0, "y": 1, "z": 0 },
-        "angle": 90
-      }
-*/

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Victory</title>
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background-color: #2d2d2d;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 4em;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+    }
+
+    .btn {
+      background-color: #28a745;
+      border: none;
+      padding: 15px 30px;
+      font-size: 20px;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #218838;
+    }
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Victory!</h1>
+    <button class="btn" onclick="restartGame()">Play Again</button>
+  </div>
+
+  <script>
+    // 如果需要重新开始，跳转到游戏主页或重新加载游戏
+    function restartGame() {
+      // 重新加载或跳转到游戏页面，这里假设游戏主页面为index.html
+      window.location.href = '../index.html'; // 这里将跳转回游戏首页
+    }
+  </script>
+</body>
+</html>
