@@ -39,12 +39,12 @@
     }
   ],
   "quads": [
-    { "width": 2, "height": 2, "position": { "x": 0, "y": 1, "z": 0 } },
-    { "width": 2, "height": 2, "position": { "x": 2, "y": 1, "z": 0 } },
-    { "width": 2, "height": 2, "position": { "x": 4, "y": 1, "z": 0 } },
-    { "width": 2, "height": 2, "position": { "x": 6, "y": 1, "z": 0 } },
-    { "width": 2, "height": 2, "position": { "x": 6, "y": 1, "z": 2 }, "signalIdList": [1] },
-    { "width": 2, "height": 2, "position": { "x": 4, "y": 1, "z": 2 } }
+    { "width": 2, "height": 2, "normal": "y", "position": { "x": 0, "y": 1, "z": 0 } },
+    { "width": 2, "height": 2, "normal": "y", "position": { "x": 2, "y": 1, "z": 0 } },
+    { "width": 2, "height": 2, "normal": "y", "position": { "x": 4, "y": 1, "z": 0 } },
+    { "width": 2, "height": 2, "normal": "y", "position": { "x": 6, "y": 1, "z": 0 } },
+    { "width": 2, "height": 2, "normal": "y", "position": { "x": 6, "y": 1, "z": 2 }, "signalIdList": [1] },
+    { "width": 2, "height": 2, "normal": "y", "position": { "x": 4, "y": 1, "z": 2 } }
   ],
   "buttons": [
     {

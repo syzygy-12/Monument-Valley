@@ -1,20 +1,23 @@
 import SignalResponsiveObject from "./SignalResponsiveObject.js";
 
 export default class Quad extends SignalResponsiveObject {
-  constructor({ width, height, position, normal, signalIdList }) {
+  constructor({ width, height, position, normal, initialQuaternion, signalIdList }) {
     const geometry = new THREE.PlaneGeometry(width, height);
     const material = new THREE.MeshStandardMaterial({
       color: 0x00ff00,
-      opacity: 0.5,
+      opacity: 0.0,
       transparent: true,
       side: THREE.DoubleSide,
     });
 
     super({ geometry, material, position, signalIdList });
-    //console.log(this);
+    this.mesh.receiveShadow = true;
+    this.mesh.position.x += 1e-3;
+    this.mesh.position.y += 1e-3;
+    this.mesh.position.z += 1e-3;
+
 
     // 旋转平面到水平位置，注意四元数的更新
-    // TODO: 增加不同方向的旋转
     if (normal) {
       const quaternion = new THREE.Quaternion();
       if (normal === "x") {
@@ -26,7 +29,25 @@ export default class Quad extends SignalResponsiveObject {
       }
       this.initialQuaternion = quaternion.clone();
       this.mesh.quaternion.copy(quaternion);
+    } 
+    else if (initialQuaternion) {
+      const quat = new THREE.Quaternion(initialQuaternion.x, 
+            initialQuaternion.y, initialQuaternion.z, initialQuaternion.w);
+      this.initialQuaternion = quat.clone();
+      this.mesh.quaternion.copy(quat);
     }
+
+    // 先x轴顺时针90，再z轴逆时针45的四元数，不要使用euler，要分成两个阶段相乘
+    // const quat = new THREE.Quaternion();
+    // quat.setFromAxisAngle(new THREE.Vector3(1, 0, 0), Math.PI / 2);
+    // const quat2 = new THREE.Quaternion();
+    // quat2.setFromAxisAngle(new THREE.Vector3(0, 0, 1), Math.PI / 4);
+    // quat.premultiply(quat2);
+    // console.log(quat);
+    // this.initialQuaternion = quat.clone();
+    // this.mesh.quaternion.copy(quat);
+    // console.log(this.mesh.quaternion);
+
 
     // 计算四个关键点
     this.width = width;

@@ -28,12 +28,15 @@ export default class LevelManager {
     const response = await fetch(`./src/levels/level${levelNumber}.json`);
     const levelData = await response.json();
 
+    levelData.cameraShift = levelData.cameraShift || { dx : 0, dy : 0 };
     levelData.Platforms = levelData.Platforms || [];
     levelData.triangularprisms = levelData.triangularprisms || [];
     levelData.quads = levelData.quads || [];
     levelData.buttons = levelData.buttons || [];
     levelData.surfaces = levelData.surfaces || [];
 
+    // 移动相机
+    this.sceneManager.shiftCamera(levelData.cameraShift);
 
     levelData.platforms.forEach((platformData) => {
       const platform = new Platform(platformData);

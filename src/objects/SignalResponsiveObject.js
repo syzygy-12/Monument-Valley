@@ -9,7 +9,7 @@ export default class SignalResponsiveObject {
           this.mesh.position.set(position.x, position.y, position.z);
         }
     
-        this.mesh.receiveShadow = true;
+        this.mesh.receiveShadow = false;
       }
       
 

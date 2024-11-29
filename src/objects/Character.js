@@ -106,7 +106,7 @@ export default class Character extends SignalResponsiveObject{
   }
 
   findKeypoints(quadA, quadB) {
-    const threshold = 1e-3; // 阈值，两个关键点之间的距离小于这个值时认为是同一个点
+    const threshold = 1; // 阈值，两个关键点之间的距离小于这个值时认为是同一个点
     for (const key in quadA.keyPoints) {
       for (const otherKey in quadB.keyPoints) {
         const width = window.innerWidth; // 屏幕宽度
@@ -145,6 +145,7 @@ export default class Character extends SignalResponsiveObject{
   tick(delta) {
     if (this.mixer) this.mixer.update(delta); // 更新动画混合器
     // 如果当前 Quad 正在动画中，跟随移动
+    if (!this.currentQuad) return;
     if (this.currentQuad.isAnimating) {
       this.mesh.position.copy(this.currentQuad.mesh.position);
       this.targetPosition.copy(this.currentQuad.mesh.position);
