@@ -9,7 +9,7 @@ export default class Character extends SignalResponsiveObject{
 
     this.sceneManager = sceneManager;
     this.mesh = null; // 3D 模型
-    this.speed = 4; // 移动速度，单位：单位/秒
+    this.speed = 10; // 移动速度，单位：单位/秒
     this.mixer = null; // 动画混合器，用于控制动画
     this.animations = {}; // 存储动画动作
 

@@ -30,7 +30,7 @@ export default class SignalResponsiveObject {
       this.targetQuaternion = new THREE.Quaternion(); // 目标旋转四元数
       this.translateTarget = new THREE.Vector3(); // 目标平移位置
       this.animationSpeed = Math.PI; // 控制动画速度，单位：弧度/秒
-      this.tranlateSpeed = 5; // 控制平移速度，单位：米/秒
+      this.tranlateSpeed = 10; // 控制平移速度，单位：米/秒
       this.isAnimating = false; // 动画状态
       this.animationType = null; // 动画类型
     }

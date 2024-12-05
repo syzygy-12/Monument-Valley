@@ -1,113 +1,373 @@
 {
+  "cameraShift": { "dx": 0, "dy": 0 },
   "platforms": [
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 0, "y": 0, "z": 0 }
+      "position": { "x": -10, "y": 0, "z": -2 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 0, "y": 2, "z": 0 }
+      "position": { "x": -10, "y": 0, "z": 0 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 0, "y": 4, "z": 0 }
+      "position": { "x": -10, "y": 0, "z": 2 },
+      "signalIdList": [1, 3]
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 0, "y": 6, "z": 0 }
+      "position": { "x": -10, "y": 0, "z": 4 },
+      "signalIdList": [1, 3]
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 0, "y": 8, "z": 0 }
+      "position": { "x": -10, "y": 0, "z": 6 },
+      "signalIdList": [1, 3]
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 0, "y": 10, "z": 0 }
+      "position": { "x": -10, "y": 0, "z": 8 },
+      "signalIdList": [1, 3],
+      "comment": "这个是直角转弯的角点"
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 0, "y": 10, "z": 2 }
+      "position": { "x": -8, "y": 0, "z": 8 },
+      "signalIdList": [1, 3]
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 0, "y": 10, "z": 4 }
+      "position": { "x": -6, "y": 0, "z": 8 },
+      "signalIdList": [1, 3]
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 0, "y": 10, "z": 6 }
+      "position": { "x": -4, "y": 0, "z": 8 },
+      "signalIdList": [1, 3]
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 2, "y": 0, "z": 0 }
+      "position": { "x": -18, "y": 0, "z": 8 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 4, "y": 0, "z": 0 }
+      "position": { "x": -20, "y": 0, "z": 8 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 6, "y": 0, "z": 0 }
+      "position": { "x": -20, "y": -2, "z": 8 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 8, "y": 0, "z": 0 }
+      "position": { "x": -20, "y": -4, "z": 8 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 10, "y": 0, "z": 0 }
+      "position": { "x": -20, "y": -4, "z": 10 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": -20, "y": -4, "z": 12 },
+      "comment": "左下部分结束"
+    },
+    {
+      "width": 2,
+      "height": 6,
+      "depth": 2,
+      "position": { "x": -2, "y": -28, "z": 8 },
+      "signalIdList": [2]
+    },
+    {
+      "width": 2,
+      "height": 6,
+      "depth": 2,
+      "position": { "x": -2, "y": -28, "z": 10 },
+      "signalIdList": [2]
+    },
+    {
+      "width": 2,
+      "height": 6,
+      "depth": 2,
+      "position": { "x": -2, "y": -28, "z": 12 },
+      "signalIdList": [2]
+    },
+    {
+      "width": 2,
+      "height": 6,
+      "depth": 2,
+      "position": { "x": 0, "y": -28, "z": 8 },
+      "signalIdList": [2]
+    },
+    {
+      "width": 2,
+      "height": 6,
+      "depth": 2,
+      "position": { "x": 2, "y": -28, "z": 8 },
+      "signalIdList": [2]
+    }
+
+
+  ],
+  "surfaces": [
+    
+    {
+      "width": 0.2,
+      "height": 8,
+      "position": { "x": -5.1, "y": 5, "z": -5 },
+      "normal": "z"
     }
   ],
+  "quads": [
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -10, "y": 1, "z": -2 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -10, "y": 1, "z": 0 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -10, "y": 1, "z": 2 },
+      "signalIdList": [1, 3]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -10, "y": 1, "z": 4 },
+      "signalIdList": [1, 3]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -10, "y": 1, "z": 6 },
+      "signalIdList": [1, 3]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -10, "y": 1, "z": 8 },
+      "signalIdList": [1, 3]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -8, "y": 1, "z": 8 },
+      "signalIdList": [1, 3]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -6, "y": 1, "z": 8 },
+      "signalIdList": [1, 3]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -4, "y": 1, "z": 8 },
+      "signalIdList": [1, 3]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -18, "y": 1, "z": 8 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -20, "y": 1, "z": 8 }
+    },
+    {
+      "width": 2,
+      "height": 2.828427125,
+      "position": { "x": -20, "y": 0, "z": 10 },
+      "initialQuaternion": { "x": -0.3826834323650898, "y": 0, "z": 0, "w": 0.9238795325112867 }
+    },
+    {
+      "width": 2,
+      "height": 2.828427125,
+      "position": { "x": -20, "y": -2, "z": 10 },
+      "initialQuaternion": { "x": 0.3826834323650898, "y": 0, "z": 0, "w": 0.9238795325112867 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -20, "y": -3, "z": 10 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -20, "y": -3, "z": 12 },
+      "plate": {
+        "width": 1,
+        "height": 0.5,
+        "depth": 1,
+        "position": { "x": -20, "y": -3, "z": 12 },
+        "signal": {
+          "id": 2,
+          "type": "translation",
+          "translationVectorList": [
+            { "x": 0, "y": 26, "z": 0 }
+          ]
+        }
+      },
+      "comment": "左下部分结束"
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -2, "y": -25, "z": 8 },
+      "signalIdList": [2]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -2, "y": -25, "z": 10 },
+      "signalIdList": [2]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -2, "y": -25, "z": 12 },
+      "signalIdList": [2],
+      "plate": {
+        "width": 1,
+        "height": 0.5,
+        "depth": 1,
+        "position": { "x": -2, "y": -25, "z": 12 },
+        "signal": {
+          "id": 3,
+          "type": "translation",
+          "translationVectorList": [
+            { "x": 0, "y": 12, "z": 0 }
+          ]
+        },
+        "signalIdList": [2]
+      }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 0, "y": -25, "z": 8 },
+      "signalIdList": [2]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 2, "y": -25, "z": 8 },
+      "signalIdList": [2]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 2, "y": -25, "z": 6 },
+      "signalIdList": [2]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 2, "y": -25, "z": 4 },
+      "signalIdList": [2]
+    },
 
+
+    { "width": 2.828427125, "height": 2, 
+      "initialQuaternion": { "x": 0.6532814824381882, "y": 0.27059805007309845, 
+                              "z": 0.2705980500730985, "w": 0.6532814824381883 },
+      "position": { "x": 10, "y": 2, "z": -20 } 
+    },
+    { "width": 2.828427125, "height": 2, 
+      "initialQuaternion": { "x": 0.6532814824381882, "y": 0.27059805007309845, 
+                              "z": 0.2705980500730985, "w": 0.6532814824381883 },
+      "position": { "x": 12, "y": 4, "z": -20 } 
+    },
+    { "width": 2.828427125, "height": 2, 
+      "initialQuaternion": { "x": 0.6532814824381882, "y": 0.27059805007309845, 
+                              "z": 0.2705980500730985, "w": 0.6532814824381883 },
+      "position": { "x": 14, "y": 6, "z": -20 } 
+    },
+    { "width": 2.828427125, "height": 2, 
+      "initialQuaternion": { "x": 0.6532814824381882, "y": 0.27059805007309845, 
+                              "z": 0.2705980500730985, "w": 0.6532814824381883 },
+      "position": { "x": 16, "y": 8, "z": -20 } 
+    }
+  ],
+  "buttons": [
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": -10, "y": 8, "z": 8 },
+      "signal": {
+        "id": 1,
+        "type": "rotation",
+        "axis": { "x": 0, "y": 1, "z": 0 },
+        "angle": 90,
+        "pivot": { "x": -10, "y": 8, "z": 8 }
+      },
+      "signalIdList": [1, 3]
+    }
+  ],
   "triangularprisms": [
     {
-      
         "width": 2,
-        "height": 2,
-        "depth": 2,
-        "position": { "x": 0, "y": 10, "z": 8 },
-        "cutDirection": "x"
+        "height": 4,
+        "depth": 4,
+        "position": { "x": -10, "y": -15, "z": 17 },
+        "signalIdList": [2]
     }
-  ],
-
-  "quads": [
-    { "width": 2, "height": 2, "normal": "y", "position": { "x": 2, "y": 1, "z": 0 } },
-    { "width": 2, "height": 2, "normal": "y", "position": { "x": 4, "y": 1, "z": 0 } },
-    { "width": 2, "height": 2, "normal": "y", "position": { "x": -4, "y": 11, "z": 10 } },
-    { "width": 2, "height": 2, "normal": "y", "position": { "x": -2, "y": 11, "z": 10 } },
-    { "width": 2, "height": 2, "normal": "y", "position": { "x": 0, "y": 11, "z": 10 } },
-    { "width": 2, "height": 2, "normal": "y", "position": { "x": 0, "y": 11, "z": 0 } },
-    { "width": 2, "height": 2, "normal": "y", "position": { "x": 0, "y": 11, "z": 2 } },
-    { "width": 2, "height": 2, "normal": "y", "position": { "x": 0, "y": 11, "z": 4 } },
-    { "width": 2, "height": 2, "normal": "y", "position": { "x": 0, "y": 11, "z": 6 } },
-    { "width": 2, "height": 2, "normal": "y", "position": { "x": 0, "y": 11, "z": 8 } }
-
   ]
 }
