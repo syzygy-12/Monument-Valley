@@ -274,9 +274,11 @@
         "height": 0.5,
         "depth": 3,
         "position": { "x": 21, "y": 9, "z": -20 },
-        "signal": {
-          "id": -1
-        }
+        "signals": [
+          {
+            "id": -1
+          }
+        ]
       }
     },
     { "width": 2.828427125, "height": 2, 
@@ -306,13 +308,16 @@
       "height": 2,
       "depth": 2,
       "position": { "x": 8, "y": 0, "z": -2 },
-      "signal": {
-        "id": 1,
-        "type": "rotation",
-        "axis": { "x": 0, "y": 0, "z": -1 },
-        "angle": 90,
-        "pivot": { "x": 8, "y": 0, "z": -4 }
-      }
+      "signals": [
+        {
+          "id": 1,
+          "type": "rotation",
+          "axis": { "x": 0, "y": 0, "z": -1 },
+          "angle": 90,
+          "pivot": { "x": 8, "y": 0, "z": -4 }
+        }
+      ] ,
+      "standStop": true
     }
   ],
   "triangularprisms": [

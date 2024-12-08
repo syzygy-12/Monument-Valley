@@ -14,7 +14,7 @@ export default class LevelManager {
     this.triangularPrisms = [];
     this.buttons = [];
     this.surfaces = [];
-    this.signals = null;
+    this.signals = [];
     this.isSignalReceived = false;
 
     this.graph = new Map();
@@ -61,10 +61,13 @@ export default class LevelManager {
       if(quad.plate) {
         scene.add(quad.plate.mesh);
         updatables.push(quad.plate);
+        this.signals.push(...quad.plate.signals);
+        
       }
       if(quad.doublePlate) {
         scene.add(quad.doublePlate.mesh);
         updatables.push(quad.doublePlate);
+        this.signals.push(...quad.doublePlate.signals);
       }
     });
 
@@ -81,6 +84,7 @@ export default class LevelManager {
       scene.add(button.mesh);
       updatables.push(button);
       this.buttons.push(button);
+      this.signals.push(...button.signals);
     });
 
     // 构建quad连通性图
@@ -98,14 +102,95 @@ export default class LevelManager {
 
     updatables.push(this);
 
+    this.addListener();
 
-    // 添加点击事件监听器
-    window.addEventListener("click", (event) => this.onScreenClick(event));
   }
 
+  addListener() {
+    // 操作角色移动
+    window.addEventListener("click", (event) => this.onScreenClick(event));
+
+    // 控制台 DOM 元素
+    const openConsoleBtn = document.getElementById("openConsoleBtn");
+    const closeConsoleBtn = document.getElementById("closeConsoleBtn");
+    const resetCameraBtn = document.getElementById("resetCameraBtn");
+    const consoleDiv = document.getElementById("console");
+  
+    // 动态按钮容器
+    const buttonContainer = document.createElement("div");
+    buttonContainer.id = "signalButtonContainer";
+    buttonContainer.style.display = "flex";
+    buttonContainer.style.flexWrap = "wrap";
+    buttonContainer.style.gap = "10px";
+    buttonContainer.style.marginTop = "10px";
+    consoleDiv.appendChild(buttonContainer);
+  
+    // 打开控制台
+    openConsoleBtn.addEventListener("click", () => {
+      consoleDiv.style.display = "block";
+      setTimeout(() => {
+        consoleDiv.style.transform = "translateY(0)";
+      }, 10);
+  
+      // 动态生成按钮
+      this.generateSignalButtons(buttonContainer);
+    });
+  
+    // 关闭控制台
+    closeConsoleBtn.addEventListener("click", () => {
+      consoleDiv.style.transform = "translateY(-100%)";
+      setTimeout(() => {
+        consoleDiv.style.display = "none";
+      }, 500);
+    });
+  
+    // 重置相机位置
+    resetCameraBtn.addEventListener("click", () => {
+      this.sceneManager.resetCameraPosition();
+    });
+  }
+
+  generateSignalButtons(container) {
+    // 清空之前的按钮
+    container.innerHTML = "";
+  
+    // 遍历 signals 数组，动态生成按钮
+    this.signals.forEach((signal, index) => {
+      const button = document.createElement("button");
+      button.textContent = `Signal ${signal.id}`; // 按钮文本
+  
+      // 样式设置
+      button.style.padding = "8px 12px";
+      button.style.backgroundColor = "#444";
+      button.style.color = "#fff";
+      button.style.border = "none";
+      button.style.borderRadius = "4px";
+      button.style.cursor = "pointer";
+      button.style.transition = "background-color 0.3s";
+  
+      button.addEventListener("mouseenter", () => {
+        button.style.backgroundColor = "#666";
+      });
+      button.addEventListener("mouseleave", () => {
+        button.style.backgroundColor = "#444";
+      });
+  
+      // 绑定点击事件：触发对应的 signal
+      button.addEventListener("click", () => {
+        console.log(`Emitting Signal ${index + 1}`);
+        this.setSignals([signal]);
+      });
+  
+      // 将按钮添加到容器中
+      container.appendChild(button);
+    });
+  }
+  
+  
+
   // 设置信号
-  setSignal(signal) {
-    if (signal.id == -1) {
+  setSignals(signals) {
+    if (signals != [] && signals[0].id === -1) {
       // 游戏胜利
       console.log("Game Win!");
       window.location.href = 'pages/victory.html'; // 跳转到胜利页面
@@ -118,48 +203,47 @@ export default class LevelManager {
       return;
     }
     this.isSignalReceived = true;
-    this.signals = signal;
     this.animatingObjects = [];
 
     for (const platform of this.platforms) {
-      platform.setSignal(signal);
+      platform.setSignals(signals);
       if (platform.isAnimating) {
         this.animatingObjects.push(platform);
       }
     }
     for (const quad of this.quads) {
-      quad.setSignal(signal);
+      quad.setSignals(signals);
       if (quad.isAnimating) {
         this.animatingObjects.push(quad);
       }
     }
     for (const surface of this.surfaces) {
-      surface.setSignal(signal);
+      surface.setSignals(signals);
       if (surface.isAnimating) {
         this.animatingObjects.push(surface);
       }
     }  
     for (const button of this.buttons) {
-      button.setSignal(signal);
+      button.setSignals(signals);
       if (button.isAnimating) {
         this.animatingObjects.push(button);
       }
     }
     for (const triangularPrism of this.triangularPrisms) {
-      triangularPrism.setSignal(signal);
+      triangularPrism.setSignals(signals);
       if (triangularPrism.isAnimating) {
         this.animatingObjects.push(triangularPrism);
       }
     }
     for (const quad of this.quads) {
       if (quad.plate) {
-        quad.plate.setSignal(signal);
+        quad.plate.setSignals(signals);
         if (quad.plate.isAnimating) {
           this.animatingObjects.push(quad.plate);
         }
       }
       if (quad.doublePlate) {
-        quad.doublePlate.setSignal(signal);
+        quad.doublePlate.setSignals(signals);
         if (quad.doublePlate.isAnimating) {
           this.animatingObjects.push(quad.doublePlate);
         }
@@ -168,7 +252,21 @@ export default class LevelManager {
   }
 
   tick(delta) {  
-    //console.log(this.animatingObjects);
+    // 判断角色是否站在button控制的quad上，如果是，锁死button
+    if (this.character) {
+      const quad = this.character.currentQuad;
+      if (quad) {
+        for (const button of this.buttons) {
+          if (quad.signalIdList && quad.signalIdList.includes(button.signals[0].id) && button.standStop) {
+            button.toggleActive(false);
+          }
+          else {
+            button.toggleActive(true);
+          }
+        }
+      }
+    }
+      
     // 检查动画状态
     if (this.animatingObjects.length > 0) {
       this.animatingObjects = this.animatingObjects.filter((obj) => obj.isAnimating);
@@ -301,4 +399,5 @@ export default class LevelManager {
 
     return null; // 没有路径
   }
+  
 }

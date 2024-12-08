@@ -1,34 +1,26 @@
-import Platform from "./Platform.js";
+import SignalResponsiveObject from "./SignalResponsiveObject.js";
 
-export default class TriangularPrism extends Platform {
+export default class TriangularPrism extends SignalResponsiveObject {
+  constructor({ width, height, depth, position, isHide, initialQuaternion, signalIdList }) {
+    // 创建三棱柱的几何体
+    const geometry = TriangularPrism.createTriangularGeometry(width, height, depth);
+    const material = new THREE.MeshStandardMaterial({ color: 0x8b4513, flatShading: true }); // 棕色材质
+    super({ geometry, material, position, isHide, signalIdList });
 
-  constructor({ width, height, depth, position, cutDirection, initialQuaternion, signalIdList }) {
-    super({ width, height, depth, position, signalIdList }); // 继承 Platform 的属性和方法
-
-    this.cutDirection = cutDirection; // 保存切割方向
-
-    // 根据切割方向生成几何体
-    const geometry = this.createTriangularGeometry(width, height, depth, cutDirection);
-    const material = new THREE.MeshStandardMaterial({ color: 0x8b4513, flatShading: true }); // 和父类保持一致的材质
-    
-    this.mesh = new THREE.Mesh(geometry, material);
-    this.mesh.position.set(position.x, position.y, position.z);
-    
+    // 初始旋转四元数
     if (initialQuaternion) {
-      const quat = new THREE.Quaternion(initialQuaternion.x, 
-                initialQuaternion.y, initialQuaternion.z, initialQuaternion.w);
+      const quat = new THREE.Quaternion(
+        initialQuaternion.x, 
+        initialQuaternion.y,
+        initialQuaternion.z,
+        initialQuaternion.w
+      );
       this.initialQuaternion = quat.clone();
       this.mesh.quaternion.copy(quat);
     }
-    //绕y轴逆时针90，再z轴逆时针180的四元数
-    // const quat = new THREE.Quaternion();
-    // quat.setFromEuler(new THREE.Euler(Math.PI / 2, Math.PI , Math.PI / 2 ));
-    // console.log(quat);
-    // this.initialQuaternion = quat.clone();
-    // this.mesh.quaternion.copy(quat);
   }
 
-  createTriangularGeometry(width, height, depth, cutDirection) {
+  static createTriangularGeometry(width, height, depth) {
     const vertices = [];
     const indices = [];
     vertices.push(
@@ -57,6 +49,5 @@ export default class TriangularPrism extends Platform {
     geometry.computeVertexNormals();
   
     return geometry; 
-    
   }
 }

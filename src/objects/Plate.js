@@ -1,29 +1,19 @@
-import SignalResponsiveObject from "./SignalResponsiveObject.js";
+import TriggerObject from "./TriggerObject.js";
 import Signal from "./Signal.js";
 
-export default class Plate extends SignalResponsiveObject {
-  constructor({ width, height, depth, position, signal, signalIdList, levelManager }) {
+export default class Plate extends TriggerObject {
+  constructor({ width, height, depth, position, signals, signalIdList, levelManager }) {
     const geometry = new THREE.BoxGeometry(width, height, depth);
     const material = new THREE.MeshStandardMaterial({ color: 0x00ffff });
 
-    super({ geometry, material, position, signalIdList });
+    super({ geometry, material, position, signalIdList, levelManager });
 
-    this.signal = new Signal(signal);
-    this.levelManager = levelManager;
-    this.isEmitted = false;
-
+    this.addSignals(signals);
   }
 
-  emitSignal() {
-    if (this.levelManager.isSignalReceived) {
-      return;
-    }
-    if (this.isEmitted) {
-      return;
-    }
-    //console.log("Plate emit");
-    this.isEmitted = true;
-    this.signal.addCount();
-    this.levelManager.setSignal(this.signal);
+  emitSignals() {
+    if (this.isEmitted || this.levelManager.isSignalReceived) return;
+
+    super.emitSignals(); // 调用父类的 emitSignals
   }
 }

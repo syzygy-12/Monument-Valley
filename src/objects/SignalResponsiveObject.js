@@ -1,150 +1,161 @@
 export default class SignalResponsiveObject {
-    constructor({ geometry, material, position, signalIdList }) {
+  constructor({ geometry, material, position, isHide, signalIdList }) {
       this.signalIdList = signalIdList || [];
-
+      this.isHide = isHide || false;
       this.mesh = null;
+
       if (geometry && material) {
-        this.mesh = new THREE.Mesh(geometry, material);
-        if (position) {
-          this.mesh.position.set(position.x, position.y, position.z);
-        }
-    
-        this.mesh.receiveShadow = false;
+          this.mesh = new THREE.Mesh(geometry, material);
+          if (position) {
+              this.mesh.position.set(position.x, position.y, position.z);
+          }
+          this.mesh.receiveShadow = false;
       }
-      
 
-      this.initialQuaternion = new THREE.Quaternion();
-      this.initialQuaternion.set(0, 0, 0, 1);
-  
-      if (position) {
-        this.position = new THREE.Vector3(position.x, position.y, position.z);
+      this.initialQuaternion = new THREE.Quaternion().set(0, 0, 0, 1);
+      this.position = position
+          ? new THREE.Vector3(position.x, position.y, position.z)
+          : new THREE.Vector3();
+
+      if (this.isHide) {
+          this.mesh.visible = false;
       }
-  
+
       // 动画控制变量
-      this.pivot = new THREE.Vector3(); // 旋转的中心点
-      this.axis = new THREE.Vector3(0, 1, 0); // 默认旋转轴
-      this.startPositionOffset = new THREE.Vector3(); // 物体相对 pivot 的初始偏移
-      this.angleDelta = 0; // 每帧旋转的增量角度
-      this.currentAngle = 0; // 当前已经旋转的角度
-      this.targetAngle = 0; // 目标旋转角度
-      this.targetQuaternion = new THREE.Quaternion(); // 目标旋转四元数
-      this.translateTarget = new THREE.Vector3(); // 目标平移位置
-      this.animationSpeed = Math.PI; // 控制动画速度，单位：弧度/秒
-      this.tranlateSpeed = 10; // 控制平移速度，单位：米/秒
-      this.isAnimating = false; // 动画状态
-      this.animationType = null; // 动画类型
-    }
-  
-    /**
-     * 响应信号，初始化动画参数。
-     * @param {Object} signal 信号对象，包含 id, axis, angle, pivot
-     */
-    setSignal(signal) {
-        if (this.signalIdList.includes(signal.id)) {
-          if (signal.type === "rotation") {
+      this.pivot = new THREE.Vector3();
+      this.axis = new THREE.Vector3(0, 1, 0);
+      this.startPositionOffset = new THREE.Vector3();
+      this.angleDelta = 0;
+      this.currentAngle = 0;
+      this.targetAngle = 0;
+      this.targetQuaternion = new THREE.Quaternion();
+      this.translateTarget = new THREE.Vector3();
+      this.animationSpeed = Math.PI; // 旋转速度
+      this.translateSpeed = 6; // 平移速度
+      this.isAnimating = false;
+      this.animationType = null;
 
-            const { axis, angle, pivot } = signal;
-        
-            this.pivot = new THREE.Vector3(pivot.x, pivot.y, pivot.z);
-            this.axis = new THREE.Vector3(axis.x, axis.y, axis.z).normalize();
-            this.targetAngle = angle;
-        
-            // 计算初始偏移
-            this.startPositionOffset = new THREE.Vector3().subVectors(this.mesh.position, this.pivot);
-        
-            // 初始化动画状态
-            this.currentAngle = 0;
-            this.targetQuaternion = new THREE.Quaternion().setFromAxisAngle(this.axis, angle);
-            this.animationType = "rotation";
-            this.isAnimating = true; // 开始动画
+      // 等待机制
+      this.isWaiting = false; // 是否处于等待状态
+      this.waitTimer = 0; // 等待计时器
+      this.initialWaitTime = 0; // 初始等待时间
+  }
+
+  /**
+   * 响应信号，初始化动画参数，并设置等待时间。
+   */
+  setSignals(signals) {
+      for (const signal of signals) {
+          if (this.signalIdList.includes(signal.id)) {
+              this.isWaiting = true; // 开启等待
+              this.waitTimer = 0;
+              this.initialWaitTime = signal.waitTime || 0; // 统一的等待时间
+
+              if (signal.type === "rotation") {
+                  const { axis, angle, pivot } = signal;
+                  this.pivot.copy(pivot);
+                  this.axis.copy(axis).normalize();
+                  this.targetAngle = angle;
+                  this.startPositionOffset.subVectors(this.mesh.position, this.pivot);
+                  this.currentAngle = 0;
+                  this.targetQuaternion.setFromAxisAngle(this.axis, angle);
+                  this.animationType = "rotation";
+              } else if (signal.type === "translation") {
+                  this.animationType = "translation";
+                  this.translateSpeed = signal.translateSpeed;
+                  this.translateTarget
+                      .copy(signal.currentTranslationVector)
+                      .add(this.mesh.position);
+              } else if (signal.type === "appear") {
+                  this.animationType = "appear";
+              } else if (signal.type === "disappear") {
+                  this.animationType = "disappear";
+              }
+
+              this.isAnimating = true;
           }
-          else if (signal.type === "translation") {
-            this.animationType = "translation";
-            this.translateTarget = new THREE.Vector3().addVectors
-              (signal.currentTranslationVector, this.mesh.position);
-            //console.log(signal.currentTranslationVector);
-            this.isAnimating = true; // 开始动画
+      }
+  }
+
+  tick(delta) {
+      // 等待状态优先
+      if (this.isWaiting) {
+          this.waitTimer += delta;
+          if (this.waitTimer >= this.initialWaitTime) {
+              this.isWaiting = false; // 等待完成
           }
-        }
+          return; // 等待期间不执行动画
       }
 
-    animationComplete() {
-      ; // 空方法，由子类实现
-    }
-  
-    /**
-     * 动画更新方法，在每帧调用。
-     * @param {number} delta 距离上一帧的时间间隔（秒）
-     */
-    tick(delta) {
-        if (!this.isAnimating) return;
-        if (this.animationType === "rotation") {
+      if (!this.isAnimating) return;
+
+      if (this.animationType === "rotation") {
           this.tickRotation(delta);
-        } 
-        else if (this.animationType === "translation") {
+      } else if (this.animationType === "translation") {
           this.tickTranslation(delta);
-        }
-        
+      } else if (this.animationType === "appear") {
+          this.mesh.visible = true; // 直接变为可见
+          this.finishAnimation();
+      } else if (this.animationType === "disappear") {
+          this.mesh.visible = false; // 直接变为不可见
+          this.finishAnimation();
       }
+  }
 
-      tickTranslation(delta) {
-        const direction = new THREE.Vector3().subVectors(this.translateTarget, this.mesh.position);
-        const distance = direction.length();
-        const moveDistance = delta * this.tranlateSpeed;
-        if (moveDistance < distance) {
+  tickTranslation(delta) {
+      const direction = new THREE.Vector3().subVectors(this.translateTarget, this.mesh.position);
+      const distance = direction.length();
+      const moveDistance = delta * this.translateSpeed;
+
+      if (moveDistance < distance) {
           this.mesh.position.addScaledVector(direction.normalize(), moveDistance);
-        } else {
+      } else {
           this.mesh.position.copy(this.translateTarget);
-          this.animationComplete();
-          this.position.copy(this.mesh.position);
-          this.isAnimating = false;
-          this.animationType = null;
-        }
+          this.finishAnimation();
       }
+  }
 
-      tickRotation(delta) {
-        // 计算旋转增量
-        this.angleDelta = this.animationSpeed * delta;
-      
-        // 剩余角度计算
-        const remainingAngle = this.targetAngle - this.currentAngle;
-        const angleThreshold = Math.PI / 180; // 阈值（1度）
-      
-        if (remainingAngle <= angleThreshold) {
-          this.angleDelta = remainingAngle; // 直接到目标角度
-          this.currentAngle = this.targetAngle; // 更新为目标角度
-      
-          // 更新位置和旋转到目标
+  tickRotation(delta) {
+      this.angleDelta = this.animationSpeed * delta;
+      const remainingAngle = this.targetAngle - this.currentAngle;
+      const angleThreshold = Math.PI / 180;
+
+      if (remainingAngle <= angleThreshold) {
+          this.angleDelta = remainingAngle;
+          this.currentAngle = this.targetAngle;
+
           this.startPositionOffset.applyQuaternion(
-            new THREE.Quaternion().setFromAxisAngle(this.axis, remainingAngle)
+              new THREE.Quaternion().setFromAxisAngle(this.axis, remainingAngle)
           );
           const finalPosition = new THREE.Vector3().addVectors(this.pivot, this.startPositionOffset);
+
           this.mesh.position.copy(finalPosition);
           this.mesh.quaternion.copy(this.initialQuaternion);
           this.mesh.quaternion.premultiply(this.targetQuaternion);
           this.initialQuaternion.premultiply(this.targetQuaternion);
-          this.position.copy(finalPosition); // 更新逻辑位置
-          this.animationComplete();
-          this.isAnimating = false; // 动画完成
-          this.animationType = null
-          return; // 动画结束
-        }
-      
-        // 累计旋转角度
-        this.currentAngle += this.angleDelta;
-      
-        // 应用旋转
-        const quaternion = new THREE.Quaternion().setFromAxisAngle(this.axis, this.angleDelta);
-        this.startPositionOffset.applyQuaternion(quaternion);
-      
-        // 计算新的位置
-        const newPosition = new THREE.Vector3().addVectors(this.pivot, this.startPositionOffset);
-      
-        // 应用位置和旋转
-        this.mesh.position.copy(newPosition);
-        this.mesh.quaternion.premultiply(quaternion);
-      
-        // 更新逻辑位置
-        this.position.copy(this.mesh.position);
+          this.position.copy(finalPosition);
+
+          this.finishAnimation();
+          return;
       }
+
+      this.currentAngle += this.angleDelta;
+      const quaternion = new THREE.Quaternion().setFromAxisAngle(this.axis, this.angleDelta);
+      this.startPositionOffset.applyQuaternion(quaternion);
+      const newPosition = new THREE.Vector3().addVectors(this.pivot, this.startPositionOffset);
+
+      this.mesh.position.copy(newPosition);
+      this.mesh.quaternion.premultiply(quaternion);
+      this.position.copy(this.mesh.position);
   }
+
+  finishAnimation() {
+      this.isAnimating = false;
+      this.animationType = null;
+      this.animationComplete();
+  }
+
+  animationComplete() {
+      // 空方法，由子类实现
+  }
+}

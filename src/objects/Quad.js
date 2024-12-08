@@ -13,6 +13,7 @@ export default class Quad extends SignalResponsiveObject {
     });
 
     super({ geometry, material, position, signalIdList });
+    this.mesh.visible = false;
     this.mesh.receiveShadow = true;
     this.mesh.position.x += 1e-3;
     this.mesh.position.y += 1e-3;

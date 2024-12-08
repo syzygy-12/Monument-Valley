@@ -6,7 +6,7 @@ function QuaternionSolver() {
     console.log(quat);
 }
 
-QuaternionSolver();
+//QuaternionSolver();
 
 // 启动游戏
 const game = new Game();

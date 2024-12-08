@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="zh">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>选择关卡</title>
+    <link rel="stylesheet" href="./styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/build/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/controls/OrbitControls.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128/examples/js/loaders/GLTFLoader.js"></script>
+  </head>
+  <body>
+    <div id="level-select">
+      <h2>选择关卡</h2>
+      <div>
+        <button class="level-btn" data-level="1">关卡 1</button>
+        <button class="level-btn" data-level="2">关卡 2</button>
+        <button class="level-btn" data-level="3">关卡 3</button>
+        <button class="level-btn" data-level="4">关卡 4</button>
+        <button class="level-btn" data-level="5">关卡 5</button>
+        <button class="level-btn" data-level="6">关卡 6</button>
+        <button class="level-btn" data-level="7">关卡 7</button>
+        <button class="level-btn" data-level="8">关卡 8</button>
+        <button class="level-btn" data-level="9">关卡 9</button>
+        <button class="level-btn" data-level="10">关卡 10</button>
+      </div>
+    </div>
+
+    <!-- 游戏逻辑 -->
+    <script type="module">
+      import Game from "./src/core/Game.js";
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const game = new Game();
+        game.start();
+      });
+    </script>
+  </body>
+</html>

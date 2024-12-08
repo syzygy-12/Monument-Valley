@@ -97,3 +97,18 @@ html, body {
 .level-btn:hover {
   background: #45a049;
 }
+
+#game {
+  display: none; /* 初始隐藏 */
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+

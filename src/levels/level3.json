@@ -22,7 +22,8 @@
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 6, "y": 0, "z": 0 }
+      "position": { "x": 6, "y": 0, "z": 0 },
+      "signalIdList": [3]
     },
     {
       "width": 2,
@@ -37,6 +38,14 @@
       "depth": 2,
       "position": { "x": 4, "y": 0, "z": 2 },
       "signalIdList": [2]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 0, "y": 0, "z": 4 },
+      "isHide": true,
+      "signalIdList": [4]
     }
   ],
   "quads": [
@@ -48,16 +57,18 @@
         "height": 0.5,
         "depth": 1,
         "position": { "x": 4, "y": 1, "z": 0 },
-        "signal": {
-          "id": 2,
-          "type": "translation",
-          "translationVectorList": [
-            { "x": 0, "y": 0, "z": 2 },
-            { "x": 0, "y": 0, "z": 2 },
-            { "x": 0, "y": 0, "z": -2 },
-            { "x": 0, "y": 0, "z": -2 }
-          ]
-        }
+        "signals": [
+          {
+            "id": 2,
+            "type": "translation",
+            "translationVectorList": [
+              { "x": 0, "y": 0, "z": 2 },
+              { "x": 0, "y": 0, "z": 2 },
+              { "x": 0, "y": 0, "z": -2 },
+              { "x": 0, "y": 0, "z": -2 }
+            ]
+          }
+        ] 
       }
     },
     { "width": 2, "height": 2, "normal": "y", "position": { "x": 6, "y": 1, "z": 0 } },
@@ -70,17 +81,33 @@
       "height": 2,
       "depth": 2,
       "position": { "x": 2, "y": 6, "z": 2 },
-      "signal": {
-        "id": 1,
-        "type": "translation",
-        "translationVectorList": [
-          { "x": 0, "y": 0, "z": 2 },
-          { "x": 0, "y": 0, "z": 2 },
-          { "x": 0, "y": 0, "z": -2 },
-          { "x": 0, "y": 0, "z": -2 }
-
-        ]
-      }
+      "signals": [
+        {
+          "id": 1,
+          "type": "translation",
+          "translationVectorList": [
+            { "x": 0, "y": 0, "z": 2 },
+            { "x": 0, "y": 0, "z": 2 },
+            { "x": 0, "y": 0, "z": -2 },
+            { "x": 0, "y": 0, "z": -2 }
+          ]
+        },
+        {
+          "id": 3,
+          "type": "translation",
+          "translationVectorList": [
+            { "x": 0, "y": 0, "z": 4 },
+            { "x": 0, "y": 0, "z": 4 },
+            { "x": 0, "y": 0, "z": -4 },
+            { "x": 0, "y": 0, "z": -4 }
+          ]
+        },
+        {
+          "id": 4,
+          "type": "appear",
+          "waitTime": 2
+        }
+      ] 
     }
   ]
 }
