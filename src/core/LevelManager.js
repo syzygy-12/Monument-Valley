@@ -5,6 +5,8 @@ import TriangularPrism from "../objects/TriangularPrism.js";
 import Button from "../objects/Button.js";
 import Surface from "../objects/Surface.js";
 
+import { loadButtons } from "../utils/LoadButtons.js";
+
 export default class LevelManager {
   constructor(sceneManager) {
     this.sceneManager = sceneManager;
@@ -83,14 +85,34 @@ export default class LevelManager {
       this.surfaces.push(surface);
     });
 
-    levelData.buttons.forEach((buttonData) => {
-      // button要加入levelManager的信息
-      const button = new Button({ ...buttonData, levelManager: this });
-      scene.add(button.mesh);
-      updatables.push(button);
-      this.buttons.push(button);
-      this.signals.push(...button.signals);
-    });
+    loadButtons(levelData, scene, this, updatables);
+
+    // levelData.buttons.forEach((buttonData) => {
+    //   const button = new Button({...buttonData, levelManager: this});
+    //   button.init();
+    //   scene.add(button.mesh);
+    //   console.log("add button", button.mesh);
+    //   updatables.push(button);
+    //   this.buttons.push(button);
+    //   this.signals.push(...button.signals);
+    // });
+    
+
+    // levelData.buttons.forEach((buttonData) => {
+    //   let button; // 提前声明变量
+    //   button = new Button({
+    //     ...buttonData,
+    //     levelManager: this,
+    //     onReady: (mesh) => {
+    //       scene.add(mesh);
+    //       updatables.push(button);
+    //       console.log(mesh)
+    //       this.buttons.push(button);
+    //       this.signals.push(...button.signals);
+    //     },
+    //   });
+    // });
+    
 
     // 构建quad连通性图
     this.buildGraph();

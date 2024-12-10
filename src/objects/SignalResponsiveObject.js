@@ -1,45 +1,101 @@
 export default class SignalResponsiveObject {
-  constructor({ geometry, material, position, isHide, signalIdList }) {
-      this.signalIdList = signalIdList || [];
-      this.isHide = isHide || false;
-      this.mesh = null;
+    constructor({ geometry, material, glbFile, position, rotation, scale, isHide, signalIdList }) {
+        this.signalIdList = signalIdList || [];
+        this.isHide = isHide || false;
+        this.mesh = null;
 
-      if (geometry && material) {
-          this.mesh = new THREE.Mesh(geometry, material);
-          if (position) {
-              this.mesh.position.set(position.x, position.y, position.z);
-          }
-          this.mesh.receiveShadow = false;
-      }
+        if (geometry && material) {
+            this.mesh = new THREE.Mesh(geometry, material);
+            this.initMesh(position, rotation, scale, isHide);
+            this.mesh.receiveShadow = false;
+        }
 
-      this.initialQuaternion = new THREE.Quaternion().set(0, 0, 0, 1);
-      this.position = position
-          ? new THREE.Vector3(position.x, position.y, position.z)
-          : new THREE.Vector3();
+        this.initialQuaternion = new THREE.Quaternion().set(0, 0, 0, 1);
+        this.position = position
+            ? new THREE.Vector3(position.x, position.y, position.z)
+            : new THREE.Vector3();
 
-      if (this.isHide) {
-          this.mesh.visible = false;
-      }
+        if (this.isHide && this.mesh) {
+            this.mesh.visible = false;
+        }
 
-      // 动画控制变量
-      this.pivot = new THREE.Vector3();
-      this.axis = new THREE.Vector3(0, 1, 0);
-      this.startPositionOffset = new THREE.Vector3();
-      this.angleDelta = 0;
-      this.currentAngle = 0;
-      this.targetAngle = 0;
-      this.targetQuaternion = new THREE.Quaternion();
-      this.translateTarget = new THREE.Vector3();
-      this.animationSpeed = Math.PI; // 旋转速度
-      this.translateSpeed = 6; // 平移速度
-      this.isAnimating = false;
-      this.animationType = null;
+        // 动画控制变量
+        this.pivot = new THREE.Vector3();
+        this.axis = new THREE.Vector3(0, 1, 0);
+        this.startPositionOffset = new THREE.Vector3();
+        this.angleDelta = 0;
+        this.currentAngle = 0;
+        this.targetAngle = 0;
+        this.targetQuaternion = new THREE.Quaternion();
+        this.translateTarget = new THREE.Vector3();
+        this.animationSpeed = Math.PI;
+        this.translateSpeed = 6;
+        this.isAnimating = false;
+        this.animationType = null;
 
-      // 等待机制
-      this.isWaiting = false; // 是否处于等待状态
-      this.waitTimer = 0; // 等待计时器
-      this.initialWaitTime = 0; // 初始等待时间
-  }
+        this.isWaiting = false;
+        this.waitTimer = 0;
+        this.initialWaitTime = 0;
+
+        this.pendingGLBLoad = glbFile
+            ? this.loadGLBModel(glbFile, position, rotation, scale, isHide)
+            : Promise.resolve();
+    }
+
+    /**
+     * 异步初始化：等待 GLB 模型加载完成。
+     */
+    async init() {
+        if (this.pendingGLBLoad) {
+            await this.pendingGLBLoad;
+        }
+    }
+
+    initMesh(position, rotation, scale, isHide) {
+        if (!this.mesh) return;
+
+        this.mesh.receiveShadow = true;
+        this.mesh.castShadow = true;
+
+        if (position) {
+            this.mesh.position.set(position.x, position.y, position.z);
+        }
+        if (rotation) {
+            this.mesh.rotation.set(rotation.x, rotation.y, rotation.z);
+        }
+        if (scale) {
+            this.mesh.scale.set(scale.x, scale.y, scale.z);
+        }
+        this.mesh.visible = !isHide;
+    }
+
+    loadGLBModel(glbFile, position, rotation, scale, isHide) {
+        const loader = new THREE.GLTFLoader(); // 假设已导入 THREE.GLTFLoader
+        return new Promise((resolve, reject) => {
+            loader.load(
+                glbFile,
+                (gltf) => {
+                    this.mesh = gltf.scene;
+                    this.mesh.receiveShadow = false;
+                    this.mesh.castShadow = true;
+
+                    if (position) this.mesh.position.set(position.x, position.y, position.z);
+                    if (rotation) this.mesh.rotation.set(rotation.x, rotation.y, rotation.z);
+                    if (scale) this.mesh.scale.set(scale.x, scale.y, scale.z);
+                    if (isHide) this.mesh.visible = false;
+
+                    //console.log("GLB loaded:", this.mesh);
+
+                    resolve();
+                },
+                undefined,
+                (error) => {
+                    console.error("An error occurred while loading GLB:", error);
+                    reject(error);
+                }
+            );
+        });
+    }
 
   /**
    * 响应信号，初始化动画参数，并设置等待时间。
