@@ -1,5 +1,14 @@
 {
   "cameraShift": { "dx": 0, "dy": 0 },
+  "models": [
+    {
+      "id": "scene1",
+      "path": "assets/scene1.glb",
+      "position": { "x": -18, "y": -6, "z": 5 },
+      "scale": { "x":1.5, "y": 1.5, "z": 1.5 },
+      "rotation": { "x": 0, "y": -1.5707963267948966192313216916398, "z": 0 }
+    }
+  ],
   "platforms": [
     {
       "width": 2,
@@ -293,76 +302,6 @@
       "height": 2,
       "depth": 2,
       "position": { "x": 2, "y": 12, "z": -4 }
-    }
-  ],
-  "surfaces": [
-    
-    {
-      "width": 40,
-      "height": 40,
-      "position": { "x": -6, "y": -5, "z": 6 },
-      "normal": "y",
-      "color": "0x8aff4f"
-    },
-    {
-      "width": 0.2,
-      "height": 18,
-      "position": { "x": 2.8, "y": 10, "z": 7.1 },
-      "normal": "x"
-    },
-    {
-      "width": 0.2,
-      "height": 18,
-      "position": { "x": 2.9, "y": 10, "z": 7.2 },
-      "normal": "z"
-    },
-    {
-      "width": 0.2,
-      "height": 18,
-      "position": { "x": 2.8, "y": 10, "z": 8.9 },
-      "normal": "x"
-    },
-    {
-      "width": 0.2,
-      "height": 18,
-      "position": { "x": 2.9, "y": 10, "z": 9 },
-      "normal": "z"
-    },
-    {
-      "width": 0.2,
-      "height": 18,
-      "position": { "x": 1, "y": 10, "z": 7.1 },
-      "normal": "x"
-    },
-    {
-      "width": 0.2,
-      "height": 18,
-      "position": { "x": 1.1, "y": 10, "z": 7.2 },
-      "normal": "z"
-    },
-    {
-      "width": 0.2,
-      "height": 18,
-      "position": { "x": 1, "y": 10, "z": 8.9 },
-      "normal": "x"
-    },
-    {
-      "width": 0.2,
-      "height": 18,
-      "position": { "x": 1.1, "y": 10, "z": 9 },
-      "normal": "z"
-    },
-    {
-      "width": 0.2,
-      "height": 4,
-      "position": { "x": -11, "y": 15, "z": 19.1 },
-      "normal": "x"
-    },
-    {
-      "width": 0.2,
-      "height": 4,
-      "position": { "x": -10.9, "y": 15, "z": 19.2 },
-      "normal": "z"
     }
   ],
   "quads": [
@@ -726,9 +665,9 @@
   ],
   "buttons": [
     {
-      "width": 2,
-      "height": 2,
-      "depth": 2,
+      "glbFile": "assets/button.glb",
+      "scale": { "x": 0.5, "y": 0.5, "z": 0.5 },
+      "rotation": { "x": 0, "y": 0, "z": 0 },
       "position": { "x": -10, "y": 8, "z": 8 },
       "signals": [
         {

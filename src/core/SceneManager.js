@@ -6,7 +6,7 @@ export default class SceneManager {
     this.scene = new THREE.Scene();
 
     const aspect = window.innerWidth / window.innerHeight;
-    const d = 20; // 正交相机范围
+    const d = 30; // 正交相机范围
     this.camera = new THREE.OrthographicCamera(-d * aspect, d * aspect, d, -d, 1, 1000);
     this.shiftVector = { dx: 0, dy: 0 };
 

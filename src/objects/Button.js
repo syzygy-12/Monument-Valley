@@ -1,10 +1,18 @@
 import TriggerObject from "./TriggerObject.js";
 
 export default class Button extends TriggerObject {
-  constructor({ width, height, depth, position, signals, signalIdList, standStop, levelManager }) {
-    const geometry = new THREE.BoxGeometry(width, height, depth);
-    const material = new THREE.MeshStandardMaterial({ color: 0xff6347 });
+  constructor({ width, height, depth, glbFile, rotation,scale, position, signals, signalIdList, standStop, levelManager }) {
+    let geometry, material;
 
+    // 判断是否有 GLBFile
+    if (!glbFile) {
+      geometry = new THREE.BoxGeometry(width, height, depth);  
+      material = new THREE.MeshStandardMaterial({ color: 0xff6347 });  
+    } else {
+      // super({ rotation, scale, glbFile, position, signalIdList, levelManager });
+      // this.loadButtons(glbFile, rotation, scale, position);
+      //load glbfile here
+    }
     super({ geometry, material, position, signalIdList, levelManager });
 
     this.originalColor = new THREE.Color(0xff6347); // 保存原始颜色
@@ -68,4 +76,23 @@ export default class Button extends TriggerObject {
   getGrayscale(color) {
     return 0.3 * color.r + 0.59 * color.g + 0.11 * color.b;
   }
+
+  async loadButtons(glbFile, rotation, scale, position) {
+
+      try {
+        const gltf = await loader.loadAsync(glbFile); // 使用 loadAsync 异步加载 GLB 模型
+        const button = gltf.scene;
+        
+        // 设置模型位置、缩放、旋转
+        button.position.set(position.x, position.y, position.z);
+        button.scale.set(scale.x, scale.y, scale.z);
+        button.rotation.set(rotation.x, rotation.y, rotation.z);
+
+        
+        console.log(`Loaded model: button from ${path}`);
+      } catch (error) {
+        console.error(`Failed to load model from ${path}:`, error);
+      }
+  }
+
 }

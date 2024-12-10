@@ -38,6 +38,11 @@ export default class LevelManager {
     // 移动相机
     this.sceneManager.shiftCamera(levelData.cameraShift);
 
+    // 加载场景中的 3D 模型
+    if (levelData.models) {
+      await this.loadModels(levelData.models, scene, updatables);
+    }
+
     levelData.platforms.forEach((platformData) => {
       const platform = new Platform(platformData);
       scene.add(platform.mesh);
@@ -105,6 +110,34 @@ export default class LevelManager {
     this.addListener();
 
   }
+
+  async loadModels(models, scene, updatables) {
+    const loader = new THREE.GLTFLoader();
+
+    for (const modelData of models) {
+      const { id, path, position, scale, rotation } = modelData;
+
+      try {
+        const gltf = await loader.loadAsync(path); // 使用 loadAsync 异步加载 GLB 模型
+        const model = gltf.scene;
+        
+        // 设置模型位置、缩放、旋转
+        model.position.set(position.x, position.y, position.z);
+        model.scale.set(scale.x, scale.y, scale.z);
+        model.rotation.set(rotation.x, rotation.y, rotation.z);
+
+        // 添加到场景
+        scene.add(model);
+        updatables.push(model); // 如果需要在 tick 中更新模型状态，可以将模型加入 updatables
+
+        console.log(`Loaded model: ${id} from ${path}`);
+      } catch (error) {
+        console.error(`Failed to load model from ${path}:`, error);
+      }
+    }
+  }
+
+
 
   addListener() {
     // 操作角色移动
