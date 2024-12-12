@@ -1,89 +1,322 @@
 {
+  "backgroundColor" : "0xbae3b7",
+  "cameraShift": {"dx": -4, "dy": 0},
   "platforms": [
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": -8, "y": 0, "z": 20 }
+      "position": { "x": -8, "y": 0, "z": 20 },
+      "color": "0xff2520"
+    },
+    {
+      "width": 2,
+      "height": 100,
+      "depth": 2,
+      "position": { "x": -8, "y": -49, "z": 20 },
+      "color": "0xff2520"
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
       "position": { "x": -8, "y": 0, "z": 18 },
-      "signalIdList": [1]
+      "signalIdList": [1],
+      "color": "0xef1510"
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
       "position": { "x": -8, "y": 0, "z": 16 },
-      "signalIdList": [1]
+      "signalIdList": [1],
+      "color": "0xef1510"
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
       "position": { "x": -8, "y": 0, "z": 14 },
-      "signalIdList": [1]
+      "signalIdList": [1],
+      "color": "0xef1510"
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
       "position": { "x": -8, "y": 0, "z": 12 },
-      "signalIdList": [1]
+      "signalIdList": [1],
+      "color": "0xef1510"
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
       "position": { "x": -8, "y": 0, "z": 10 },
-      "signalIdList": [1]
+      "signalIdList": [1],
+      "color": "0xef1510"
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
       "position": { "x": -8, "y": 0, "z": 8 },
-      "signalIdList": [1]
+      "signalIdList": [1],
+      "color": "0xef1510"
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
       "position": { "x": -8, "y": 0, "z": 6 },
-      "signalIdList": [1]
+      "signalIdList": [1],
+      "color": "0xef1510"
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": -8, "y": 0, "z": 4 }
+      "position": { "x": -8, "y": 0, "z": 4 },
+      "color": "0xff2520",
+      "comment": "主角对侧关键点"
+    },
+    {
+      "width": 2,
+      "height": 100,
+      "depth": 2,
+      "position": { "x": -8, "y": -49, "z": 4 },
+      "color": "0xff2520"
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": -16, "y": 0, "z": 12 }
+      "position": { "x": -16, "y": 0, "z": 12 },
+      "color": "0xff2520"
+    },
+    {
+      "width": 2,
+      "height": 100,
+      "depth": 2,
+      "position": { "x": -16, "y": -49, "z": 12 },
+      "color": "0xff2520"
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": -18, "y": 0, "z": 12 }
+      "position": { "x": -18, "y": 0, "z": 12 },
+      "color": "0xff2520"
+    },
+    {
+      "width": 2,
+      "height": 100,
+      "depth": 2,
+      "position": { "x": -18, "y": -49, "z": 12 },
+      "color": "0xff2520"
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 0, "y": 0, "z": 12 }
+      "position": { "x": 0, "y": 0, "z": 12 },
+      "color": "0xff2520"
+    },
+    {
+      "width": 2,
+      "height": 100,
+      "depth": 2,
+      "position": { "x": 0, "y": -49, "z": 12 },
+      "color": "0xff2520"
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 2, "y": 0, "z": 12 }
+      "position": { "x": 2, "y": 0, "z": 12 },
+      "color": "0xff2520"
+    },
+    {
+      "width": 2,
+      "height": 100,
+      "depth": 2,
+      "position": { "x": 2, "y": -49, "z": 12 },
+      "color": "0xff2520"
+    },
+    {
+      "width": 2,
+      "height": 10,
+      "depth": 2,
+      "position": { "x": 4, "y": 4, "z": 12 },
+      "color": "0xff2520",
+      "comment": "右侧立柱"
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 4, "y": 8, "z": 10 },
+      "color": "0xff2520"
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 6, "y": 8, "z": 10 },
+      "color": "0xff2520"
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 8, "y": 8, "z": 10 },
+      "color": "0xff2520"
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 4, "y": 8, "z": 8 },
+      "color": "0xff2520"
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 8, "y": 10, "z": 10 },
+      "color": "0xff2520"
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 4, "y": 8, "z": 10 },
+      "color": "0xff2520",
+      "comment": "天桥开始",
+      "signalIdList": [201]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 4, "y": 8, "z": 10 },
+      "color": "0xff2520",
+      "signalIdList": [202]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 12, "y": 0, "z": 2 },
+      "color": "0xff2520",
+      "signalIdList": [204]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 12, "y": 0, "z": 2 },
+      "color": "0xff2520",
+      "signalIdList": [205]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 12, "y": 0, "z": 2 },
+      "color": "0xff2520",
+      "signalIdList": [206]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 12, "y": 0, "z": 2 },
+      "color": "0xff2520",
+      "signalIdList": [207]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 12, "y": 0, "z": 2 },
+      "color": "0xff2520",
+      "signalIdList": [208]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 12, "y": 0, "z": 2 },
+      "color": "0xff2520",
+      "signalIdList": [209]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x":12, "y": 0, "z": 2 },
+      "color": "0xff2520",
+      "signalIdList": [210]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": -2, "y": 0, "z": -80 },
+      "color": "0xff2520",
+      "signalIdList": [222],
+      "comment": "与高塔的相邻点"
+    },
+    {
+      "width": 2,
+      "height": 20,
+      "depth": 2,
+      "position": { "x": -2, "y": -1, "z": -82 },
+      "color": "0xff2520",
+      "signalIdList": [3, 222]
+    },
+    {
+      "width": 2,
+      "height": 28,
+      "depth": 2,
+      "position": { "x": -2, "y": 3, "z": -84 },
+      "signalIdList": [222],
+      "color": "0xff2520"
+    },
+    {
+      "width": 2,
+      "height": 28,
+      "depth": 2,
+      "position": { "x": -2, "y": 3, "z": -86 },
+      "signalIdList": [222],
+      "color": "0xff2520"
+    },
+    {
+      "width": 4,
+      "height": 2,
+      "depth": 4,
+      "position": { "x": -2, "y": 16, "z": -89 },
+      "signalIdList": [222],
+      "color": "0xff2520"
+    }
+  ],
+  "surfaces": [
+    {
+      "width": 2,
+      "height": 2,
+      "color": "0xff2520",
+      "position": { "x": 4, "y": 9, "z": 10 },
+      "normal": "y",
+      "signalIdList": [203]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "color": "0xff2520",
+      "position": { "x": 4, "y": 8, "z": 11 },
+      "normal": "z",
+      "signalIdList": [203]
     }
   ],
   "quads": [
@@ -172,26 +405,298 @@
       "height": 2,
       "normal": "y",
       "position": { "x": 2, "y": 1, "z": 12 }
-    }
-
-  ],
-  "buttons": [
+    },
     {
       "width": 2,
       "height": 2,
-      "depth": 2,
-      "position": { "x": -8, "y": -2, "z": 12 },
+      "normal": "y",
+      "position": { "x": 4, "y": 9, "z": 12 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 4, "y": 9, "z": 10 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 4, "y": 9, "z": 8 }
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 8, "y": 11, "z": 10 },
+      "plate": {
+        "width": 1,
+        "height": 0.5,
+        "depth": 1,
+        "position": { "x": 8, "y": 11, "z": 10 },
+        "signals": [
+          {
+            "id": 222,
+            "type": "translation",
+            "translateSpeed": 12,
+            "translationVectorList": [
+              { "x": 0, "y": 0, "z": 80 }
+            ]
+          },
+          {
+            "id": 201,
+            "type": "translation",
+            "translationVectorList": [
+              { "x": -2, "y": 0, "z": 0 }
+            ]
+          },
+          {
+            "id": 202,
+            "type": "translation",
+            "translationVectorList": [
+              { "x": -4, "y": 0, "z": 0 }
+            ]
+          },
+          {
+            "id": 203,
+            "type": "translation",
+            "translationVectorList": [
+              { "x": -6, "y": 0, "z": 0 }
+            ]
+          },
+          {
+            "id": 204,
+            "type": "translation",
+            "translationVectorList": [
+              { "x": -8, "y": 0, "z": 0 }
+            ]
+          },
+          {
+            "id": 205,
+            "type": "translation",
+            "translationVectorList": [
+              { "x": -10, "y": 0, "z": 0 }
+            ]
+          },
+          {
+            "id": 206,
+            "type": "translation",
+            "translationVectorList": [
+              { "x": -12, "y": 0, "z": 0 }
+            ]
+          },
+          {
+            "id": 207,
+            "type": "translation",
+            "translationVectorList": [
+              { "x": -14, "y": 0, "z": 0 }
+            ]
+          },
+          {
+            "id": 208,
+            "type": "translation",
+            "translationVectorList": [
+              { "x": -16, "y": 0, "z": 0 }
+            ]
+          },
+          {
+            "id": 209,
+            "type": "translation",
+            "translationVectorList": [
+              { "x": -18, "y": 0, "z": 0 }
+            ]
+          },
+          {
+            "id": 210,
+            "type": "translation",
+            "translationVectorList": [
+              { "x": -20, "y": 0, "z": 0 }
+            ]
+          }
+        ] ,
+        "comment": "控制右下部分缓缓升起的压力板"
+      }
+    },
+    { "width": 2.828427125, 
+      "height": 2, 
+      "initialQuaternion": { "x": 0.6532814824381882, "y": 0.27059805007309845, 
+                              "z": 0.2705980500730985, "w": 0.6532814824381883 },
+      "position": { "x": 6, "y": 10, "z": 10 } 
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 4, "y": 9, "z": 10 },
+      "signalIdList": [201]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 4, "y": 9, "z": 10 },
+      "signalIdList": [202]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 4, "y": 9, "z": 10 },
+      "signalIdList": [203]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 4, "y": 9, "z": 10 },
+      "signalIdList": [204]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 12, "y": 1, "z": 2 },
+      "signalIdList": [205]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 12, "y": 1, "z": 2 },
+      "signalIdList": [206]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 12, "y": 1, "z": 2 },
+      "signalIdList": [207]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 12, "y": 1, "z": 2 },
+      "signalIdList": [208]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 12, "y": 1, "z": 2 },
+      "signalIdList": [209]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": 12, "y": 1, "z": 2 },
+      "signalIdList": [210]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -2, "y": 1, "z": -80 },
+      "signalIdList": [222]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -2, "y": 9, "z": -82 },
+      "signalIdList": [3, 222]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -2, "y": 17, "z": -84 },
+      "signalIdList": [222]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "normal": "y",
+      "position": { "x": -2, "y": 17, "z": -86 },
+      "signalIdList": [222]
+    },
+    {
+      "width": 4,
+      "height": 4,
+      "normal": "y",
+      "position": { "x": -2, "y": 17, "z": -89 },
+      "plate": {
+        "width": 2,
+        "height": 0.5,
+        "depth": 2,
+        "position": { "x": -2, "y": 17, "z": -89 },
+        "signals": [
+          {
+            "id": -1
+          }
+        ],
+        "signalIdList": [222]
+      },
+      "signalIdList": [222]
+    }
+  ],
+  "buttons": [
+    {
+      "glbFile": "assets/button1.glb",
+      "scale": { "x": 2, "y": 2, "z": 2 },
+      "rotation": { "x": 0, "y": 0, "z": 3.1415926535897932 },
+      "position": { "x": -8, "y": -1.3, "z": 12 },
       "signals": [
         {
           "id": 1,
           "type": "rotation",
           "axis": { "x": 0, "y": 1, "z": 0 },
           "angle": 90,
-          "pivot": { "x": -8, "y": -2, "z": 12 }
+          "pivot": { "x": -8, "y": -3, "z": 12 }
         }
       ] ,
       "standStop": true,
       "signalIdList": [1]
+    },
+    {
+      "glbFile": "assets/button1.glb",
+      "scale": { "x": 2, "y": 2, "z": 2 },
+      "rotation": { "x": -1.5707963267948966192313216916398, "y": 0, "z": 0 },
+      "position": { "x": -2, "y": 3, "z": -87 },
+      "signals": [
+        {
+          "id": 3,
+          "type": "translation",
+          "translationVectorList": [
+              { "x": 0, "y": 4, "z": 0 },
+              { "x": 0, "y": 4, "z": 0 },
+              { "x": 0, "y": -4, "z": 0 },
+              { "x": 0, "y": -4, "z": 0 }
+            ]
+        },
+        {
+          "id": 31,
+          "type": "translation",
+          "translationVectorList": [
+              { "x": 0, "y": -4, "z": 0 },
+              { "x": 0, "y": -4, "z": 0 },
+              { "x": 0, "y": 4, "z": 0 },
+              { "x": 0, "y": 4, "z": 0 }
+            ]
+        }
+      ] ,
+      "signalIdList": [31, 222]
+    }
+  ],
+  "triangularprisms": [
+    {
+        "width": 2,
+        "height": 2,
+        "depth": 2,
+        "color": "0xff2520",
+        "position": { "x": 6, "y": 10, "z": 10 },
+        "initialQuaternion": { "x": 0.5, "y": 0.5, "z": 0.5, "w": -0.5 }
     }
   ]
 }

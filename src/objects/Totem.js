@@ -39,11 +39,14 @@ export default class Totem extends SignalResponsiveObject {
           this.mesh.traverse((child) => {
             if (child.isMesh) {
               child.geometry.translate(0, 0, 0);
+              // 模型太暗了，要加亮一点，注意不要让整个场景变量，只让totem变亮
+              child.material.color.multiplyScalar(1.5); // 提亮颜色（1.5倍强度）
             }
           });
           // 设为当前quad的位置
           this.mesh.position.copy(this.currentQuad.mesh.position);
           this.mesh.scale.set(0.112, 0.112, 0.1065);
+          
           resolve(this.mesh);
         },
         undefined,
@@ -87,12 +90,28 @@ export default class Totem extends SignalResponsiveObject {
   
     // 计算目标位置
     const targetPosition = this.currentQuad.position.clone().add(new THREE.Vector3(dx, dy, dz));
-  
-    // 检查目标位置是否存在 Quad，并比较法线方向
+
+    // 初始化投影坐标
+    const camera = this.sceneManager.camera;
+    const targetScreenPosition = targetPosition.clone().project(camera);
+    // 这里需要舍弃z坐标
+    targetScreenPosition.z = 0;
+    console.log("targetScreenPosition", targetScreenPosition);
+
+    // 查找目标 Quad，屏幕空间比较 + 法线比较
     const targetQuad = this.levelManager.quads.find((quad) => {
-      const positionClose = quad.position.distanceTo(targetPosition) < 0.01;
+      // 将 Quad 位置投影到屏幕空间
+      const quadScreenPosition = quad.position.clone().project(camera);
+      // 这里需要舍弃z坐标
+      quadScreenPosition.z = 0;
+
+      // 检查屏幕空间坐标是否接近（解决浮点误差）
+      const screenClose = quadScreenPosition.distanceTo(targetScreenPosition) < 0.01;
+
+      // 检查法线方向是否一致
       const normalMatch = quad.normal === this.currentQuad.normal;
-      return positionClose && normalMatch;
+
+      return screenClose && normalMatch;
     });
   
     if (targetQuad) {

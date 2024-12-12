@@ -47,7 +47,7 @@ export default class Character extends SignalResponsiveObject{
           this.mesh.position.set(0, 0, 0);
           this.mesh.scale.set(1, 1, 1);
           this.mesh.castShadow = true;
-          console.log(this.animations);
+          //console.log(this.animations);
           
   
           if (gltf.animations.length > 0) {
@@ -97,10 +97,12 @@ export default class Character extends SignalResponsiveObject{
         this.terminateMovement();
         return
       }
-      if (nextQuad.occupied || nextQuad === this.levelManager.totem.targetQuad
-        || nextQuad === this.levelManager.totem.currentQuad 
-        || this.currentQuad === this.levelManager.totem.currentQuad
-        || this.currentQuad === this.levelManager.totem.targetQuad) {
+      if ( this.levelManager.totem && 
+          (nextQuad.occupied 
+          || nextQuad === this.levelManager.totem.targetQuad
+          || nextQuad === this.levelManager.totem.currentQuad 
+          || this.currentQuad === this.levelManager.totem.currentQuad
+          || this.currentQuad === this.levelManager.totem.targetQuad)) {
         this.terminateMovement();
         return
       }

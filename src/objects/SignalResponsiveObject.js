@@ -80,7 +80,10 @@ export default class SignalResponsiveObject {
                     this.mesh.castShadow = true;
 
                     if (position) this.mesh.position.set(position.x, position.y, position.z);
-                    if (rotation) this.mesh.rotation.set(rotation.x, rotation.y, rotation.z);
+                    if (rotation) {
+                        this.mesh.rotation.set(rotation.x, rotation.y, rotation.z);
+                        this.initialQuaternion.setFromEuler(this.mesh.rotation);
+                    }
                     if (scale) this.mesh.scale.set(scale.x, scale.y, scale.z);
                     if (isHide) this.mesh.visible = false;
 

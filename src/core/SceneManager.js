@@ -31,10 +31,10 @@ export default class SceneManager {
   init() {
     this.scene.background = new THREE.Color(0x87ceeb); // 天蓝色背景
 
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+    const ambientLight = new THREE.AmbientLight(0xffffff, 1.8);
     this.scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2.2);
     directionalLight.position.set(-10, 15, -7);
     //directionalLight.castShadow = true;
     this.scene.add(directionalLight);
@@ -92,12 +92,10 @@ export default class SceneManager {
   }
 
   background(color) {
-    console.log(color);
     if (color) {
       color = parseInt(color, 16);
     }
     this.scene.background = new THREE.Color(color);
-    console.log(this.scene.background);
   }
 
 }

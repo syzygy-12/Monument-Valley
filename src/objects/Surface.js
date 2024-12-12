@@ -13,7 +13,7 @@ export default class Surface extends SignalResponsiveObject {
       roughness: roughness || 0.0,
       metalness: metalness || 0.0,
     });
-    console.log(color);
+    //console.log(color);
     // 调用父类构造函数
     super({ geometry, material, position, signalIdList });
 

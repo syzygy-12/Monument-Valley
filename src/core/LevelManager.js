@@ -155,7 +155,7 @@ export default class LevelManager {
         scene.add(model);
         updatables.push(model); // 如果需要在 tick 中更新模型状态，可以将模型加入 updatables
 
-        console.log(`Loaded model: ${id} from ${path}`);
+        //console.log(`Loaded model: ${id} from ${path}`);
       } catch (error) {
         console.error(`Failed to load model from ${path}:`, error);
       }
