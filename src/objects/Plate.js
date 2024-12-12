@@ -2,9 +2,12 @@ import TriggerObject from "./TriggerObject.js";
 import Signal from "./Signal.js";
 
 export default class Plate extends TriggerObject {
-  constructor({ width, height, depth, position, signals, signalIdList, levelManager }) {
+  constructor({ width, height, depth, position, signals, color, signalIdList, levelManager }) {
     const geometry = new THREE.BoxGeometry(width, height, depth);
-    const material = new THREE.MeshStandardMaterial({ color: 0x00ffff });
+    if (color) {
+      color = parseInt(color, 16);
+    }
+    const material = new THREE.MeshStandardMaterial({ color: color || 0x00ffff });
 
     super({ geometry, material, position, signalIdList, levelManager });
 

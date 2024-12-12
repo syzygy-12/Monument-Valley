@@ -36,9 +36,11 @@ export default class LevelManager {
     levelData.quads = levelData.quads || [];
     levelData.buttons = levelData.buttons || [];
     levelData.surfaces = levelData.surfaces || [];
+    levelData.backgroundColor = levelData.backgroundColor || 0x000000;
 
     // 移动相机
     this.sceneManager.shiftCamera(levelData.cameraShift);
+    this.sceneManager.background(levelData.backgroundColor);
 
     // 加载场景中的 3D 模型
     if (levelData.models) {

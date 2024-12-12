@@ -3,10 +3,10 @@ import Plate from "./Plate.js";
 import DoublePlate from "./DoublePlate.js";
 
 export default class Quad extends SignalResponsiveObject {
-  constructor({ width, height, position, normal, initialQuaternion, plate, doublePlate, signalIdList, levelManager }) {
+  constructor({ width, height, color, position, normal, initialQuaternion, plate, doublePlate, signalIdList, levelManager }) {
     const geometry = new THREE.PlaneGeometry(width, height);
     const material = new THREE.MeshStandardMaterial({
-      color: 0x00ff00,
+      color: color || 0x00ff00,
       opacity: 0.5,
       transparent: true,
       side: THREE.DoubleSide,

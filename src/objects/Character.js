@@ -30,7 +30,7 @@ export default class Character extends SignalResponsiveObject{
       const loader = new THREE.GLTFLoader();
       const basePath = window.location.pathname.replace(/\/[^/]*$/, '/');
       loader.load(
-        `${basePath}assets/Parrot.glb`,
+        `${basePath}assets/character1.glb`,
         (gltf) => {
           const model = gltf.scene.children[0];
           this.mesh = model;
@@ -38,14 +38,14 @@ export default class Character extends SignalResponsiveObject{
           //修改geometry的位置,y轴增加35单位
           this.mesh.traverse((child) => {
             if (child.isMesh) {
-              child.geometry.translate(0, 35, 0);
+              child.geometry.translate(0, 0, 0);
             }
           }
           );
           this.mesh.position.set(0, 0, 0);
-          this.mesh.scale.set(0.03, 0.03, 0.03);
+          this.mesh.scale.set(1, 1, 1);
           this.mesh.castShadow = true;
-          //console.log(this.animations);
+          console.log(this.animations);
           
   
           if (gltf.animations.length > 0) {
@@ -55,8 +55,8 @@ export default class Character extends SignalResponsiveObject{
             });
   
             // 播放默认动画
-            if (this.animations["parrot_A_"]) {
-              this.animations["parrot_A_"].play();
+            if (this.animations["Cylinder.002_Florida_0动作"]) {
+              this.animations["Cylinder.002_Florida_0动作"].play();
             }
           }
           resolve(this.mesh); // 加载完成时 resolve 模型
@@ -186,18 +186,18 @@ export default class Character extends SignalResponsiveObject{
 
         // 平滑调整朝向
         if (Math.abs(direction.y) < 0.99) { // 忽略接近 Y 轴方向的运动
-            const targetAngle = Math.atan2(direction.x, direction.z); // 目标朝向角度
-            const currentAngle = this.mesh.rotation.y;
-            const angleDifference = targetAngle - currentAngle;
-
-            // 确保角度差在 [-π, π] 范围内
-            const adjustedDifference = ((angleDifference + 3 * Math.PI) % (2 * Math.PI)) - Math.PI;
-
-            // 线性插值到目标角度
-            const turnSpeed = 8; // 控制转弯速度
-            this.mesh.rotation.y += adjustedDifference * Math.min(delta * turnSpeed, 1);
-        }
-    } 
+          const targetAngle = Math.atan2(direction.x, -direction.z); // 计算目标方向的角度（使用 x 和 z 作为输入）
+          const currentAngle = this.mesh.rotation.z; // 当前角色绕 Z 轴的旋转角度
+          let angleDifference = targetAngle - currentAngle;  // 计算目标角度和当前角度之间的差值
+      
+          // 确保角度差在 [-π, π] 范围内
+          angleDifference = (angleDifference + Math.PI) % (2 * Math.PI) - Math.PI;
+      
+          // 线性插值到目标角度
+          const turnSpeed = 8; // 控制转弯速度
+          this.mesh.rotation.z += angleDifference * Math.min(delta * turnSpeed, 1); // 绕 Z 轴旋转
+      }
+                } 
     else {
         this.handlePhaseCompletion(); // 当前阶段完成
     }

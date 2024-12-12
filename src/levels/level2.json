@@ -1,6 +1,15 @@
 {
   "cameraShift": { "dx": 0, "dy": 0 },
-  
+  "backgroundColor": "0x87CEEB",
+  "models": [
+    {
+      "id": "scene1",
+      "path": "assets/scene1.glb",
+      "position": { "x": -18, "y": -9, "z": 4 },
+      "scale": { "x":2, "y": 2, "z": 2 },
+      "rotation": { "x": 0, "y": -1.5707963267948966192313216916398, "z": 0 }
+    }
+  ],
   "platforms": [
     {
       "width": 2,
@@ -294,6 +303,68 @@
       "height": 2,
       "depth": 2,
       "position": { "x": 2, "y": 12, "z": -4 }
+    }
+  ],
+  "surfaces": [
+    {
+      "width": 0.2,
+      "height": 18,
+      "position": { "x": 2.8, "y": 10, "z": 7.1 },
+      "normal": "x"
+    },
+    {
+      "width": 0.2,
+      "height": 18,
+      "position": { "x": 2.9, "y": 10, "z": 7.2 },
+      "normal": "z"
+    },
+    {
+      "width": 0.2,
+      "height": 18,
+      "position": { "x": 2.8, "y": 10, "z": 8.9 },
+      "normal": "x"
+    },
+    {
+      "width": 0.2,
+      "height": 18,
+      "position": { "x": 2.9, "y": 10, "z": 9 },
+      "normal": "z"
+    },
+    {
+      "width": 0.2,
+      "height": 18,
+      "position": { "x": 1, "y": 10, "z": 7.1 },
+      "normal": "x"
+    },
+    {
+      "width": 0.2,
+      "height": 18,
+      "position": { "x": 1.1, "y": 10, "z": 7.2 },
+      "normal": "z"
+    },
+    {
+      "width": 0.2,
+      "height": 18,
+      "position": { "x": 1, "y": 10, "z": 8.9 },
+      "normal": "x"
+    },
+    {
+      "width": 0.2,
+      "height": 18,
+      "position": { "x": 1.1, "y": 10, "z": 9 },
+      "normal": "z"
+    },
+    {
+      "width": 0.2,
+      "height": 4,
+      "position": { "x": -11, "y": 15, "z": 19.1 },
+      "normal": "x"
+    },
+    {
+      "width": 0.2,
+      "height": 4,
+      "position": { "x": -10.9, "y": 15, "z": 19.2 },
+      "normal": "z"
     }
   ],
   "quads": [
@@ -657,10 +728,10 @@
   ],
   "buttons": [
     {
-      "glbFile": "assets/button.glb",
+      "glbFile": "assets/button2.glb",
       "scale": { "x": 2, "y": 2, "z": 2 },
       "rotation": { "x": 0, "y": 0, "z": 0 },
-      "position": { "x": -10, "y": 7, "z": 8 },
+      "position": { "x": -10, "y": 7.5, "z": 8 },
       "signals": [
         {
           "id": 1,

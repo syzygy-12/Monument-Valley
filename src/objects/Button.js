@@ -12,10 +12,11 @@ export default class Button extends TriggerObject {
     signals,
     signalIdList,
     standStop,
-    levelManager
+    levelManager, 
+    color
   }) {
     const geometry = new THREE.BoxGeometry(width || 2, height || 2, depth || 2);
-    const material = new THREE.MeshStandardMaterial({ color: 0xff6347 });
+    const material = new THREE.MeshStandardMaterial({ color: color || 0xff6347 });
 
     super({
       geometry,
@@ -25,10 +26,11 @@ export default class Button extends TriggerObject {
       rotation,
       scale,
       signalIdList,
-      levelManager
+      levelManager,
+      color
     });
 
-    this.originalColor = new THREE.Color(0xff6347);
+    this.originalColor = new THREE.Color(color || 0xff6347);
     this.addSignals(signals);
     this.active = true;
     this.standStop = standStop || false;

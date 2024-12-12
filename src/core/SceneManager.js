@@ -6,7 +6,7 @@ export default class SceneManager {
     this.scene = new THREE.Scene();
 
     const aspect = window.innerWidth / window.innerHeight;
-    const d = 30; // 正交相机范围
+    const d = 25; // 正交相机范围
     this.camera = new THREE.OrthographicCamera(-d * aspect, d * aspect, d, -d, 1, 1000);
     this.shiftVector = { dx: 0, dy: 0 };
 
@@ -34,7 +34,7 @@ export default class SceneManager {
     const ambientLight = new THREE.AmbientLight(0xffffff, 1);
     this.scene.add(ambientLight);
 
-    const directionalLight = new THREE.DirectionalLight(0xffffff, 3);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
     directionalLight.position.set(-10, 15, -7);
     directionalLight.castShadow = true;
     this.scene.add(directionalLight);
@@ -90,4 +90,14 @@ export default class SceneManager {
     };
     animate();
   }
+
+  background(color) {
+    console.log(color);
+    if (color) {
+      color = parseInt(color, 16);
+    }
+    this.scene.background = new THREE.Color(color);
+    console.log(this.scene.background);
+  }
+
 }

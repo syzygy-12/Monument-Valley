@@ -1,10 +1,13 @@
 import SignalResponsiveObject from "./SignalResponsiveObject.js";
 
 export default class TriangularPrism extends SignalResponsiveObject {
-  constructor({ width, height, depth, position, isHide, initialQuaternion, signalIdList }) {
+  constructor({ width, height, color, depth, position, isHide, initialQuaternion, signalIdList }) {
     // 创建三棱柱的几何体
     const geometry = TriangularPrism.createTriangularGeometry(width, height, depth);
-    const material = new THREE.MeshStandardMaterial({ color: 0x8b4513, flatShading: true }); // 棕色材质
+    if (color) {
+      color = parseInt(color, 16);
+    }
+    const material = new THREE.MeshStandardMaterial({ color: color || 0x8b4513, flatShading: true }); // 棕色材质
     super({ geometry, material, position, isHide, signalIdList });
 
     // 初始旋转四元数

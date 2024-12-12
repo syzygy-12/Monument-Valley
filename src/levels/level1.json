@@ -1,82 +1,97 @@
 {
   "cameraShift": { "dx": 0, "dy": -8 },
+  "backgroundColor": "0x333333",
+  "spotLight": { "color": "0xffffff", "position": { "x": 0, "y": -10, "z": -10 } },
   "platforms": [
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": -6, "y": 0, "z": 8 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": -6, "y": 0, "z": 6 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": -6, "y": 0, "z": 4 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": -6, "y": 0, "z": 2 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": -6, "y": 0, "z": 0 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": -6, "y": 0, "z": -2 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": -6, "y": 0, "z": -4 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": -6, "y": 0, "z": -6 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": -4, "y": 0, "z": -6 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": -2, "y": 0, "z": -6 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": 0, "y": 0, "z": -6 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": 8, "y": -8, "z": -6 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": 8, "y": -6, "z": -6 },
       "signalIdList": [1]
     },
@@ -84,6 +99,7 @@
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": 8, "y": -4, "z": -6 },
       "signalIdList": [1]
     },
@@ -91,6 +107,7 @@
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": 8, "y": -2, "z": -6 },
       "signalIdList": [1]
     },
@@ -98,6 +115,7 @@
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": 8, "y": 0, "z": -6 },
       "signalIdList": [1]
     },
@@ -105,6 +123,7 @@
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": 8, "y": 0, "z": -8 },
       "signalIdList": [1]
     },
@@ -112,6 +131,7 @@
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": 8, "y": 0, "z": -10 },
       "signalIdList": [1]
     },
@@ -119,6 +139,7 @@
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": 8, "y": 0, "z": -12 },
       "signalIdList": [1]
     },
@@ -126,60 +147,70 @@
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": 8, "y": 0, "z": -14 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": 8, "y": 0, "z": -16 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": 8, "y": 0, "z": -18 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": 8, "y": 0, "z": -20 }
     },
     {
       "width": 2,
       "height": 2,
       "depth": 2,
+      "color": "0x808080",
       "position": { "x": 18, "y": 8, "z": -20 }
     },
     {
       "width": 4,
       "height": 2,
       "depth": 4,
+      "color": "0x808080",
       "position": { "x": 21, "y": 8, "z": -20 }
     },
     {
       "width": 0.2,
       "height": 4,
       "depth": 0.2,
+      "color": "0x808080",
       "position": { "x": 7.1, "y": -3, "z": -20.9 }
     },
     {
       "width": 0.2,
       "height": 4,
       "depth": 0.2,
+      "color": "0x808080",
       "position": { "x": 7.1, "y": -3, "z": -19.1 }
     },
     {
       "width": 0.2,
       "height": 4,
       "depth": 0.2,
+      "color": "0x808080",
       "position": { "x": 8.9, "y": -3, "z": -20.9 }
     },
     {
       "width": 0.2,
       "height": 4,
       "depth": 0.2,
+      "color": "0x808080",
       "position": { "x": 8.9, "y": -3, "z": -19.1 }
     }
   ],
@@ -187,60 +218,70 @@
     {
       "width": 2,
       "height": 6,
+      "color": "0x808080",
       "position": { "x": -7, "y": 2, "z": 8 },
       "normal": "x"
     }, 
     {
       "width": 2,
       "height": 6,
+      "color": "0x808080",
       "position": { "x": -6, "y": 2, "z": 9 },
       "normal": "z"
     },
     {
       "width": 0.2,
       "height": 8,
+      "color": "0x808080",
       "position": { "x": -7, "y": 5, "z": -6.9 },
       "normal": "x"
     },
     {
       "width": 0.2,
       "height": 8,
+      "color": "0x808080",
       "position": { "x": -6.9, "y": 5, "z": -6.8 },
       "normal": "z"
     },
     {
       "width": 0.2,
       "height": 8,
+      "color": "0x808080",
       "position": { "x": -7, "y": 5, "z": -5.1 },
       "normal": "x"
     },
     {
       "width": 0.2,
       "height": 8,
+      "color": "0x808080",
       "position": { "x": -6.9, "y": 5, "z": -5 },
       "normal": "z"
     },
     {
       "width": 0.2,
       "height": 8,
+      "color": "0x808080",
       "position": { "x": -5.2, "y": 5, "z": -6.9 },
       "normal": "x"
     },
     {
       "width": 0.2,
       "height": 8,
+      "color": "0x808080",
       "position": { "x": -5.1, "y": 5, "z": -6.8 },
       "normal": "z"
     },
     {
       "width": 0.2,
       "height": 8,
+      "color": "0x808080",
       "position": { "x": -5.2, "y": 5, "z": -5.1 },
       "normal": "x"
     },
     {
       "width": 0.2,
       "height": 8,
+      "color": "0x808080",
       "position": { "x": -5.1, "y": 5, "z": -5 },
       "normal": "z"
     }
@@ -270,9 +311,10 @@
     { "width": 2, "height": 2, "normal": "y", "position": { "x": 18, "y": 9, "z": -20 } },
     { "width": 4, "height": 4, "normal": "y", "position": { "x": 21, "y": 9, "z": -20 },
       "plate": {
-        "width": 3,
+        "width": 2,
         "height": 0.5,
-        "depth": 3,
+        "depth": 2,
+        "color": "0x202020",
         "position": { "x": 21, "y": 9, "z": -20 },
         "signals": [
           {
@@ -304,10 +346,10 @@
   ],
   "buttons": [
     {
-      "width": 2,
-      "height": 2,
-      "depth": 2,
-      "position": { "x": 8, "y": 0, "z": -2 },
+      "glbFile": "assets/button1.glb",
+      "scale": { "x": 2, "y": 2, "z": 2 },
+      "rotation": { "x": 0, "y": -1.5707963267948966192313216916398, "z": -1.5707963267948966192313216916398 },
+      "position": { "x": 6, "y": 2, "z": -2 },
       "signals": [
         {
           "id": 1,
@@ -325,6 +367,7 @@
         "width": 2,
         "height": 8,
         "depth": 8,
+        "color": "0x808080",
         "position": { "x": 13, "y": 5, "z": -20 },
         "initialQuaternion": { "x": 0.5, "y": 0.5, "z": 0.5, "w": -0.5 }
     }
