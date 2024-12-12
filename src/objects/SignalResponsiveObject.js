@@ -165,8 +165,10 @@ export default class SignalResponsiveObject {
 
       if (moveDistance < distance) {
           this.mesh.position.addScaledVector(direction.normalize(), moveDistance);
+          this.position.copy(this.mesh.position);
       } else {
           this.mesh.position.copy(this.translateTarget);
+          this.position.copy(this.translateTarget);
           this.finishAnimation();
       }
   }

@@ -2,12 +2,13 @@ import SignalResponsiveObject from "./SignalResponsiveObject.js";
 
 // 注意:角色的SignalResponse是错误的，需要修改
 export default class Character extends SignalResponsiveObject{
-  constructor(sceneManager, signalIdList) {
+  constructor(sceneManager, levelManager, signalIdList) {
 
     // TODO: 增加角色响应signal的功能
     super({ signalIdList });
 
     this.sceneManager = sceneManager;
+    this.levelManager = levelManager;
     this.mesh = null; // 3D 模型
     this.speed = 6; // 移动速度，单位：单位/秒
     this.mixer = null; // 动画混合器，用于控制动画
@@ -19,6 +20,7 @@ export default class Character extends SignalResponsiveObject{
     this.targetPosition = new THREE.Vector3(); // 目标位置
     this.currentKeypoint = null; // 当前 Quad 的关键点
     this.targetKeypoint = null; // 下一个 Quad 的关键点
+    this.targetQuad = null; // 目标 Quad
 
     this.movementPhase = null; // 移动阶段: TO_KEYPOINT, TELEPORT, TO_CENTER
     
@@ -74,6 +76,7 @@ export default class Character extends SignalResponsiveObject{
     this.currentQuad = quad;
     this.mesh.position.copy(quad.getCenter());
     this.targetPosition.copy(quad.getCenter());
+    this.targetQuad = quad;
     this.currentQuad.toggleCharacterOn();
   }
 
@@ -94,6 +97,14 @@ export default class Character extends SignalResponsiveObject{
         this.terminateMovement();
         return
       }
+      if (nextQuad.occupied || nextQuad === this.levelManager.totem.targetQuad
+        || nextQuad === this.levelManager.totem.currentQuad 
+        || this.currentQuad === this.levelManager.totem.currentQuad
+        || this.currentQuad === this.levelManager.totem.targetQuad) {
+        this.terminateMovement();
+        return
+      }
+      this.targetQuad = nextQuad;
       const { currentKeypoint, targetKeypoint } = tuple;
       this.currentKeypoint = currentKeypoint;
       this.targetKeypoint = targetKeypoint;
@@ -103,6 +114,7 @@ export default class Character extends SignalResponsiveObject{
       this.movementPhase = "TO_KEYPOINT";
     } else {
       this.targetPosition = this.mesh.position.clone();
+      this.targetQuad = this.currentQuad;
       this.movementPhase = null; // 停止移动
     }
   }
@@ -149,6 +161,7 @@ export default class Character extends SignalResponsiveObject{
     this.keypoint = null;
     this.targetKeypoint = null;
     this.targetPosition.copy(this.currentQuad.getCenter());
+    this.targetQuad = this.currentQuad;
   }
 
   // 每帧更新位置的 tick 方法
@@ -208,6 +221,7 @@ export default class Character extends SignalResponsiveObject{
       // 瞬移到目标 Quad 的 keypoint
       this.mesh.position.copy(this.targetKeypoint);
       this.targetPosition.copy(this.path[0].getCenter());
+      this.targetQuad = this.path[0];
       this.movementPhase = "TO_CENTER";
     } else if (this.movementPhase === "TO_CENTER") {
       // 移动到目标 Quad 的中心

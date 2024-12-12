@@ -13,8 +13,8 @@ export default class SceneManager {
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     this.renderer.outputEncoding = THREE.sRGBEncoding;
     this.renderer.physicallyCorrectLights = true;
-    this.renderer.shadowMap.enabled = true;
-    this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    //this.renderer.shadowMap.enabled = true;
+    //this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.setClearColor(0x000000, 0); // 背景透明
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
@@ -36,7 +36,7 @@ export default class SceneManager {
 
     const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
     directionalLight.position.set(-10, 15, -7);
-    directionalLight.castShadow = true;
+    //directionalLight.castShadow = true;
     this.scene.add(directionalLight);
 
     this.camera.position.set(-30, 30, 30);

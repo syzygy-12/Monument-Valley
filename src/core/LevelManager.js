@@ -4,6 +4,7 @@ import Character from "../objects/Character.js";
 import TriangularPrism from "../objects/TriangularPrism.js";
 import Button from "../objects/Button.js";
 import Surface from "../objects/Surface.js";
+import Totem from "../objects/Totem.js";
 
 import { loadButtons } from "../utils/LoadButtons.js";
 
@@ -121,7 +122,7 @@ export default class LevelManager {
 
     // 初始化角色
     (async () => {
-      const character = new Character(this.sceneManager);
+      const character = new Character(this.sceneManager, this);
       await character.loadModel();
       character.setInitialQuad(this.quads[0]);
       this.character = character;
@@ -243,7 +244,18 @@ export default class LevelManager {
     });
   }
   
-  
+  addTotem(quad) {
+    
+    const { scene, updatables } = this.sceneManager;
+    // 初始化角色
+    (async () => {
+      const totem = new Totem(quad, this.sceneManager, this, quad.signalIdList);
+      await totem.loadModel();
+      this.totem = totem;
+      scene.add(totem.mesh);
+      updatables.push(totem);
+    })();
+  }
 
   // 设置信号
   setSignals(signals) {
@@ -328,6 +340,11 @@ export default class LevelManager {
     if (this.animatingObjects.length > 0) {
       this.animatingObjects = this.animatingObjects.filter((obj) => obj.isAnimating);
       if (this.animatingObjects.length === 0) {
+
+        if (this.totem) {
+          this.totem.mesh.position.copy(this.totem.currentQuad.getCenter());
+          this.totem.updateHeadPosition();
+        }
         // 所有动画完成后重新生成连通图
         //console.log("rebuild graph");
         this.buildGraph();

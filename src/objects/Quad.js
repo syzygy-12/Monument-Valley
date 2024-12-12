@@ -3,7 +3,7 @@ import Plate from "./Plate.js";
 import DoublePlate from "./DoublePlate.js";
 
 export default class Quad extends SignalResponsiveObject {
-  constructor({ width, height, color, position, normal, initialQuaternion, plate, doublePlate, signalIdList, levelManager }) {
+  constructor({ width, height, color, position, normal, initialQuaternion, plate, doublePlate, totem, signalIdList, levelManager }) {
     const geometry = new THREE.PlaneGeometry(width, height);
     const material = new THREE.MeshStandardMaterial({
       color: color || 0x00ff00,
@@ -13,15 +13,18 @@ export default class Quad extends SignalResponsiveObject {
     });
 
     super({ geometry, material, position, signalIdList });
-    this.mesh.visible = false;
+    this.mesh.visible = true;
     this.mesh.receiveShadow = true;
     this.mesh.position.x += 1e-3;
     this.mesh.position.y += 1e-3;
     this.mesh.position.z += 1e-3;
 
+    this.levelManager = levelManager;
+    this.occupied = false; // 是否被占据
 
     // 旋转平面到水平位置，注意四元数的更新
     if (normal) {
+      this.normal = normal;
       const quaternion = new THREE.Quaternion();
       if (normal === "x") {
         quaternion.setFromAxisAngle(new THREE.Vector3(0, 1, 0), Math.PI / 2);
@@ -46,15 +49,37 @@ export default class Quad extends SignalResponsiveObject {
     if (doublePlate) {
       this.doublePlate = new DoublePlate({...doublePlate, levelManager});
     }
+    
+
 
     // 计算四个关键点
     this.width = width;
     this.height = height;
     this.keyPoints = this.calculateKeyPoints();
+
+    if (totem) {
+      this.levelManager.addTotem(this);
+    }
   }
 
   getCenter() {
     return this.mesh.position.clone();
+  }
+
+  clone() {
+    const quad = new Quad({
+      width: this.width,
+      height: this.height,
+      position: this.mesh.position.clone(),
+      normal: this.normal,
+      initialQuaternion: this.initialQuaternion,
+      plate: this.plate,
+      doublePlate: this.doublePlate,
+      totem: this.totem,
+      signalIdList: this.signalIdList,
+      levelManager: this.levelManager,
+    });
+    return quad;
   }
 
   // 计算四个关键点
@@ -99,6 +124,7 @@ export default class Quad extends SignalResponsiveObject {
   }
 
   toggleCharacterOn() {
+    this.occupied = !this.occupied;
     if (this.doublePlate) {
       this.doublePlate.toggleCharacterOn();
     }
