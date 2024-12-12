@@ -10,4 +10,3 @@ function QuaternionSolver() {
 
 // 启动游戏
 const game = new Game();
-game.start();
