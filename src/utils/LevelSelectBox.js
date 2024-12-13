@@ -49,7 +49,7 @@ function init() {
     
 
     const loader = new THREE.GLTFLoader();
-    loader.load('../assets/level_select.glb', (gltf) => {
+    loader.load('./assets/level_select.glb', (gltf) => {
         model = gltf.scene;
         const group = new THREE.Group();
 

@@ -34,7 +34,6 @@ export default class Game {
   }
 
   showLevelSelect() {
-    console.log("showLevelSelect");
     if (this.currentScreen !== "start") return;
     this.currentScreen = "levelSelect";
 
