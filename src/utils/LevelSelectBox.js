@@ -31,7 +31,7 @@ function init() {
     const texture = textureLoader.load(
         '../assets/castle.png', 
         () => {
-          console.log('Texture loaded successfully!');
+          //console.log('Texture loaded successfully!');
         },
         undefined, // 加载进度回调（如果需要的话）
         (error) => {
@@ -275,14 +275,12 @@ function onMouseClick(event) {
 }
 
 function levelReady(level) {
-    //console.log('Level ' + level + ' is ready!');
     const event = new CustomEvent("levelReadyEvent", { detail: { level: level } });
     window.dispatchEvent(event);
 }
 
 function listenForExternalDestroyLevelSelectBox() {
     window.addEventListener("destroyLevelSelectBox", (event) => {
-        //console.log("Received signal to destroy LevelSelectBox");
         isAbort = true;
     });
   }
@@ -312,8 +310,6 @@ function animate() {
         if (faceIndex > maxLevel) {
             targetRotationY = -(maxLevel - 1) * Math.PI / 2;
         }
-        //console.log(faceIndex);
-        //console.log(faces);
         let currentIndex = (faceIndex + 3) % 4;
         changeNumberedFace(faceIndex, faces[currentIndex]);
         changeNumberedFace(faceIndex + 1, faces[(currentIndex + 1) % 4]);

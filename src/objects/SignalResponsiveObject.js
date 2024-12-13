@@ -26,9 +26,9 @@ export default class SignalResponsiveObject {
         this.angleDelta = 0;
         this.currentAngle = 0;
         this.targetAngle = 0;
+        this.rotateSpeed = Math.PI / 2;
         this.targetQuaternion = new THREE.Quaternion();
         this.translateTarget = new THREE.Vector3();
-        this.animationSpeed = Math.PI;
         this.translateSpeed = 6;
         this.isAnimating = false;
         this.animationType = null;
@@ -162,53 +162,72 @@ export default class SignalResponsiveObject {
   }
 
   tickTranslation(delta) {
-      const direction = new THREE.Vector3().subVectors(this.translateTarget, this.mesh.position);
-      const distance = direction.length();
-      const moveDistance = delta * this.translateSpeed;
-
-      if (moveDistance < distance) {
-          this.mesh.position.addScaledVector(direction.normalize(), moveDistance);
-          this.position.copy(this.mesh.position);
-      } else {
+    // 判断是否已有补间动画，避免重复启动
+    if (!this.translationTween) {
+      const startPosition = this.mesh.position.clone();
+      const targetPosition = this.translateTarget.clone();
+      const animatingTime = Math.abs(startPosition.distanceTo(targetPosition) / this.translateSpeed) * 1000; // 1000ms = 1s
+  
+      // 使用 TWEEN 创建补间动画
+      this.translationTween = new TWEEN.Tween(startPosition)
+        .to(targetPosition, animatingTime) // 1000ms 平滑过渡到目标位置
+        .easing(TWEEN.Easing.Quadratic.InOut) // 平滑缓动函数
+        .onUpdate(() => {
+          this.mesh.position.copy(startPosition); // 更新位置
+          this.position.copy(startPosition);
+        })
+        .onComplete(() => {
           this.mesh.position.copy(this.translateTarget);
           this.position.copy(this.translateTarget);
           this.finishAnimation();
-      }
+          this.translationTween = null; // 动画完成后清理
+        });
+  
+      this.translationTween.start();
+    }
+  
+    // 在主循环中调用 TWEEN.update()，确保动画执行
+    TWEEN.update();
   }
+  
 
   tickRotation(delta) {
-      this.angleDelta = this.animationSpeed * delta;
-      const remainingAngle = this.targetAngle - this.currentAngle;
-      const angleThreshold = Math.PI / 180;
-
-      if (remainingAngle <= angleThreshold) {
-          this.angleDelta = remainingAngle;
+    if (!this.rotationTween) {
+      // 起始角度和目标角度
+      const startAngle = this.currentAngle;
+      const endAngle = this.targetAngle;
+      const animatingTime = Math.abs(endAngle - startAngle) / this.rotateSpeed * 1000; // 1000ms = 1s
+  
+      // TWEEN 补间动画
+      this.rotationTween = new TWEEN.Tween({ angle: startAngle })
+        .to({ angle: endAngle }, animatingTime) 
+        .easing(TWEEN.Easing.Quadratic.InOut) // 平滑缓动函数
+        .onUpdate((obj) => {
+          const deltaAngle = obj.angle - this.currentAngle; // 计算角度增量
+          this.currentAngle = obj.angle; // 更新当前角度
+  
+          // 更新旋转和位置
+          const quaternion = new THREE.Quaternion().setFromAxisAngle(this.axis, deltaAngle);
+          this.startPositionOffset.applyQuaternion(quaternion);
+          const newPosition = new THREE.Vector3().addVectors(this.pivot, this.startPositionOffset);
+  
+          this.mesh.position.copy(newPosition);
+          this.mesh.quaternion.premultiply(quaternion);
+          this.position.copy(this.mesh.position);
+        })
+        .onComplete(() => {
           this.currentAngle = this.targetAngle;
-
-          this.startPositionOffset.applyQuaternion(
-              new THREE.Quaternion().setFromAxisAngle(this.axis, remainingAngle)
-          );
-          const finalPosition = new THREE.Vector3().addVectors(this.pivot, this.startPositionOffset);
-
-          this.mesh.position.copy(finalPosition);
-          this.mesh.quaternion.copy(this.initialQuaternion);
-          this.mesh.quaternion.premultiply(this.targetQuaternion);
-          this.initialQuaternion.premultiply(this.targetQuaternion);
-          this.position.copy(finalPosition);
-
           this.finishAnimation();
-          return;
-      }
-
-      this.currentAngle += this.angleDelta;
-      const quaternion = new THREE.Quaternion().setFromAxisAngle(this.axis, this.angleDelta);
-      this.startPositionOffset.applyQuaternion(quaternion);
-      const newPosition = new THREE.Vector3().addVectors(this.pivot, this.startPositionOffset);
-
-      this.mesh.position.copy(newPosition);
-      this.mesh.quaternion.premultiply(quaternion);
-      this.position.copy(this.mesh.position);
+          this.rotationTween = null; // 清理状态
+        });
+  
+      this.rotationTween.start();
+    }
+  
+    // 更新 TWEEN 状态
+    TWEEN.update();
   }
+  
 
   finishAnimation() {
       this.isAnimating = false;

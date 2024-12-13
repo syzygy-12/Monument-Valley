@@ -209,6 +209,14 @@
       "depth": 2,
       "position": { "x": 12, "y": 0, "z": 2 },
       "color": "0xff2520",
+      "signalIdList": [203]
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 12, "y": 0, "z": 2 },
+      "color": "0xff2520",
       "signalIdList": [204]
     },
     {

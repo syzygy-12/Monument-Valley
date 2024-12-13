@@ -349,7 +349,7 @@
       "glbFile": "assets/button1.glb",
       "scale": { "x": 2, "y": 2, "z": 2 },
       "rotation": { "x": 0, "y": -1.5707963267948966192313216916398, "z": -1.5707963267948966192313216916398 },
-      "position": { "x": 6, "y": 2, "z": -2 },
+      "position": { "x": 8, "y": 0, "z": -4.7 },
       "signals": [
         {
           "id": 1,
@@ -359,7 +359,8 @@
           "pivot": { "x": 8, "y": 0, "z": -4 }
         }
       ] ,
-      "standStop": true
+      "standStop": true,
+      "signalIdList": [1]
     }
   ],
   "triangularprisms": [
