@@ -85,6 +85,14 @@
       "position": { "x": 10, "y": 0, "z": 0 }
     }
   ],
+  "surfaces": [
+    {
+      "width": 12,
+      "height": 12,
+      "position": { "x": 0, "y": 0, "z": 0 },
+      "texture": "assets/第二关.jpg"
+    }
+  ],
 
   "triangularprisms": [
     {

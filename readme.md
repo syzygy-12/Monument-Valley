@@ -68,13 +68,3 @@ Monument-Valley/
 
 增加两个quad角度可达性限制（我来）
 
-重写LevelManager，拆成若干的函数调用，简化代码
-
-完成所有Object的模型加载
-
-totem穿模问题
-
-第四关json
-
-
-

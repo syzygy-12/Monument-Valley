@@ -1,19 +1,24 @@
 import SignalResponsiveObject from "./SignalResponsiveObject.js";
 
 export default class Surface extends SignalResponsiveObject {
-  constructor({ width, height, position, normal, color, signalIdList, roughness, metalness }) {
+  constructor({ width, height, position, normal, color, texture, signalIdList }) {
     const geometry = new THREE.PlaneGeometry(width, height);
     // 把color转成16进制，注意color是0x开头的16进制数
     if (color) {
       color = parseInt(color, 16);
     }
-    const material = new THREE.MeshStandardMaterial({
+    let material = new THREE.MeshStandardMaterial({
       color: color || 0x8b4513,
-      side: THREE.DoubleSide,
-      roughness: roughness || 0.0,
-      metalness: metalness || 0.0,
+      side: THREE.DoubleSide
     });
-    //console.log(color);
+    // 如果传入了纹理，则使用纹理(贴图)
+    if (texture) {
+      const loader = new THREE.TextureLoader();
+      material = new THREE.MeshStandardMaterial({
+        map: loader.load(texture),
+        side: THREE.DoubleSide
+      });
+    }
     // 调用父类构造函数
     super({ geometry, material, position, signalIdList });
 

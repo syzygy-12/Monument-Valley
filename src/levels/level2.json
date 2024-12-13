@@ -367,6 +367,16 @@
       "normal": "z"
     }
   ],
+  "ladders": [
+    {
+      "normal": "z",
+      "position": { "x": -20, "y": 0, "z": 9.001 }
+    },
+    {
+      "normal": "z",
+      "position": { "x": -20, "y": -2, "z": 9.001 }
+    }
+  ],
   "quads": [
     {
       "width": 2,

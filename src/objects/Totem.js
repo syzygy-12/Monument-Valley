@@ -96,7 +96,7 @@ export default class Totem extends SignalResponsiveObject {
     const targetScreenPosition = targetPosition.clone().project(camera);
     // 这里需要舍弃z坐标
     targetScreenPosition.z = 0;
-    console.log("targetScreenPosition", targetScreenPosition);
+    //console.log("targetScreenPosition", targetScreenPosition);
 
     // 查找目标 Quad，屏幕空间比较 + 法线比较
     const targetQuad = this.levelManager.quads.find((quad) => {

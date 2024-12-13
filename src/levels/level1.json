@@ -1,6 +1,7 @@
 {
   "cameraShift": { "dx": 0, "dy": -8 },
   "backgroundColor": "0x333333",
+  "snow": { "particlesCount": 500, "size": 3, "areaSize": 100, "speed": 8 },
   "platforms": [
     {
       "width": 2,
@@ -218,7 +219,7 @@
       "width": 2,
       "height": 6,
       "color": "0x808080",
-      "position": { "x": -7, "y": 2, "z": 8 },
+      "position": { "x": -7, "y": 3, "z": 8 },
       "normal": "x"
     }, 
     {
