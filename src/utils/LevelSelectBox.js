@@ -76,7 +76,7 @@ function init() {
     
 
     const loader = new THREE.GLTFLoader();
-    loader.load('../assets/level_select.glb', (gltf) => {
+    loader.load('./assets/level_select.glb', (gltf) => {
         model = gltf.scene;
         const group = new THREE.Group();
 
@@ -295,12 +295,12 @@ function animate() {
     requestAnimationFrame(animate);
     if (model) {
         const deltaTime = clock.getDelta();
-        model.rotation.y = THREE.MathUtils.damp(model.rotation.y, targetRotationY, 2, deltaTime);
+        model.rotation.y = THREE.MathUtils.damp(model.rotation.y, targetRotationY, 1, deltaTime);
         if (Math.abs(targetRotationY - model.rotation.y) < 0.001) {
             model.rotation.y = targetRotationY; // Snap to target rotation
         }
 
-        if (Math.abs(targetRotationY - model.rotation.y) > 0.01) {
+        if (Math.abs(targetRotationY - model.rotation.y) > 0.1) {
             isAnimating = true;
         } else {
             isAnimating = false;
