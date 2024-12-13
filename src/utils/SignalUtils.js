@@ -1,8 +1,62 @@
 export function setSignals(levelManager, signals) {
+    // 假设你有一个 globalLevelData 对象来存储关卡的配置
+    const levelData = {
+      1: {
+        targetPosition: new THREE.Vector3(21, 9, -20),  // 终点位置
+        targetLookAt: new THREE.Vector3(21, 9, -20),    // 终点视角
+      },
+      2: {
+        targetPosition: new THREE.Vector3(2, 13, -4),
+        targetLookAt: new THREE.Vector3(2, 13, -4),
+      },
+      // 更多关卡配置
+    };
+    
+    let currentLevel = levelManager.levelNumber; // 获取当前关卡
+    
+    // 游戏胜利判断
     if (signals != [] && signals[0].id === -1) {
-      // 游戏胜利
       console.log("Game Win!");
-      window.location.href = "pages/victory.html"; // 跳转到胜利页面
+      
+      // 根据当前关卡动态调整终点位置和视角
+      const currentLevelData = levelData[currentLevel]; // 获取当前关卡的数据
+      
+      // 调用触发相机动画和显示胜利信息的函数
+      triggerVictory(currentLevelData);
+    }
+    
+    function triggerVictory(levelData) {
+      // 使用当前关卡的数据设置终点位置和视角
+      const targetPosition = levelData.targetPosition;
+      const targetLookAt = levelData.targetLookAt;
+    
+      // 创建相机的动画
+      const cameraTween = new TWEEN.Tween(camera.position)
+        .to({ x: targetPosition.x, y: targetPosition.y, z: targetPosition.z }, 2000) // 2000ms
+        .easing(TWEEN.Easing.Quadratic.InOut) // 使用平滑的缓动效果
+        .onUpdate(() => {
+          camera.lookAt(targetLookAt); // 相机不断调整视角
+        })
+        .onComplete(() => {
+          showVictoryMessage(); // 动画完成后显示胜利信息
+        })
+      cameraTween.start(); // 开始动画
+    }
+    
+    function showVictoryMessage() {
+      const loader = new THREE.FontLoader();
+      loader.load('../assets/victory.json', (font) => {
+        const geometry = new THREE.TextGeometry('Victory', {
+          font: font,
+          size: 5,
+          height: 1,
+        });
+    
+        const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
+        const textMesh = new THREE.Mesh(geometry, material);
+        textMesh.position.set(10, 10, 10); // 根据需要调整显示位置
+        scene.add(textMesh);
+      });
     }
   
     if (levelManager.isSignalReceived || levelManager.animatingObjects.length > 0) {

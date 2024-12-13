@@ -11,6 +11,7 @@ export default class LevelManager {
     this.platforms = [];
     this.quads = [];
     this.triangularPrisms = [];
+    this.levelNumber = 0;
     this.buttons = [];
     this.surfaces = [];
     this.ladders = [];
@@ -22,6 +23,8 @@ export default class LevelManager {
   }
 
   async loadLevel(levelNumber) {
+    this.levelNumber = levelNumber;
+
     const levelData = await loadLevelData(levelNumber); // 加载关卡数据
     // 加载关卡中的物体
     await loadLevelObjects(levelData, this.sceneManager, this);

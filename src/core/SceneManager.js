@@ -87,7 +87,9 @@ export default class SceneManager {
     const animate = () => {
       this.tick();
       this.renderer.render(this.scene, this.camera);
+
       requestAnimationFrame(animate);
+      TWEEN.update();
     };
     animate();
   }

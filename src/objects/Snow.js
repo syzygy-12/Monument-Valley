@@ -1,5 +1,5 @@
 export default class Snow {
-  constructor( {particlesCount = 10000, size = 0.2, areaSize = 200, speed = 0.5, levelManager}) {
+  constructor( {particlesCount = 10000, size = 0.2, areaSize = 200, speed = 0.3, levelManager}) {
     this.levelManager = levelManager;
     console.log(this.levelManager);
     this.scene = this.levelManager.sceneManager.scene; // 引用场景

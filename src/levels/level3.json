@@ -1,4 +1,5 @@
 {
+  "rain": { "particlesCount": 200, "areaSize": 100, "speed": 8 },
   "platforms": [
     {
       "width": 2,

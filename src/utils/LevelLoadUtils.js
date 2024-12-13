@@ -5,6 +5,7 @@ import TriangularPrism from "../objects/TriangularPrism.js";
 import Surface from "../objects/Surface.js";
 import Button from "../objects/Button.js";
 import Snow from "../objects/Snow.js";
+import Rain from "../objects/Rain.js";
 import Character from "../objects/Character.js";
 import Ladder from "../objects/Ladder.js";
 
@@ -25,6 +26,7 @@ export async function loadLevelData(levelNumber) {
     backgroundColor: levelData.backgroundColor || 0x000000,
     models: levelData.models || [],
     snow: levelData.snow || null,
+    rain: levelData.rain || null,
   };
 }
 
@@ -40,6 +42,13 @@ export async function loadLevelObjects(levelData, sceneManager, levelManager) {
     const { particlesCount, size, areaSize, speed } = levelData.snow;
     const snow = new Snow({ particlesCount, size, areaSize, speed, levelManager });
     updatables.push(snow);
+  }
+
+  // 加载雨效果
+  if (levelData.rain) {
+    const { particlesCount, size, areaSize, speed } = levelData.rain;
+    const rain = new Rain({ particlesCount, size, areaSize, speed, levelManager });
+    updatables.push(rain);
   }
 
   // 加载平台

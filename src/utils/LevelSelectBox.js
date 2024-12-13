@@ -25,7 +25,34 @@ function init() {
     camera.position.set(-50, 0, 0);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-    scene.background = new THREE.Color(0x111111); 
+    scene.background = new THREE.Color(0x011b47); 
+
+    const textureLoader = new THREE.TextureLoader();
+    const texture = textureLoader.load(
+        '../assets/castle.png', 
+        () => {
+          console.log('Texture loaded successfully!');
+        },
+        undefined, // 加载进度回调（如果需要的话）
+        (error) => {
+          console.error('Error loading texture:', error);
+        }
+      );
+      
+    const material = new THREE.MeshBasicMaterial({
+        map: texture,
+        transparent: true,   
+        opacity: 0.3,        
+        side: THREE.DoubleSide  
+    });
+
+    const planeGeometry = new THREE.PlaneGeometry(16,16);  
+
+    const plane = new THREE.Mesh(planeGeometry, material);
+    plane.rotation.y = -Math.PI / 2;
+    plane.position.set(10, 1.5, 0);
+
+    scene.add(plane);
 
     const ambientLight = new THREE.AmbientLight(0xffffff, 0.4);
     scene.add(ambientLight);
@@ -57,13 +84,14 @@ function init() {
         model.rotation.x = Math.PI / 2;
 
         // 缩放比例
-        model.scale.set(0.8, 0.8, 0.8);
+        model.scale.set(0.6, 0.6, 0.6);
+        model.position.set(0, -0.25, 0);
 
         group.add(model);
    
 
         // 添加四个面
-        const faceSize = 2.32, shift = 2.12, shiftY = 0.96; // 面的大小，可以根据实际需求调整
+        const faceSize = 1.74, shift = 1.59, shiftY = 0.72; // 面的大小，可以根据实际需求调整
         faces = [
             createNumberedFace('a', faceSize, faceSize),
             createNumberedFace('b', faceSize, faceSize),
@@ -72,13 +100,13 @@ function init() {
         ];
 
         // 位置和朝向设置
-        faces[0].position.set(-shift, -shiftY, 0); 
+        faces[0].position.set(-shift, -shiftY-0.25, 0); 
         faces[0].rotation.set(Math.PI / 4, -Math.PI / 2, 0); 
-        faces[1].position.set(0, -shiftY, shift); 
+        faces[1].position.set(0, -shiftY-0.25, shift); 
         faces[1].rotation.set(0, 0, -Math.PI / 4);
-        faces[2].position.set(shift, -shiftY, 0);
+        faces[2].position.set(shift, -shiftY-0.25, 0);
         faces[2].rotation.set(-Math.PI / 4, Math.PI / 2, 0);
-        faces[3].position.set(0, -shiftY, -shift); 
+        faces[3].position.set(0, -shiftY-0.25, -shift); 
         faces[3].rotation.set(0, Math.PI, -Math.PI / 4);
 
         // 添加所有面到 group
