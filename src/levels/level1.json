@@ -1,7 +1,6 @@
 {
   "cameraShift": { "dx": 0, "dy": -8 },
   "backgroundColor": "0x333333",
-  "spotLight": { "color": "0xffffff", "position": { "x": 0, "y": -10, "z": -10 } },
   "platforms": [
     {
       "width": 2,

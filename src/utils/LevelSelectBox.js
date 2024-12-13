@@ -10,6 +10,7 @@ let faces = [];
 let minLevel = 1;
 let maxLevel = 10;
 let isAbort = false;
+let animations = {};
 const snapAngle = Math.PI / 2; 
 const d = 5; // 正交相机范围
 const aspect = window.innerWidth / window.innerHeight;
@@ -48,17 +49,21 @@ function init() {
     
 
     const loader = new THREE.GLTFLoader();
-    loader.load('../assets/page2.glb', (gltf) => {
+    loader.load('../assets/level_select.glb', (gltf) => {
         model = gltf.scene;
         const group = new THREE.Group();
 
         // 调整模型坐标系
         model.rotation.x = Math.PI / 2;
 
+        // 缩放比例
+        model.scale.set(0.8, 0.8, 0.8);
+
         group.add(model);
+   
 
         // 添加四个面
-        const faceSize = 2.9, shift = 2.65, shiftY = 1.2; // 面的大小，可以根据实际需求调整
+        const faceSize = 2.32, shift = 2.12, shiftY = 0.96; // 面的大小，可以根据实际需求调整
         faces = [
             createNumberedFace('a', faceSize, faceSize),
             createNumberedFace('b', faceSize, faceSize),
@@ -82,6 +87,28 @@ function init() {
         scene.add(group);
 
         model = group; // 将 group 作为可旋转的模型
+
+            // 创建动画
+        const times = [0, 2, 4]; // 时间点
+        const values = [0, -0.3, 0]; // 对应的 y 轴位置
+
+        const positionKF = new THREE.VectorKeyframeTrack('.position[y]', times, values);
+
+        const clip = new THREE.AnimationClip('moveUpDown', -1, [positionKF]);
+
+        const mixer = new THREE.AnimationMixer(group);
+        const action = mixer.clipAction(clip);
+        action.play();
+
+        // 在渲染循环中更新动画
+        const clock = new THREE.Clock();
+        function animate() {
+            requestAnimationFrame(animate);
+            const delta = clock.getDelta();
+            mixer.update(delta);
+            renderer.render(scene, camera);
+        }
+        animate();
 
         //console.log("GLB model with numbered faces added to the scene");
     }, undefined, (error) => {
@@ -127,7 +154,7 @@ function createNumberedFace(number, width, height) {
     texture.center.set(0.5, 0.5);
     texture.rotation = Math.PI / 4;
     const material = new THREE.MeshBasicMaterial(
-        { map: texture, transparent: true , side: THREE.DoubleSide, color: 0xff0000});
+        { map: texture, transparent: true , side: THREE.DoubleSide, color: 0x808080});
     
     const geometry = new THREE.PlaneGeometry(width, height);
     const surface = new THREE.Mesh(geometry, material);
@@ -158,7 +185,7 @@ function changeNumberedFace(number, face) {
     texture.center.set(0.5, 0.5);
     texture.rotation = Math.PI / 4;
     const material = new THREE.MeshBasicMaterial(
-        { map: texture, transparent: true , side: THREE.DoubleSide, color: 0xff0000});
+        { map: texture, transparent: true , side: THREE.DoubleSide, color: 0x808080});
     
     face.material = material;
 }
