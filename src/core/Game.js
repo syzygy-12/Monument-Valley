@@ -34,6 +34,7 @@ export default class Game {
   }
 
   showLevelSelect() {
+    console.log("showLevelSelect");
     if (this.currentScreen !== "start") return;
     this.currentScreen = "levelSelect";
 
@@ -44,9 +45,7 @@ export default class Game {
     // 动态加载 LevelSelectBox.js
     if (!this.levelSelectBoxLoaded) {
       this.levelSelectScript = document.createElement("script");
-      const basePath = window.location.pathname.replace(/\/[^/]*$/, '/');
-      console.log(basePath);
-      this.levelSelectScript.src = `${basePath}src/utils/LevelSelectBox.js`;
+      this.levelSelectScript.src = `./src/utils/LevelSelectBox.js`;
       this.levelSelectScript.onload = () => {
         //console.log("LevelSelectBox.js 已加载");
       }
