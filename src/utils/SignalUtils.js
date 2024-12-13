@@ -17,6 +17,8 @@ export function setSignals(levelManager, signals) {
     // 游戏胜利判断
     if (signals != [] && signals[0].id === -1) {
       console.log("Game Win!");
+      levelManager.game.winLevel(levelManager.levelNumber);
+      // TODO: 删去胜利界面，app.js一直不关闭
       
       // 根据当前关卡动态调整终点位置和视角
       const currentLevelData = levelData[currentLevel]; // 获取当前关卡的数据
@@ -73,6 +75,7 @@ export function setSignals(levelManager, signals) {
       ...levelManager.buttons,
       ...levelManager.triangularPrisms,
       ...levelManager.ladders,
+      levelManager.sceneManager,
     ];
   
     // 为每个目标物体设置信号

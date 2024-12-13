@@ -5,9 +5,16 @@
     {
       "id": "scene1",
       "path": "assets/scene1.glb",
-      "position": { "x": -18, "y": -9, "z": 4 },
+      "position": { "x": -18, "y": -5, "z": 4 },
       "scale": { "x":2, "y": 2, "z": 2 },
       "rotation": { "x": 0, "y": -1.5707963267948966192313216916398, "z": 0 }
+    },
+    {
+      "id": "scene2",
+      "path": "assets/forest.glb",
+      "position": { "x": 12, "y": 1, "z": 14 },
+      "scale": { "x":0.3, "y": 0.3, "z": 0.3 },
+      "rotation": { "x": 0, "y": 1.5707963267948966192313216916398, "z": 0 }
     }
   ],
   "platforms": [
@@ -248,13 +255,72 @@
       "depth": 2,
       "position": { "x": 2, "y": 12, "z": -2 }
     },
-
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": 2, "y": 18, "z": -4 }
+    },
+    {
+      "width": 0.2,
+      "height": 4,
+      "depth": 0.2,
+      "position": { "x": 2.9, "y": 15, "z": -4.9 }
+    },
+    {
+      "width": 0.2,
+      "height": 4,
+      "depth": 0.2,
+      "position": { "x": 2.9, "y": 15, "z": -3.1 }
+    },
+    {
+      "width": 0.2,
+      "height": 4,
+      "depth": 0.2,
+      "position": { "x": 1.1, "y": 15, "z": -3.1 }
+    },
+    {
+      "width": 0.2,
+      "height": 4,
+      "depth": 0.2,
+      "position": { "x": 1.1, "y": 15, "z": -4.9 }
+    },
     {
       "width": 2,
       "height": 14,
       "depth": 2,
       "position": { "x": -10, "y": 6, "z": -4 },
       "comment": "左上角中点"
+    },
+    {
+      "width": 2,
+      "height": 2,
+      "depth": 2,
+      "position": { "x": -10, "y": 18, "z": -4 }
+    },
+    {
+      "width": 0.2,
+      "height": 4,
+      "depth": 0.2,
+      "position": { "x": -10.9, "y": 15, "z": -4.9 }
+    },
+    {
+      "width": 0.2,
+      "height": 4,
+      "depth": 0.2,
+      "position": { "x": -10.9, "y": 15, "z": -3.1 }
+    },
+    {
+      "width": 0.2,
+      "height": 4,
+      "depth": 0.2,
+      "position": { "x": -9.1, "y": 15, "z": -3.1 }
+    },
+    {
+      "width": 0.2,
+      "height": 4,
+      "depth": 0.2,
+      "position": { "x": -9.1, "y": 15, "z": -4.9 }
     },
     {
       "width": 2,
@@ -306,6 +372,13 @@
     }
   ],
   "surfaces": [
+    {
+      "width": 54,
+      "height": 54,
+      "position": { "x": -2, "y": -5, "z": 0 },
+      "normal": "y",
+      "color": "0x6b3513"
+    },
     {
       "width": 0.2,
       "height": 18,
@@ -579,6 +652,14 @@
               { "x": 0, "y": 12, "z": 0 }
             ],
             "comment" : "控制直角升起的压力板"
+          },
+          {
+            "id": 350,
+            "type": "cameraShake",
+            "toCamera": true,
+            "waitTime": 0,
+            "duration": 2.1,
+            "intensity": 0.1
           },
           {
             "id": 4,

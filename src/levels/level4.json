@@ -261,11 +261,11 @@
     },
     {
       "width": 2,
-      "height": 2,
+      "height": 12,
       "depth": 2,
-      "position": { "x": -2, "y": 0, "z": -80 },
+      "position": { "x": -2, "y": -5, "z": -80 },
       "color": "0xff2520",
-      "signalIdList": [222],
+      "signalIdList": [222, 3],
       "comment": "与高塔的相邻点"
     },
     {
@@ -274,7 +274,7 @@
       "depth": 2,
       "position": { "x": -2, "y": -1, "z": -82 },
       "color": "0xff2520",
-      "signalIdList": [3, 222]
+      "signalIdList": [222]
     },
     {
       "width": 2,
@@ -444,6 +444,14 @@
             ]
           },
           {
+            "id": 250,
+            "type": "cameraShake",
+            "toCamera": true,
+            "waitTime": 0,
+            "duration": 3.5,
+            "intensity": 0.1
+          },
+          {
             "id": 201,
             "type": "translation",
             "translationVectorList": [
@@ -514,7 +522,7 @@
             ]
           }
         ] ,
-        "comment": "控制右下部分缓缓升起的压力板"
+        "comment": "总控压力板"
       }
     },
     { "width": 2.828427125, 
@@ -598,14 +606,14 @@
       "height": 2,
       "normal": "y",
       "position": { "x": -2, "y": 1, "z": -80 },
-      "signalIdList": [222]
+      "signalIdList": [222, 3]
     },
     {
       "width": 2,
       "height": 2,
       "normal": "y",
       "position": { "x": -2, "y": 9, "z": -82 },
-      "signalIdList": [3, 222]
+      "signalIdList": [222]
     },
     {
       "width": 2,

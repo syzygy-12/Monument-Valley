@@ -221,14 +221,13 @@ function changeNumberedFace(number, face) {
 
 function onWindowResize() {
     const aspect = window.innerWidth / window.innerHeight;
-    const d = 20;
-    this.camera.left = -d * aspect;
-    this.camera.right = d * aspect;
-    this.camera.top = d;
-    this.camera.bottom = -d;
+    camera.left = -d * aspect;
+    camera.right = d * aspect;
+    camera.top = d;
+    camera.bottom = -d;
 
-    this.camera.updateProjectionMatrix();
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
 }
 
 function onMouseDown(event) {
@@ -241,7 +240,7 @@ function onMouseMove(event) {
         const deltaMove = {
             x: event.clientX - previousMousePosition.x,
         };
-        targetRotationY += deltaMove.x * 0.01; // Adjust rotation sensitivity
+        targetRotationY += deltaMove.x * 0.002; // Adjust rotation sensitivity
         previousMousePosition = { x: event.clientX, y: event.clientY };
     }
 }
@@ -265,7 +264,7 @@ function onMouseClick(event) {
     if (intersects.length > 0) {
         // 遍历相交的物体，看是否有faces中的元素
         for (let i = 0; i < intersects.length; i++) {
-            if (faces.includes(intersects[i].object)) {
+            if (intersects[i].object === faces[(faceIndex + 3) % 4]) {
                 levelReady(faceIndex);
                 break;
             }
@@ -295,12 +294,12 @@ function animate() {
     requestAnimationFrame(animate);
     if (model) {
         const deltaTime = clock.getDelta();
-        model.rotation.y = THREE.MathUtils.damp(model.rotation.y, targetRotationY, 1, deltaTime);
+        model.rotation.y = THREE.MathUtils.damp(model.rotation.y, targetRotationY, 5, deltaTime);
         if (Math.abs(targetRotationY - model.rotation.y) < 0.001) {
             model.rotation.y = targetRotationY; // Snap to target rotation
         }
 
-        if (Math.abs(targetRotationY - model.rotation.y) > 0.1) {
+        if (Math.abs(targetRotationY - model.rotation.y) > 0.3) {
             isAnimating = true;
         } else {
             isAnimating = false;

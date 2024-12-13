@@ -10,18 +10,27 @@ export default class SceneManager {
     const d = this.d; // 正交相机范围
     this.camera = new THREE.OrthographicCamera(-d * aspect, d * aspect, d, -d, 1, 1000);
     this.shiftVector = { dx: 0, dy: 0 };
+    this.isAnimating = false;
 
     this.renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     this.renderer.outputEncoding = THREE.sRGBEncoding;
     this.renderer.physicallyCorrectLights = true;
-    //this.renderer.shadowMap.enabled = true;
-    //this.renderer.shadowMap.type = THREE.PCFSoftShadowMap;
     this.renderer.setClearColor(0x000000, 0); // 背景透明
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
+    this.isWaiting = false;
+    this.waitTimer = 0;
+    this.initialWaitTime = 0;
+    this.animationType = null;
+
+    // 摄像机震动参数
+    this.cameraShakeDuration = 0; // 震动持续时间
+    this.cameraShakeIntensity = 0; // 震动幅度
+    this.cameraOriginalPosition = new THREE.Vector3(); // 保存相机初始位置
+
     this.updatables = [];
     this.controls = new THREE.OrbitControls(this.camera, this.renderer.domElement);
-    this.controls.enableDamping = true;
+    this.controls.enabled = false;
 
     // 将渲染器挂载到游戏容器中
     this.container.appendChild(this.renderer.domElement);
@@ -59,9 +68,11 @@ export default class SceneManager {
   }
 
   resetCameraPosition() {
+    this.controls.reset();
     this.camera.position.set(-30, 30, 30);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
     this.shiftCamera(this.shiftVector);
+    this.camera.zoom = 1; 
   }
 
   onWindowResize() {
@@ -76,10 +87,64 @@ export default class SceneManager {
     this.renderer.setSize(window.innerWidth, window.innerHeight);
   }
 
+  setSignals(signals) {
+    for (const signal of signals) {
+      if (signal.toCamera) {
+          this.isWaiting = true; // 开启等待
+          this.waitTimer = 0;
+          this.initialWaitTime = signal.waitTime || 0; // 统一的等待时间
+          if (signal.type === "cameraShake") {
+            // 摄像机震动，持续时间为 duration
+            this.animationType = "cameraShake";
+            this.cameraShakeDuration = signal.duration;
+            this.cameraShakeIntensity = signal.intensity;
+
+            // 保存相机原始位置
+            this.cameraOriginalPosition.copy(this.camera.position);
+          }
+          this.isAnimating = true;
+      }
+    }
+  }
+
   tick() {
     const delta = clock.getDelta();
     for (const object of this.updatables) {
       if (object.tick) object.tick(delta);
+    }
+
+    // 等待状态优先
+    if (this.isWaiting) {
+        this.waitTimer += delta;
+        if (this.waitTimer >= this.initialWaitTime) {
+            this.isWaiting = false; // 等待完成
+        }
+        //console.log(this.waitTimer);
+        return; // 等待期间不执行动画
+    }
+
+    if (!this.isAnimating) return;
+
+    // 摄像机震动逻辑
+    if (this.animationType === "cameraShake") {
+      this.cameraShakeDuration -= delta;
+      //console.log(this.cameraShakeDuration);
+      if (this.cameraShakeDuration > 0) {
+        const shakeX = (Math.random() * 2 - 1) * this.cameraShakeIntensity;
+        const shakeY = (Math.random() * 2 - 1) * this.cameraShakeIntensity;
+        const shakeZ = (Math.random() * 2 - 1) * this.cameraShakeIntensity;
+
+        this.camera.position.set(
+          this.cameraOriginalPosition.x + shakeX,
+          this.cameraOriginalPosition.y + shakeY,
+          this.cameraOriginalPosition.z + shakeZ
+        );
+      } else {
+        // 震动结束，重置相机位置
+        this.camera.position.copy(this.cameraOriginalPosition);
+        this.isAnimating = false;
+        this.animationType = null;
+      }
     }
   }
 

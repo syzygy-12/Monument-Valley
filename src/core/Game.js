@@ -5,6 +5,7 @@ export default class Game {
   constructor() {
     this.sceneManager = null; // 延迟初始化
     this.levelManager = null;
+    this.unlockedLevels = 1; // 已解锁关卡数
 
     // 获取界面元素
     this.startScreen = document.getElementById("start-screen");
@@ -82,7 +83,7 @@ export default class Game {
         this.gameContainer.style.opacity = "1";
 
         this.sceneManager = new SceneManager(this.gameContainer);
-        this.levelManager = new LevelManager(this.sceneManager);
+        this.levelManager = new LevelManager(this.sceneManager, this);
   
         this.sceneManager.init();
         this.levelManager.loadLevel(level);
@@ -94,5 +95,13 @@ export default class Game {
   destroyLevelSelectBox() {
     const event = new CustomEvent("destroyLevelSelectBox");
     window.dispatchEvent(event);
+  }
+
+  winLevel(levelNumber) {
+    console.log(`Level ${levelNumber} completed!`);
+    if (levelNumber >= this.unlockedLevels) {
+      this.unlockedLevels = levelNumber + 1;
+    }
+    //this.showLevelSelect();
   }
 }

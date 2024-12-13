@@ -5,8 +5,10 @@ import { initializeConsole } from "../utils/ConsoleUtils.js";
 import { setSignals, tick } from "../utils/SignalUtils.js";
 
 export default class LevelManager {
-  constructor(sceneManager) {
+  constructor(sceneManager, game) {
     this.sceneManager = sceneManager;
+    this.game = game;
+    this.levelNumber = 0;
     this.character = null;
     this.platforms = [];
     this.quads = [];
