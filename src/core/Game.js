@@ -44,8 +44,7 @@ export default class Game {
     // 动态加载 LevelSelectBox.js
     if (!this.levelSelectBoxLoaded) {
       this.levelSelectScript = document.createElement("script");
-      const basePath = window.location.pathname.replace(/\/[^/]*$/, '/');
-      this.levelSelectScript.src = `${basePath}src/utils/LevelSelectBox.js`;
+      this.levelSelectScript.src = `${window.location.origin}/src/utils/LevelSelectBox.js`;
       this.levelSelectScript.onload = () => {
         //console.log("LevelSelectBox.js 已加载");
       }
