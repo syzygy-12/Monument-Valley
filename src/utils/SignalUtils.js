@@ -4,23 +4,14 @@ export function setSignals(levelManager, signals) {
       1: {
         targetPosition: new THREE.Vector3(11, 19, -10),  // 终点位置
         targetZoom: 3,  // 终点缩放
-        targetLookAt: new THREE.Vector3(21, 9, -20),    // 终点视角
       },
       2: {
-        targetPosition: new THREE.Vector3(2, 13, -4),
-        targetLookAt: new THREE.Vector3(2, 13, -4),
-      },
-      3: {
-        targetPosition: new THREE.Vector3(2, 13, -4),
-        targetLookAt: new THREE.Vector3(2, 13, -4),
+        targetPosition: new THREE.Vector3(-14, 29, 12),
+        targetZoom: 3,
       },
       4: {
-        targetPosition: new THREE.Vector3(-2, 17, -89),
-        targetLookAt: new THREE.Vector3(-2, 17, -89),
-      },
-      5: {
-        targetPosition: new THREE.Vector3(2, 13, -4),
-        targetLookAt: new THREE.Vector3(2, 13, -4),
+        targetPosition: new THREE.Vector3(-12, 27, 1),
+        targetZoom: 3,
       },
     };
     
@@ -54,10 +45,14 @@ export function setSignals(levelManager, signals) {
       ...levelManager.triangularPrisms,
       ...levelManager.ladders,
       levelManager.sceneManager,
+      levelManager.ocean,
     ];
   
     // 为每个目标物体设置信号
     for (const target of signalTargets) {
+      if (!target) {
+        continue;
+      }
       target.setSignals(signals);
       if (target.isAnimating) {
         levelManager.animatingObjects.push(target);

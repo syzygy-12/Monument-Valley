@@ -1,6 +1,7 @@
 import SignalResponsiveObject from "./SignalResponsiveObject.js";
 import Plate from "./Plate.js";
 import DoublePlate from "./DoublePlate.js";
+import { isDevMode } from "../params/IsDevMode.js";
 
 export default class Quad extends SignalResponsiveObject {
   constructor({ width, height, color, position, normal, initialQuaternion, plate, doublePlate, totem, signalIdList, levelManager }) {
@@ -13,7 +14,7 @@ export default class Quad extends SignalResponsiveObject {
     });
 
     super({ geometry, material, position, signalIdList });
-    this.mesh.visible = true;
+    this.mesh.visible = isDevMode;
     this.mesh.receiveShadow = true;
     this.mesh.position.x += 1e-3;
     this.mesh.position.y += 1e-3;

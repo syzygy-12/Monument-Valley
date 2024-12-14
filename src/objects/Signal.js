@@ -1,10 +1,11 @@
 export default class Signal {
     constructor({ id, type, axis, angle, pivot, translationVectorList, translateSpeed, toCamera,
-        intensity, duration, waitTime }) {
+        intensity, duration, animationSpeed, waitTime }) {
         this.id = id;
         this.count = 0;
         this.waitTime = waitTime || 0;
         this.toCamera = toCamera || false;
+        this.type = type;
         if (type === "rotation") {
             this.type = "rotation";
             this.axis = new THREE.Vector3(axis.x, axis.y, axis.z);
@@ -29,6 +30,10 @@ export default class Signal {
             this.type = "cameraShake";
             this.intensity = intensity || 0.1;
             this.duration = duration || 1;
+        }
+        else if (type === "animation") {
+            this.type = "animation";
+            this.animationSpeed = animationSpeed || 1;
         }
     }
     

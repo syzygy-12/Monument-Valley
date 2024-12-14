@@ -1,3 +1,5 @@
+import { isDevMode } from "../params/IsDevMode.js";
+
 let scene, camera, renderer, model;
 let raycaster = new THREE.Raycaster();
 let mouse = new THREE.Vector2();
@@ -7,7 +9,7 @@ let previousMousePosition = { x: 0, y: 0 };
 let targetRotationY = 0;
 let faceIndex = 1;
 let faces = [];
-let minLevel = 1;
+let minLevel = isDevMode ? -1 : 1; // 开始的最小等级
 let maxLevel = 10;
 let isAbort = false;
 let animations = {};

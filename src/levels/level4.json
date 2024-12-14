@@ -442,6 +442,7 @@
         "height": 0.5,
         "depth": 1,
         "position": { "x": 8, "y": 11, "z": 10 },
+        "color": "0xdf1010",
         "signals": [
           {
             "id": 222,
@@ -652,14 +653,15 @@
             "id": -1
           }
         ],
-        "signalIdList": [222]
+        "signalIdList": [222],
+        "color": "0xdf1010"
       },
       "signalIdList": [222]
     }
   ],
   "buttons": [
     {
-      "glbFile": "assets/button2.glb",
+      "glbFile": "assets/button3.glb",
       "scale": { "x": 2, "y": 2, "z": 2 },
       "rotation": { "x": 0, "y": 0, "z": 3.1415926535897932 },
       "position": { "x": -8, "y": -1.3, "z": 12 },
@@ -676,10 +678,10 @@
       "signalIdList": [1]
     },
     {
-      "glbFile": "assets/button1.glb",
-      "scale": { "x": 2, "y": 2, "z": 2 },
-      "rotation": { "x": -1.5707963267948966192313216916398, "y": 0, "z": 0 },
-      "position": { "x": -2, "y": 3, "z": -87 },
+      "glbFile": "assets/trigger.glb",
+      "scale": { "x": 1.5, "y": 1.5, "z": 1.5 },
+      "rotation": { "x": 1.5707963267948966192313216916398, "y": 0, "z": 1.5707963267948966192313216916398 },
+      "position": { "x": -4, "y": 3, "z": -84.5 },
       "signals": [
         {
           "id": 3,
@@ -693,13 +695,8 @@
         },
         {
           "id": 31,
-          "type": "translation",
-          "translationVectorList": [
-              { "x": 0, "y": -4, "z": 0 },
-              { "x": 0, "y": -4, "z": 0 },
-              { "x": 0, "y": 4, "z": 0 },
-              { "x": 0, "y": 4, "z": 0 }
-            ]
+          "type": "animation",
+          "animationSpeed": 5
         }
       ] ,
       "signalIdList": [31, 222]

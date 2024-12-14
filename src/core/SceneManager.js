@@ -18,6 +18,8 @@ export default class SceneManager {
     this.renderer.setClearColor(0x000000, 0); // 背景透明
     this.renderer.setSize(window.innerWidth, window.innerHeight);
 
+    this.time = 0;
+
     this.isWaiting = false;
     this.waitTimer = 0;
     this.initialWaitTime = 0;
@@ -109,6 +111,7 @@ export default class SceneManager {
 
   tick() {
     const delta = clock.getDelta();
+    this.time += delta;
     for (const object of this.updatables) {
       if (object.tick) object.tick(delta);
     }

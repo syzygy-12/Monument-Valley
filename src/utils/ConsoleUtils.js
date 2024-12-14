@@ -1,3 +1,5 @@
+import { isDevMode } from "../params/IsDevMode.js";
+
 export function initializeConsole(levelManager, sceneManager) {
   // 控制台 DOM 元素
   const openConsoleBtn = document.getElementById("openConsoleBtn");
@@ -62,7 +64,9 @@ export function initializeConsole(levelManager, sceneManager) {
     }, 10);
 
     // 生成信号按钮
-    generateSignalButtons(levelManager, buttonContainer);
+    if (isDevMode) {
+      generateSignalButtons(levelManager, buttonContainer);
+    }
   });
 }
 
