@@ -10,7 +10,18 @@ export function setSignals(levelManager, signals) {
         targetPosition: new THREE.Vector3(2, 13, -4),
         targetLookAt: new THREE.Vector3(2, 13, -4),
       },
-      // 更多关卡配置
+      3: {
+        targetPosition: new THREE.Vector3(2, 13, -4),
+        targetLookAt: new THREE.Vector3(2, 13, -4),
+      },
+      4: {
+        targetPosition: new THREE.Vector3(-2, 17, -89),
+        targetLookAt: new THREE.Vector3(-2, 17, -89),
+      },
+      5: {
+        targetPosition: new THREE.Vector3(2, 13, -4),
+        targetLookAt: new THREE.Vector3(2, 13, -4),
+      },
     };
     
     const currentLevel = levelManager.levelNumber; // 获取当前关卡
@@ -107,6 +118,10 @@ export function setSignals(levelManager, signals) {
       .onComplete(() => {
         // 动画完成后的逻辑
         showVictoryMessage(levelManager);
+        // 按任意位置回到初始页面
+        document.addEventListener('click', () => {
+          window.location.href = 'index.html';
+        });
       });
   
     // 同时启动位置和缩放的动画
@@ -130,11 +145,11 @@ export function setSignals(levelManager, signals) {
     victoryDiv.style.transform = 'translate(-50%, -50%)'; // 精确居中
     victoryDiv.style.fontSize = '5rem';
     victoryDiv.style.fontWeight = 'bold';
-    victoryDiv.style.color = '#00ff00'; // 绿色
+    victoryDiv.style.color = '0x000000'; 
     victoryDiv.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)'; // 文本阴影
     victoryDiv.style.zIndex = '1000'; // 确保在最上层
     victoryDiv.style.pointerEvents = 'none'; // 防止阻挡鼠标事件
-  
+    victoryDiv.style.transition = 'opacity 1s'; // 添加淡入效果
     // 添加到页面的 body 中
     document.body.appendChild(victoryDiv);
   
