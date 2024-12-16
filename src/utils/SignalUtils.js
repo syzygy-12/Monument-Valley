@@ -13,6 +13,10 @@ export function setSignals(levelManager, signals) {
         targetPosition: new THREE.Vector3(-12, 27, 1),
         targetZoom: 3,
       },
+      0: {
+        targetPosition: new THREE.Vector3(-10, 9, 24),
+        targetZoom: 3,
+      }
     };
     
     const currentLevel = levelManager.levelNumber; // 获取当前关卡

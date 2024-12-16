@@ -129,6 +129,7 @@ export default class SignalResponsiveObject {
                     this.startPositionOffset.subVectors(this.mesh.position, this.pivot);
                     this.currentAngle = 0;
                     this.targetQuaternion.setFromAxisAngle(this.axis, angle);
+                    this.rotateSpeed = signal.rotateSpeed || Math.PI / 2;
                     this.animationType = "rotation";
                 } else if (signal.type === "translation") {
                     this.animationType = "translation";

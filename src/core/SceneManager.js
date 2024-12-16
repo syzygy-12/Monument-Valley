@@ -45,13 +45,13 @@ export default class SceneManager {
 
     const ambientLight = new THREE.AmbientLight(0xffffff, 1.8);
     this.scene.add(ambientLight);
-
+    
     const directionalLight = new THREE.DirectionalLight(0xffffff, 2.2);
     directionalLight.position.set(-10, 15, -7);
     //directionalLight.castShadow = true;
     this.scene.add(directionalLight);
 
-    this.camera.position.set(-30, 30, 30);
+    this.camera.position.set(-50, 50, 50);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
   }
 
@@ -71,7 +71,7 @@ export default class SceneManager {
 
   resetCameraPosition() {
     this.controls.reset();
-    this.camera.position.set(-30, 30, 30);
+    this.camera.position.set(-50, 50, 50);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
     this.shiftCamera(this.shiftVector);
     this.camera.zoom = 1; 
@@ -103,8 +103,19 @@ export default class SceneManager {
 
             // 保存相机原始位置
             this.cameraOriginalPosition.copy(this.camera.position);
+            this.isAnimating = true;
+          } else if (signal.type === "addDirectionalLight") {
+            // 添加平行光，亮度从0逐渐变化到intensity
+            this.animationType = "addDirectionalLight";
+            const light = new THREE.DirectionalLight(signal.color, 0);
+            light.position.copy(signal.position);
+            this.scene.add(light);
+            new TWEEN.Tween(light)
+              .to({ intensity: signal.intensity }, signal.duration * 1000)
+              .start();
+
+            
           }
-          this.isAnimating = true;
       }
     }
   }
@@ -115,6 +126,8 @@ export default class SceneManager {
     for (const object of this.updatables) {
       if (object.tick) object.tick(delta);
     }
+    //Tween更新
+    TWEEN.update();
 
     // 等待状态优先
     if (this.isWaiting) {

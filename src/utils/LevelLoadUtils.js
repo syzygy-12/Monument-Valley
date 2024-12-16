@@ -29,6 +29,7 @@ export async function loadLevelData(levelNumber) {
     snow: levelData.snow || null,
     rain: levelData.rain || null,
     ocean: levelData.ocean || null,
+    directionalLights: levelData.directionalLights || [],
   };
 }
 
@@ -38,6 +39,16 @@ export async function loadLevelObjects(levelData, sceneManager, levelManager) {
   // 相机和背景
   sceneManager.shiftCamera(levelData.cameraShift);
   sceneManager.background(levelData.backgroundColor);
+  
+  // 加载有向光
+  levelData.directionalLights.forEach((data) => {
+    if (data.color) {
+      data.color = parseInt(data.color, 16);
+    }
+    const light = new THREE.DirectionalLight(data.color || 0xffffff, data.intensity);
+    light.position.set(data.position.x, data.position.y, data.position.z);
+    scene.add(light);
+  });
 
   // 加载雪效果
   if (levelData.snow) {
