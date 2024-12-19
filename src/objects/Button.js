@@ -35,6 +35,8 @@ export default class Button extends TriggerObject {
     this.active = true;
     this.standStop = standStop || false;
     this.initInteraction();
+
+    
   }
 
   initInteraction() {
@@ -48,42 +50,37 @@ export default class Button extends TriggerObject {
       raycaster.setFromCamera(mouse, this.levelManager.sceneManager.camera);
 
       const intersects = raycaster.intersectObject(this.mesh, true);
-      //console.log(this.mesh, intersects);
       if (intersects.length > 0 && this.active) {
         this.emitSignals();
       }
     });
   }
-    /**
-   * 激活/非激活状态切换
-   * 非激活时将颜色灰度化，激活时恢复原始颜色
-   * TODO:这里有问题，模型并没有material
-   */
-    toggleActive(active) {
-      //if (this.active === active) return;
-      this.active = active;
-      // 将child[0]的y坐标增加10
-      this.mesh.children[9].position.y += 10;
-      return;
-      if (this.mesh) {
-        if (active) {
-          // 恢复彩色
-          console.log(this.mesh);
-          this.mesh.material.color.copy(this.originalColor);
-        } else {
-          // 灰度化颜色
-          const gray = this.getGrayscale(this.originalColor);
-          this.mesh.material.color.setRGB(gray, gray, gray);
+
+  toggleActive(active) {
+    if (this.active === active) return;
+    this.active = active;
+    if (!this.active && this.originalPositions === undefined) {
+      // 存储子物体的原始位置
+      this.originalPositions = [];
+      for (let i = 2; i <= 10; i++) {
+        if (this.mesh.children[i]) {
+          this.originalPositions[i] = this.mesh.children[i].position.clone();
         }
       }
     }
-  
-    /**
-     * 计算颜色的灰度值
-     * @param {THREE.Color} color 原始颜色
-     * @returns {number} 灰度值
-     */
-    getGrayscale(color) {
-      return 0.3 * color.r + 0.59 * color.g + 0.11 * color.b;
+
+    if (this.mesh) {
+      const origin = new THREE.Vector3(0, 0.6, 0);
+      for (let i = 2; i <= 10; i++) {
+        const child = this.mesh.children[i];
+        if (child) {
+          // Tween过渡子物体位置
+          new TWEEN.Tween(child.position)
+            .to(this.active ? this.originalPositions[i] : origin, 500) // 500ms过渡时间
+            .easing(TWEEN.Easing.Quadratic.Out)
+            .start();
+        }
+      }
     }
+  }
 }
