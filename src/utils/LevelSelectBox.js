@@ -152,13 +152,14 @@ function init() {
         document.addEventListener('touchstart', onTouchStart, false);   // 使用touchstart代替mousedown
         document.addEventListener('touchmove', onTouchMove, false);     // 使用touchmove代替mousemove
         document.addEventListener('touchend', onTouchEnd, false);       // 使用touchend代替mouseup
+        document.addEventListener('click', onTouchClick, false);
     } else {
         document.addEventListener('mousedown', onMouseDown, false);     // 电脑鼠标事件
         document.addEventListener('mousemove', onMouseMove, false);     // 电脑鼠标事件
         document.addEventListener('mouseup', onMouseUp, false);         // 电脑鼠标事件
+        document.addEventListener('click', onMouseClick, false);
     }
 
-    document.addEventListener('click', onMouseClick, false);
     listenForExternalDestroyLevelSelectBox();
 
 }
@@ -259,6 +260,24 @@ function onTouchEnd(event) {
     event.preventDefault();
     snapToClosestFace();
     isDragging = false;
+}
+
+function onTouchClick(event) {
+    if (isDragging || isAnimating || !model) return;
+    const touch = event.changedTouches[0];
+    mouse.x = (touch.clientX / window.innerWidth) * 2 - 1;
+    mouse.y = -(touch.clientY / window.innerHeight) * 2 + 1;
+
+    raycaster.setFromCamera(mouse, camera);
+    const intersects = raycaster.intersectObject(model, true);
+    if (intersects.length > 0) {
+        for (let i = 0; i < intersects.length; i++) {
+            if (intersects[i].object === faces[(faceIndex + 3) % 4]) {
+                levelReady(faceIndex);
+                break;
+            }
+        }
+    }
 }
 
 

@@ -60,7 +60,10 @@ export default class Button extends TriggerObject {
    * TODO:这里有问题，模型并没有material
    */
     toggleActive(active) {
+      //if (this.active === active) return;
       this.active = active;
+      // 将child[0]的y坐标增加10
+      this.mesh.children[9].position.y += 10;
       return;
       if (this.mesh) {
         if (active) {
