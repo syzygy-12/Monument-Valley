@@ -231,41 +231,36 @@ function changeNumberedFace(number, face) {
 }
 
 function isTouchDevice() {
-    // 检查是否支持触摸事件
     const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
-
-    // 排除常见的误判设备（如部分桌面设备误认为触摸设备）
-    const isNotMobile = window.innerWidth > 1024;  // 如果屏幕宽度大于 1024px，认为是桌面设备
-
-    // 如果是支持触摸事件并且是较小屏幕，则认为是触摸设备
-    return hasTouch && !isNotMobile;
+    const isMobile = window.matchMedia('(pointer: coarse)').matches;  // 使用 media query 来检查是否是触摸设备
+    return hasTouch && isMobile;
 }
-
-
+// 触摸相关事件
 function onTouchStart(event) {
-    event.preventDefault(); // 防止页面滚动
+    event.preventDefault();
     isDragging = true;
-    const touch = event.touches[0]; // 获取第一个触摸点
+    const touch = event.touches[0]; // 获取触摸点
     previousMousePosition = { x: touch.clientX, y: touch.clientY };
 }
 
 function onTouchMove(event) {
-    event.preventDefault(); // 防止页面滚动
+    event.preventDefault();
     if (isDragging && model) {
-        const touch = event.touches[0]; // 获取第一个触摸点
+        const touch = event.touches[0];
         const deltaMove = {
             x: touch.clientX - previousMousePosition.x,
         };
-        targetRotationY += deltaMove.x * 0.002; // Adjust rotation sensitivity
+        targetRotationY += deltaMove.x * 0.005;  // 调整旋转灵敏度
         previousMousePosition = { x: touch.clientX, y: touch.clientY };
     }
 }
 
 function onTouchEnd(event) {
-    event.preventDefault(); // 防止页面滚动
+    event.preventDefault();
     snapToClosestFace();
     isDragging = false;
 }
+
 
 function onWindowResize() {
     const aspect = window.innerWidth / window.innerHeight;
@@ -302,23 +297,24 @@ function snapToClosestFace() {
     targetRotationY = Math.round(targetRotationY / snapAngle) * snapAngle;
 }
 
+// 处理 click 事件
 function onMouseClick(event) {
     if (isDragging || isAnimating || !model) return;
+
+    // 将点击位置转换为 NDC（标准设备坐标）
     mouse.x = (event.clientX / window.innerWidth) * 2 - 1;
     mouse.y = -(event.clientY / window.innerHeight) * 2 + 1;
 
     raycaster.setFromCamera(mouse, camera);
     const intersects = raycaster.intersectObject(model, true);
     if (intersects.length > 0) {
-        // 遍历相交的物体，看是否有faces中的元素
+        // 这里处理相交的物体，点击面
         for (let i = 0; i < intersects.length; i++) {
             if (intersects[i].object === faces[(faceIndex + 3) % 4]) {
                 levelReady(faceIndex);
                 break;
             }
         }
-        //const faceIndex = Math.floor(Math.random() * 6); // Placeholder for GLB faces
-        //navigateToPage(faceIndex);
     }
 }
 
