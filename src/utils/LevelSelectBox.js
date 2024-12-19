@@ -151,9 +151,9 @@ function init() {
     document.addEventListener('mousedown', onMouseDown, false);
     document.addEventListener('mousemove', onMouseMove, false);
     document.addEventListener('mouseup', onMouseUp, false);
-    document.addEventListener('touchstart', onTouchStart, false); // 添加触摸事件
-    document.addEventListener('touchmove', onTouchMove, false);   // 添加触摸事件
-    document.addEventListener('touchend', onTouchEnd, false);     // 添加触摸事件
+    document.addEventListener('touchstart', onTouchStart, { passive: true }); // 添加触摸事件
+    document.addEventListener('touchmove', onTouchMove, { passive: true });   // 添加触摸事件
+    document.addEventListener('touchend', onTouchEnd, { passive: true });     // 添加触摸事件
     document.addEventListener('click', onMouseClick, false);
     listenForExternalDestroyLevelSelectBox();
 }
