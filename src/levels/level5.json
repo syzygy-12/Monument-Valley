@@ -18,7 +18,7 @@
     }
 
   ],
-  "rain": { "particlesCount": 1300, "areaSize": 500, "speed": 50, "signalIdList": [83] },
+  "rain": { "particlesCount": 1300, "areaSize": 150, "speed": 50, "signalIdList": [83] },
   "lightning": {
     "gap": 6,
     "duration": 0.1,
@@ -103,11 +103,18 @@
     },
     {
       "width": 4,
-      "height": 84,
+      "height": 4,
       "depth": 4,
       "color": "0x606060",
-      "position": { "x": 3, "y": -31, "z": 9 },
+      "position": { "x": 3, "y": 9, "z": 9 },
       "signalIdList": [1]
+    },
+    {
+      "width": 4,
+      "height": 84,
+      "depth": 10,
+      "color": "0x606060",
+      "position": { "x": 3, "y": -35, "z": 6 }
     },
     {
       "width": 10,
@@ -621,16 +628,15 @@
       }
     },
     { "width": 2, 
-      "height": 2.828427125, 
-      "initialQuaternion": { "x": 0.3826834323650898, "y": 0, 
-                              "z": 0, "w": -0.9238795325112867 },
-      "position": { "x": 0, "y": 12, "z": 10 },
+      "height": 2,
+      "normal": "z",
+      "position": { "x": 0, "y": 12, "z": 9 },
       "signalIdList": [1] ,
       "plate": {
         "width": 0,
         "height": 0,
         "depth": 0,
-        "position": { "x": 0, "y": 12, "z": 10 },
+        "position": { "x": 0, "y": 12, "z": 9 },
         "color": "0x0080ff",
         "signals": [
           {
@@ -647,15 +653,14 @@
     { "width": 2, 
       "height": 2,
       "normal": "z",
-      "position": { "x": 0, "y": 10, "z": 11 },
+      "position": { "x": 0, "y": 10, "z": 9 },
       "signalIdList": [1] 
     },
     { "width": 2, 
-      "height": 2.828427125, 
-      "initialQuaternion": { "x": 0.3826834323650898, "y": 0, 
-                              "z": 0, "w": 0.9238795325112867 },
-      "position": { "x": 0, "y": 8, "z": 10 },
-      "signalIdList": [1]  
+      "height": 2,
+      "normal": "z",
+      "position": { "x": 0, "y": 8, "z": 9 },
+      "signalIdList": [1] 
     },
     { "width": 2, 
       "height": 2.828427125, 
@@ -1038,24 +1043,22 @@
       "position": { "x": -14, "y": -7, "z": 14 }
     },
     { 
-      "width": 2.828427125, 
+      "width": 2, 
       "height": 2, 
-      "initialQuaternion": { "x": 0.6532814824381882, "y": 0.27059805007309845, 
-                              "z": 0.2705980500730985, "w": 0.6532814824381883 },
-      "position": { "x": -14, "y": -2, "z": 14 } 
+      "normal": "x", 
+      "position": { "x": -13, "y": -2, "z": 14 }
     },
     { 
       "width": 2, 
       "height": 2, 
       "normal": "x", 
-      "position": { "x": -15, "y": -4, "z": 14 }
+      "position": { "x": -13, "y": -4, "z": 14 }
     },
     { 
       "width": 2, 
-      "height": 2.828427125, 
-      "initialQuaternion": { "x": -0.27059805007309845, "y": 0.6532814824381883, 
-        "z": 0.2705980500730985, "w": 0.6532814824381883 },
-      "position": { "x": -14, "y": -6, "z": 14 } 
+      "height": 2, 
+      "normal": "x", 
+      "position": { "x": -13, "y": -6, "z": 14 }
     },
     { 
       "width": 2, 
