@@ -1,0 +1,65 @@
+Date : 2024-12-17 01:16:28
+Directory : c:\Users\13604\Desktop\file\Monument-Valley\src
+Total : 35 files,  6284 codes, 256 comments, 456 blanks, all 6996 lines
+
+Languages
++------------+------------+------------+------------+------------+------------+
+| language   | files      | code       | comment    | blank      | total      |
++------------+------------+------------+------------+------------+------------+
+| JSON       |         10 |      4,036 |          0 |         14 |      4,050 |
+| JavaScript |         25 |      2,248 |        256 |        442 |      2,946 |
++------------+------------+------------+------------+------------+------------+
+
+Directories
++-----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                              | files      | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                 |         35 |      6,284 |        256 |        456 |      6,996 |
+| core                                                                              |          3 |        310 |         30 |         68 |        408 |
+| levels                                                                            |         10 |      4,036 |          0 |         14 |      4,050 |
+| objects                                                                           |         16 |      1,269 |        147 |        235 |      1,651 |
+| params                                                                            |          1 |          1 |          0 |          0 |          1 |
+| utils                                                                             |          5 |        668 |         79 |        139 |        886 |
++-----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++-----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| filename                                                                          | language   | code       | comment    | blank      | total      |
++-----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| c:\Users\13604\Desktop\file\Monument-Valley\src\core\Game.js                      | JavaScript |         78 |         12 |         19 |        109 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\core\LevelManager.js              | JavaScript |         91 |          6 |         16 |        113 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\core\SceneManager.js              | JavaScript |        141 |         12 |         33 |        186 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\levels\level-1.json               | JSON       |         99 |          0 |          0 |         99 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\levels\level0.json                | JSON       |      1,201 |          0 |          2 |      1,203 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\levels\level1.json                | JSON       |        376 |          0 |          1 |        377 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\levels\level2.json                | JSON       |        873 |          0 |          1 |        874 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\levels\level3.json                | JSON       |        115 |          0 |          1 |        116 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\levels\level4.json                | JSON       |        715 |          0 |          1 |        716 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\levels\level5.json                | JSON       |        376 |          0 |          1 |        377 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\levels\level6.json                | JSON       |         75 |          0 |          1 |         76 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\levels\level7.json                | JSON       |         70 |          0 |          1 |         71 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\levels\level8.json                | JSON       |        136 |          0 |          5 |        141 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\Button.js                 | JavaScript |         65 |         13 |          9 |         87 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\Character.js              | JavaScript |        183 |         20 |         34 |        237 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\DoublePlate.js            | JavaScript |         17 |          0 |          5 |         22 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\Ladder.js                 | JavaScript |         42 |          6 |         11 |         59 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\Ocean.js                  | JavaScript |        145 |         17 |         31 |        193 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\Plate.js                  | JavaScript |         17 |          0 |          6 |         23 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\Platform.js               | JavaScript |         11 |          2 |          3 |         16 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\Quad.js                   | JavaScript |        106 |          8 |         21 |        135 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\Rain.js                   | JavaScript |         48 |         13 |         13 |         74 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\Signal.js                 | JavaScript |         65 |          1 |          2 |         68 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\SignalResponsiveObject.js | JavaScript |        230 |         23 |         39 |        292 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\Snow.js                   | JavaScript |         47 |          8 |         14 |         69 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\Surface.js                | JavaScript |         33 |          5 |          3 |         41 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\Totem.js                  | JavaScript |        167 |         27 |         29 |        223 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\TriangularPrism.js        | JavaScript |         48 |          3 |          6 |         57 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\objects\TriggerObject.js          | JavaScript |         45 |          1 |          9 |         55 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\params\IsDevMode.js               | JavaScript |          1 |          0 |          0 |          1 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\utils\ConsoleUtils.js             | JavaScript |         83 |         14 |         15 |        112 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\utils\LevelLoadUtils.js           | JavaScript |        136 |         18 |         23 |        177 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\utils\LevelSelectBox.js           | JavaScript |        243 |         21 |         61 |        325 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\utils\QuadUtils.js                | JavaScript |         57 |          4 |         15 |         76 |
+| c:\Users\13604\Desktop\file\Monument-Valley\src\utils\SignalUtils.js              | JavaScript |        149 |         22 |         25 |        196 |
+| Total                                                                             |            |      6,284 |        256 |        456 |      6,996 |
++-----------------------------------------------------------------------------------+------------+------------+------------+------------+------------+

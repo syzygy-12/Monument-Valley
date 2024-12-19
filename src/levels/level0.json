@@ -18,13 +18,19 @@
     }
 
   ],
+  "rain": { "particlesCount": 1300, "areaSize": 150, "speed": 50, "signalIdList": [83] },
+  "lightning": {
+    "gap": 6,
+    "duration": 0.1,
+    "signalIdList": [84]
+  },
   "cameraShift": {
     "dx": 0,
     "dy": 0
   },
   "backgroundColor": "0x000000",
   "ocean": {
-    "depth": -16.5,
+    "depth": 16.5,
     "size": 400,
     "speed": 1.5,
     "signalIdList": [91, 92, 93, 94, 95, 96, 97, 98, 81, 82, 83, 84],
@@ -957,6 +963,15 @@
             "color": "0xffffff",
             "intensity": 2.5,
             "duration": 8
+          },
+          {
+            "id": 83,
+            "type": "stopRain",
+            "duration": 8
+          },
+          {
+            "id": 84,
+            "type": "stopLightning"
           }
         ]
       }

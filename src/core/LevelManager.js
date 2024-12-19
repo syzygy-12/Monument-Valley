@@ -1,7 +1,7 @@
 import Totem from "../objects/Totem.js";
 import { buildQuadGraph, isQuadsConnected, findQuadPath } from "../utils/QuadUtils.js";
 import { loadLevelData, loadLevelObjects, initializeCharacter } from "../utils/LevelLoadUtils.js";
-import { initializeConsole } from "../utils/ConsoleUtils.js";
+import { initializeConsole, generateWASDButtons } from "../utils/ConsoleUtils.js";
 import { setSignals, tick } from "../utils/SignalUtils.js";
 
 export default class LevelManager {
@@ -44,6 +44,7 @@ export default class LevelManager {
   addTotem(quad) {
     
     const { scene, updatables } = this.sceneManager;
+    generateWASDButtons();
     // 初始化角色
     (async () => {
       const totem = new Totem(quad, this.sceneManager, this, quad.signalIdList);
@@ -103,8 +104,18 @@ export default class LevelManager {
         const currentQuad = this.character.currentQuad;
         const path = this.findPath(currentQuad, clickedQuad);
         if (path) {
-          this.character.terminateMovement();
-          this.character.followPath(path);
+          if (this.character.path && this.character.path.length > 0 && 
+            this.character.path[0] === path[0]) {
+            this.character.path = path
+          }
+          else if (this.character.path && this.character.path.length > 0 && path.length > 1 &&
+            this.character.path[0] === path[1]) {
+            this.character.path = path.slice(1);
+            }
+          else {
+            this.character.terminateMovement();
+            this.character.followPath(path);
+          }
         }
       }
     }

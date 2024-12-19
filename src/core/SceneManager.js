@@ -51,7 +51,7 @@ export default class SceneManager {
     //directionalLight.castShadow = true;
     this.scene.add(directionalLight);
 
-    this.camera.position.set(-50, 50, 50);
+    this.camera.position.set(-100, 100, 100);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
   }
 
@@ -71,7 +71,7 @@ export default class SceneManager {
 
   resetCameraPosition() {
     this.controls.reset();
-    this.camera.position.set(-50, 50, 50);
+    this.camera.position.set(-100, 100, 100);
     this.camera.lookAt(new THREE.Vector3(0, 0, 0));
     this.shiftCamera(this.shiftVector);
     this.camera.zoom = 1; 

@@ -190,7 +190,7 @@
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 4, "y": 8, "z": 10 },
+      "position": { "x": 12, "y": 0, "z": 2 },
       "color": "0xff2520",
       "comment": "天桥开始",
       "signalIdList": [201]
@@ -199,7 +199,7 @@
       "width": 2,
       "height": 2,
       "depth": 2,
-      "position": { "x": 4, "y": 8, "z": 10 },
+      "position": { "x": 12, "y": 0, "z": 2 },
       "color": "0xff2520",
       "signalIdList": [202]
     },
@@ -316,7 +316,7 @@
       "color": "0xff2520",
       "position": { "x": 4, "y": 9, "z": 10 },
       "normal": "y",
-      "signalIdList": [203]
+      "signalIdList": [201]
     },
     {
       "width": 2,
@@ -324,7 +324,7 @@
       "color": "0xff2520",
       "position": { "x": 4, "y": 8, "z": 11 },
       "normal": "z",
-      "signalIdList": [203]
+      "signalIdList": [201]
     }
   ],
   "quads": [

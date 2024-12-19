@@ -16,6 +16,10 @@ export function setSignals(levelManager, signals) {
       0: {
         targetPosition: new THREE.Vector3(-10, 9, 24),
         targetZoom: 3,
+      },
+      5: {
+        targetPosition: new THREE.Vector3(-10, 9, 24),
+        targetZoom: 3,
       }
     };
     
@@ -50,6 +54,8 @@ export function setSignals(levelManager, signals) {
       ...levelManager.ladders,
       levelManager.sceneManager,
       levelManager.ocean,
+      levelManager.rain,
+      levelManager.lightning,
     ];
   
     // 为每个目标物体设置信号
@@ -160,20 +166,24 @@ export function setSignals(levelManager, signals) {
   
     // 判断角色是否站在 button 控制的 quad 上
     if (character) {
-      const quad = character.currentQuad;
-      if (quad) {
-        for (const button of buttons) {
+      const quad = character.currentQuad, quad2 = character.targetQuad;
+      for (const button of buttons)
+      {
           if (
+            (quad &&
             quad.signalIdList &&
             quad.signalIdList.includes(button.signals[0].id) &&
-            button.standStop
+            button.standStop) ||
+            (quad2 &&
+            quad2.signalIdList &&
+            quad2.signalIdList.includes(button.signals[0].id) &&
+            button.standStop)
           ) {
             button.toggleActive(false);
           } else {
             button.toggleActive(true);
           }
         }
-      }
     }
   
     // 检查动画状态

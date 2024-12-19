@@ -9,6 +9,7 @@ import Rain from "../objects/Rain.js";
 import Character from "../objects/Character.js";
 import Ladder from "../objects/Ladder.js";
 import Ocean from "../objects/Ocean.js";
+import Lightning from "../objects/Lightning.js";
 
 export async function loadLevelData(levelNumber) {
   // 异步加载关卡 JSON 数据
@@ -30,6 +31,7 @@ export async function loadLevelData(levelNumber) {
     rain: levelData.rain || null,
     ocean: levelData.ocean || null,
     directionalLights: levelData.directionalLights || [],
+    lightning: levelData.lightning || null,
   };
 }
 
@@ -59,9 +61,9 @@ export async function loadLevelObjects(levelData, sceneManager, levelManager) {
 
   // 加载雨效果
   if (levelData.rain) {
-    const { particlesCount, size, areaSize, speed } = levelData.rain;
-    const rain = new Rain({ particlesCount, size, areaSize, speed, levelManager });
+    const rain = new Rain({ ...levelData.rain, levelManager });
     updatables.push(rain);
+    levelManager.rain = rain;
   }
 
   // 加载海洋效果
@@ -69,6 +71,13 @@ export async function loadLevelObjects(levelData, sceneManager, levelManager) {
     const ocean = new Ocean({ ...levelData.ocean, levelManager });
     updatables.push(ocean);
     levelManager.ocean = ocean;
+  }
+
+  // 加载闪电效果
+  if (levelData.lightning) {
+    const lightning = new Lightning({ ...levelData.lightning, levelManager });
+    levelManager.lightning = lightning;
+    levelManager.lightning.strikeLightning();
   }
 
   // 加载平台

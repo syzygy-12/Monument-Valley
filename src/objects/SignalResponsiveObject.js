@@ -182,7 +182,8 @@ export default class SignalResponsiveObject {
         }
     
         if (!this.isAnimating) return;
-    
+
+        this.frameUpdate();   
         if (this.animationType === "rotation") {
             this.tickRotation(delta);
         } else if (this.animationType === "translation") {
@@ -286,6 +287,10 @@ export default class SignalResponsiveObject {
     }
 
     animationComplete() {
+        // 空方法，由子类实现
+    }
+
+    frameUpdate() {
         // 空方法，由子类实现
     }
 }

@@ -450,14 +450,14 @@
     },
     {
       "width": 0.2,
-      "height": 4,
-      "position": { "x": -11, "y": 15, "z": 19.1 },
+      "height": 7,
+      "position": { "x": -11, "y": 16.5, "z": 19.1 },
       "normal": "x"
     },
     {
       "width": 0.2,
-      "height": 4,
-      "position": { "x": -10.9, "y": 15, "z": 19.2 },
+      "height": 7,
+      "position": { "x": -10.9, "y": 16.5, "z": 19.2 },
       "normal": "z"
     }
   ],
@@ -547,15 +547,15 @@
     },
     {
       "width": 2,
-      "height": 2.828427125,
-      "position": { "x": -20, "y": 0, "z": 10 },
-      "initialQuaternion": { "x": -0.3826834323650898, "y": 0, "z": 0, "w": 0.9238795325112867 }
+      "height": 2,
+      "position": { "x": -20, "y": 0, "z": 9 },
+      "normal": "z"
     },
     {
       "width": 2,
-      "height": 2.828427125,
-      "position": { "x": -20, "y": -2, "z": 10 },
-      "initialQuaternion": { "x": 0.3826834323650898, "y": 0, "z": 0, "w": 0.9238795325112867 }
+      "height": 2,
+      "position":  { "x": -20, "y": -2, "z": 9 },
+      "normal": "z"
     },
     {
       "width": 2,

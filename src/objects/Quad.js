@@ -124,6 +124,10 @@ export default class Quad extends SignalResponsiveObject {
     this.keyPoints = this.calculateKeyPoints(); // 更新关键点
   }
 
+  frameUpdate() {
+    this.keyPoints = this.calculateKeyPoints(); // 更新关键点
+  }
+
   toggleCharacterOn() {
     this.occupied = !this.occupied;
     if (this.doublePlate) {

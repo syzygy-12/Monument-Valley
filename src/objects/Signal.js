@@ -55,6 +55,13 @@ export default class Signal {
             this.duration = duration || 1;
             this.intensity = intensity || 1;
         }
+        else if (type === "stopRain") {
+            this.type = "stopRain";
+            this.duration = duration || 1;
+        }
+        else if (type === "stopLightning") {
+            this.type = "stopLightning";
+        }
     }
     
     addCount() {

@@ -13,7 +13,7 @@ let minLevel = isDevMode ? -1 : 1; // 开始的最小等级
 let maxLevel = 10;
 let isAbort = false;
 let animations = {};
-const snapAngle = Math.PI / 2; 
+const snapAngle = Math.PI / 2;
 const d = 5; // 正交相机范围
 const aspect = window.innerWidth / window.innerHeight;
 const clock = new THREE.Clock();
@@ -27,28 +27,28 @@ function init() {
     camera.position.set(-50, 0, 0);
     camera.lookAt(new THREE.Vector3(0, 0, 0));
 
-    scene.background = new THREE.Color(0x011b47); 
+    scene.background = new THREE.Color(0x011b47);
 
     const textureLoader = new THREE.TextureLoader();
     const texture = textureLoader.load(
-        '../assets/castle.png', 
+        '../assets/castle.png',
         () => {
-          //console.log('Texture loaded successfully!');
+            //console.log('Texture loaded successfully!');
         },
         undefined, // 加载进度回调（如果需要的话）
         (error) => {
-          console.error('Error loading texture:', error);
+            console.error('Error loading texture:', error);
         }
-      );
-      
+    );
+
     const material = new THREE.MeshBasicMaterial({
         map: texture,
-        transparent: true,   
-        opacity: 0.3,        
-        side: THREE.DoubleSide  
+        transparent: true,
+        opacity: 0.3,
+        side: THREE.DoubleSide
     });
 
-    const planeGeometry = new THREE.PlaneGeometry(16,16);  
+    const planeGeometry = new THREE.PlaneGeometry(16, 16);
 
     const plane = new THREE.Mesh(planeGeometry, material);
     plane.rotation.y = -Math.PI / 2;
@@ -69,13 +69,13 @@ function init() {
     renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setSize(window.innerWidth, window.innerHeight);
     document.body.appendChild(renderer.domElement);
-    
+
     renderer.domElement.style.position = 'absolute';
     renderer.domElement.style.top = '0';
     renderer.domElement.style.left = '0';
     renderer.domElement.style.zIndex = '0';
 
-    
+
 
     const loader = new THREE.GLTFLoader();
     loader.load('./assets/level_select.glb', (gltf) => {
@@ -90,7 +90,7 @@ function init() {
         model.position.set(0, -0.25, 0);
 
         group.add(model);
-   
+
 
         // 添加四个面
         const faceSize = 1.74, shift = 1.59, shiftY = 0.72; // 面的大小，可以根据实际需求调整
@@ -102,13 +102,13 @@ function init() {
         ];
 
         // 位置和朝向设置
-        faces[0].position.set(-shift, -shiftY-0.25, 0); 
-        faces[0].rotation.set(Math.PI / 4, -Math.PI / 2, 0); 
-        faces[1].position.set(0, -shiftY-0.25, shift); 
+        faces[0].position.set(-shift, -shiftY - 0.25, 0);
+        faces[0].rotation.set(Math.PI / 4, -Math.PI / 2, 0);
+        faces[1].position.set(0, -shiftY - 0.25, shift);
         faces[1].rotation.set(0, 0, -Math.PI / 4);
-        faces[2].position.set(shift, -shiftY-0.25, 0);
+        faces[2].position.set(shift, -shiftY - 0.25, 0);
         faces[2].rotation.set(-Math.PI / 4, Math.PI / 2, 0);
-        faces[3].position.set(0, -shiftY-0.25, -shift); 
+        faces[3].position.set(0, -shiftY - 0.25, -shift);
         faces[3].rotation.set(0, Math.PI, -Math.PI / 4);
 
         // 添加所有面到 group
@@ -118,7 +118,7 @@ function init() {
 
         model = group; // 将 group 作为可旋转的模型
 
-            // 创建动画
+        // 创建动画
         const times = [0, 2, 4]; // 时间点
         const values = [0, -0.3, 0]; // 对应的 y 轴位置
 
@@ -146,11 +146,21 @@ function init() {
     });
 
     window.addEventListener('resize', onWindowResize, false);
-    document.addEventListener('mousedown', onMouseDown, false);
-    document.addEventListener('mousemove', onMouseMove, false);
-    document.addEventListener('mouseup', onMouseUp, false);
+
+    console.log('isTouchDevice:', isTouchDevice());
+    if (isTouchDevice()) {
+        document.addEventListener('touchstart', onTouchStart, false);   // 使用touchstart代替mousedown
+        document.addEventListener('touchmove', onTouchMove, false);     // 使用touchmove代替mousemove
+        document.addEventListener('touchend', onTouchEnd, false);       // 使用touchend代替mouseup
+    } else {
+        document.addEventListener('mousedown', onMouseDown, false);     // 电脑鼠标事件
+        document.addEventListener('mousemove', onMouseMove, false);     // 电脑鼠标事件
+        document.addEventListener('mouseup', onMouseUp, false);         // 电脑鼠标事件
+    }
+
     document.addEventListener('click', onMouseClick, false);
     listenForExternalDestroyLevelSelectBox();
+
 }
 
 function convertToRoman(number) {
@@ -160,7 +170,7 @@ function convertToRoman(number) {
 }
 
 
-        // 创建罗马数字面
+// 创建罗马数字面
 function createNumberedFace(number, width, height) {
     const canvas = document.createElement('canvas');
     canvas.width = 256; // 调整画布大小
@@ -184,8 +194,8 @@ function createNumberedFace(number, width, height) {
     texture.center.set(0.5, 0.5);
     texture.rotation = Math.PI / 4;
     const material = new THREE.MeshBasicMaterial(
-        { map: texture, transparent: true , side: THREE.DoubleSide, color: 0x808080});
-    
+        { map: texture, transparent: true, side: THREE.DoubleSide, color: 0x808080 });
+
     const geometry = new THREE.PlaneGeometry(width, height);
     const surface = new THREE.Mesh(geometry, material);
     return surface;
@@ -215,11 +225,47 @@ function changeNumberedFace(number, face) {
     texture.center.set(0.5, 0.5);
     texture.rotation = Math.PI / 4;
     const material = new THREE.MeshBasicMaterial(
-        { map: texture, transparent: true , side: THREE.DoubleSide, color: 0x808080});
-    
+        { map: texture, transparent: true, side: THREE.DoubleSide, color: 0x808080 });
+
     face.material = material;
 }
 
+function isTouchDevice() {
+    // 检查是否支持触摸事件
+    const hasTouch = 'ontouchstart' in window || navigator.maxTouchPoints > 0 || navigator.msMaxTouchPoints > 0;
+
+    // 排除常见的误判设备（如部分桌面设备误认为触摸设备）
+    const isNotMobile = window.innerWidth > 1024;  // 如果屏幕宽度大于 1024px，认为是桌面设备
+
+    // 如果是支持触摸事件并且是较小屏幕，则认为是触摸设备
+    return hasTouch && !isNotMobile;
+}
+
+
+function onTouchStart(event) {
+    event.preventDefault(); // 防止页面滚动
+    isDragging = true;
+    const touch = event.touches[0]; // 获取第一个触摸点
+    previousMousePosition = { x: touch.clientX, y: touch.clientY };
+}
+
+function onTouchMove(event) {
+    event.preventDefault(); // 防止页面滚动
+    if (isDragging && model) {
+        const touch = event.touches[0]; // 获取第一个触摸点
+        const deltaMove = {
+            x: touch.clientX - previousMousePosition.x,
+        };
+        targetRotationY += deltaMove.x * 0.002; // Adjust rotation sensitivity
+        previousMousePosition = { x: touch.clientX, y: touch.clientY };
+    }
+}
+
+function onTouchEnd(event) {
+    event.preventDefault(); // 防止页面滚动
+    snapToClosestFace();
+    isDragging = false;
+}
 
 function onWindowResize() {
     const aspect = window.innerWidth / window.innerHeight;
@@ -285,7 +331,7 @@ function listenForExternalDestroyLevelSelectBox() {
     window.addEventListener("destroyLevelSelectBox", (event) => {
         isAbort = true;
     });
-  }
+}
 
 function animate() {
     if (isAbort) {
@@ -304,9 +350,9 @@ function animate() {
         } else {
             isAnimating = false;
         }
-        
+
         faceIndex = - Math.round(model.rotation.y / (Math.PI / 2)) + 1;
-        if (faceIndex < minLevel ) {
+        if (faceIndex < minLevel) {
             targetRotationY = 0;
         }
         if (faceIndex > maxLevel) {
