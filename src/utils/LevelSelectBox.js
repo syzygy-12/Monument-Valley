@@ -7,6 +7,8 @@ let isDragging = false;
 let isAnimating = false;
 let previousMousePosition = { x: 0, y: 0 };
 let targetRotationY = 0;
+let isTouching = false;
+let touchStartX = 0;
 let faceIndex = 1;
 let faces = [];
 let minLevel = isDevMode ? -1 : 1; // 开始的最小等级
@@ -149,6 +151,9 @@ function init() {
     document.addEventListener('mousedown', onMouseDown, false);
     document.addEventListener('mousemove', onMouseMove, false);
     document.addEventListener('mouseup', onMouseUp, false);
+    document.addEventListener('touchstart', onTouchStart, false); // 添加触摸事件
+    document.addEventListener('touchmove', onTouchMove, false);   // 添加触摸事件
+    document.addEventListener('touchend', onTouchEnd, false);     // 添加触摸事件
     document.addEventListener('click', onMouseClick, false);
     listenForExternalDestroyLevelSelectBox();
 }
@@ -220,6 +225,27 @@ function changeNumberedFace(number, face) {
     face.material = material;
 }
 
+function onTouchStart(event) {
+    if (event.touches.length === 1) {
+        isTouching = true;
+        touchStartX = event.touches[0].clientX;
+    }
+}
+
+function onTouchMove(event) {
+    if (isTouching && model && event.touches.length === 1) {
+        const deltaMove = {
+            x: event.touches[0].clientX - touchStartX,
+        };
+        targetRotationY += deltaMove.x * 0.005; // Adjust rotation sensitivity
+        touchStartX = event.touches[0].clientX;
+    }
+}
+
+function onTouchEnd() {
+    snapToClosestFace();
+    isTouching = false;
+}
 
 function onWindowResize() {
     const aspect = window.innerWidth / window.innerHeight;
