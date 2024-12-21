@@ -163,7 +163,7 @@ async function loadModels(models, scene, updatables) {
     const loader = new THREE.GLTFLoader();
 
     for (const modelData of models) {
-      const { id, path, position, scale, rotation } = modelData;
+      const { id, path, position, scale, rotation, color } = modelData;
 
       try {
         const gltf = await loader.loadAsync(path); // 使用 loadAsync 异步加载 GLB 模型
@@ -173,6 +173,14 @@ async function loadModels(models, scene, updatables) {
         model.position.set(position.x, position.y, position.z);
         model.scale.set(scale.x, scale.y, scale.z);
         model.rotation.set(rotation.x, rotation.y, rotation.z);
+        if (color) {
+          const parsedColor = parseInt(color, 16);
+          const material = new THREE.MeshStandardMaterial({ color: 0x8b4513 });
+          model.traverse((child) => {
+            child.material = material;
+            console.log(child);
+          });
+        }
 
         // 添加到场景
         scene.add(model);

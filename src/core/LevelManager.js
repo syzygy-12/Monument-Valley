@@ -3,6 +3,7 @@ import { buildQuadGraph, isQuadsConnected, findQuadPath } from "../utils/QuadUti
 import { loadLevelData, loadLevelObjects, initializeCharacter } from "../utils/LevelLoadUtils.js";
 import { initializeConsole, generateWASDButtons } from "../utils/ConsoleUtils.js";
 import { setSignals, tick } from "../utils/SignalUtils.js";
+import { fadeOut } from "../utils/AudioUtils.js";
 
 export default class LevelManager {
   constructor(sceneManager, game) {
@@ -19,9 +20,10 @@ export default class LevelManager {
     this.ladders = [];
     this.signals = [];
     this.isSignalReceived = false;
-
     this.graph = new Map();
     this.animatingObjects = [];
+
+    fadeOut(this.game.audio, 2);
   }
 
   async loadLevel(levelNumber) {
@@ -39,6 +41,12 @@ export default class LevelManager {
     window.addEventListener("click", (event) => this.onScreenClick(event));
     // 初始化控制台
     initializeConsole(this, this.sceneManager);
+
+    this.audio = new Audio(`./assets/audio/bgm${this.levelNumber}.flac`);
+    this.audio.loop = true;
+    this.audio.volume = 0.24;
+    this.audio.play();
+
   }
   
   addTotem(quad) {

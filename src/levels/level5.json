@@ -957,7 +957,7 @@
           {
             "id": 81,
             "type": "colorShift",
-            "targetColor": "0x004f8f",
+            "targetColor": "0x007fbf",
             "duration": 8
           },
           {
@@ -966,7 +966,7 @@
             "toCamera": true,
             "position": { "x": -1, "y": 2, "z": 1 },
             "color": "0xffffff",
-            "intensity": 2.5,
+            "intensity": 2,
             "duration": 8
           },
           {

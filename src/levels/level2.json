@@ -12,7 +12,7 @@
     {
       "id": "scene2",
       "path": "assets/forest.glb",
-      "position": { "x": 12, "y": 1, "z": 14 },
+      "position": { "x": 6, "y": 1, "z": 14 },
       "scale": { "x":0.3, "y": 0.3, "z": 0.3 },
       "rotation": { "x": 0, "y": 1.5707963267948966192313216916398, "z": 0 }
     },
@@ -36,6 +36,14 @@
       "position": { "x": -10, "y": 20, "z": -4 },
       "scale": { "x":0.6, "y": 0.6, "z": 0.6 },
       "rotation": { "x": 0, "y": 0, "z": 0 }
+    },
+    {
+      "id": "plane",
+      "path": "assets/plane.glb",
+      "position": { "x": -5, "y": -6, "z": -5 },
+      "scale": { "x": 4, "y": 4, "z": 4 },
+      "rotation": { "x": 0, "y": 0, "z": 0 }
+
     }
   ],
   "platforms": [
@@ -393,13 +401,6 @@
     }
   ],
   "surfaces": [
-    {
-      "width": 54,
-      "height": 54,
-      "position": { "x": -2, "y": -5, "z": 0 },
-      "normal": "y",
-      "color": "0x6b3513"
-    },
     {
       "width": 0.2,
       "height": 18,

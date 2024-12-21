@@ -1,4 +1,5 @@
 import SignalResponsiveObject from "./SignalResponsiveObject.js";
+import { fadeIn, fadeOut } from "../utils/AudioUtils.js";
 
 // 注意:角色的SignalResponse是错误的，需要修改
 export default class Character extends SignalResponsiveObject{
@@ -25,6 +26,8 @@ export default class Character extends SignalResponsiveObject{
     this.movementPhase = null; // 移动阶段: TO_KEYPOINT, TELEPORT, TO_CENTER
     
     this.loadModel();
+    this.audio = new Audio("./assets/audio/walking.wav");
+    this.audio.loop = true;
   }
 
   loadModel() {
@@ -81,6 +84,7 @@ export default class Character extends SignalResponsiveObject{
   }
 
   followPath(path) {
+    fadeIn(this.audio, 1, 0.16);
     this.path = path; // 设置新的路径
     //console.log("path", path);
     this.path.shift(); // 移除第一个 Quad，因为当前位置已经在这个 Quad 上
@@ -118,6 +122,7 @@ export default class Character extends SignalResponsiveObject{
       this.targetPosition = this.mesh.position.clone();
       this.targetQuad = this.currentQuad;
       this.movementPhase = null; // 停止移动
+      fadeOut(this.audio, 1);
     }
   }
 

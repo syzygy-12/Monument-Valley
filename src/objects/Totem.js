@@ -25,6 +25,10 @@ export default class Totem extends SignalResponsiveObject {
     this.loadModel().then(() => {
       this.initKeyboardControls(); // 初始化键盘控制
     });
+
+    this.audio = new Audio("./assets/audio/totem.wav");
+    // 调小音量
+    this.audio.volume = 1;
   }
 
   loadModel() {
@@ -124,6 +128,9 @@ export default class Totem extends SignalResponsiveObject {
         return;
       }
       // 更新状态，开始移动
+      this.audio.pause();
+      this.audio.currentTime = 0;
+      this.audio.play();
       this.isMoving = true;
       this.targetQuad = targetQuad;
       this.startPosition = this.mesh.position.clone(); // 起始位置

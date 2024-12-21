@@ -35,8 +35,30 @@ export default class Button extends TriggerObject {
     this.active = true;
     this.standStop = standStop || false;
     this.initInteraction();
+    this.audioFiles = [];
+    this.currentNote = 0;
+    for (let i = 0; i <= 5; i++) {
+      const audio = new Audio(`./assets/audio/harp${i}.wav`);
+      this.audioFiles.push(audio);
+    }
+    this.lockAudio = new Audio("./assets/audio/button.wav");
+    this.lockAudio.volume = 0.1;
 
     
+  }
+
+  playNote() {
+    const audio = this.audioFiles[this.currentNote];
+
+    // 停止任何正在播放的音频（可选）
+    this.audioFiles.forEach(audio => {
+      audio.pause();
+      audio.currentTime = 0;
+    });
+
+    audio.play();
+    this.currentNote = (this.currentNote + 1) % 6;
+  
   }
 
   initInteraction() {
@@ -51,6 +73,9 @@ export default class Button extends TriggerObject {
 
       const intersects = raycaster.intersectObject(this.mesh, true);
       if (intersects.length > 0 && this.active) {
+        if (this.levelManager.animatingObjects.length === 0) {
+          this.playNote(); // 播放音符
+        }
         this.emitSignals();
       }
     });
@@ -59,6 +84,10 @@ export default class Button extends TriggerObject {
   toggleActive(active) {
     if (this.active === active) return;
     this.active = active;
+    // 播放lock音效
+    this.lockAudio.currentTime = 0;
+    this.lockAudio.play();
+
     if (!this.active && this.originalPositions === undefined) {
       // 存储子物体的原始位置
       this.originalPositions = [];

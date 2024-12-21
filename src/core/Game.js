@@ -17,12 +17,15 @@ export default class Game {
     // 绑定事件
     this.initEventListeners();
     this.listenForExternalLevelReady();
+
   }
 
   initEventListeners() {
     // 初始界面按键监听，鼠标监听
     document.addEventListener("keydown", this.showLevelSelect.bind(this));
     this.startScreen.addEventListener("click", this.showLevelSelect.bind(this));
+    
+    
   }
 
   // 监听来自外部的 levelReady 信号
@@ -37,6 +40,11 @@ export default class Game {
   showLevelSelect() {
     if (this.currentScreen !== "start") return;
     this.currentScreen = "levelSelect";
+
+    this.audio = new Audio("./assets/audio/game.flac");
+    this.audio.volume = 0.15;
+    this.audio.loop = true;
+    this.audio.play();
 
     this.startScreen.classList.add("hidden");
     this.levelSelectScreen.classList.add("show");
