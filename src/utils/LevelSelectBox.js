@@ -20,6 +20,13 @@ const d = 5; // 正交相机范围
 const aspect = window.innerWidth / window.innerHeight;
 const clock = new THREE.Clock();
 
+let audioFiles = [];
+for (let i = 0; i <= 3; i++) {
+    const audio = new Audio(`./assets/audio/harp${i}.wav`);
+    audioFiles.push(audio);
+}
+
+
 init();
 animate();
 
@@ -330,8 +337,13 @@ function animate() {
         } else {
             isAnimating = false;
         }
-        
+        const pre_faceIndex = faceIndex;
         faceIndex = - Math.round(model.rotation.y / (Math.PI / 2)) + 1;
+        if (pre_faceIndex !== faceIndex) {
+            const note = audioFiles[faceIndex % 4];
+            note.currentTime = 0;
+            note.play();
+        }
         if (faceIndex < minLevel ) {
             targetRotationY = 0;
         }

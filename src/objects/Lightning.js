@@ -1,3 +1,5 @@
+import { fadeOut } from "../utils/AudioUtils.js";
+
 export default class Lightning {
     constructor({ gap = 0.5, duration = 0.1, signalIdList, levelManager }) {
       this.levelManager = levelManager;
@@ -9,6 +11,10 @@ export default class Lightning {
       this.lastStrikeTime = 0; // 上次闪电时间
       this.isStriking = false; // 是否正在闪电
       this.isLightningStopped = false; // 是否停止闪电
+      this.audio = new Audio("./assets/audio/storm.wav");
+      this.audio.loop = true;
+      this.audio.volume = 0.2;
+      this.audio.play();
     }
 
     setSignals(signals) {
@@ -16,6 +22,7 @@ export default class Lightning {
           if (this.signalIdList.includes(signal.id)) {
             if (signal.type === "stopLightning") {
                 this.isLightningStopped = true;
+                fadeOut(this.audio, 4);
             }
           }
         }

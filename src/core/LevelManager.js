@@ -3,7 +3,8 @@ import { buildQuadGraph, isQuadsConnected, findQuadPath } from "../utils/QuadUti
 import { loadLevelData, loadLevelObjects, initializeCharacter } from "../utils/LevelLoadUtils.js";
 import { initializeConsole, generateWASDButtons } from "../utils/ConsoleUtils.js";
 import { setSignals, tick } from "../utils/SignalUtils.js";
-import { fadeOut } from "../utils/AudioUtils.js";
+import { fadeIn, fadeOut } from "../utils/AudioUtils.js";
+import Cursor from "../objects/Cursor.js";
 
 export default class LevelManager {
   constructor(sceneManager, game) {
@@ -109,6 +110,8 @@ export default class LevelManager {
         (quad) => quad.mesh === intersects[0].object
       );
       if (clickedQuad && clickedQuad !== this.character.currentQuad) {
+        const cursor = new Cursor({ position: clickedQuad.mesh.position,
+           quaternion: clickedQuad.mesh.quaternion, levelManager: this});
         const currentQuad = this.character.currentQuad;
         const path = this.findPath(currentQuad, clickedQuad);
         if (path) {
@@ -121,7 +124,12 @@ export default class LevelManager {
             this.character.path = path.slice(1);
             }
           else {
-            this.character.terminateMovement();
+            if (this.character.movementPhase !== null) {
+              this.character.terminateMovement();
+            }
+            else {
+              this.character.fadeIn();
+            }
             this.character.followPath(path);
           }
         }

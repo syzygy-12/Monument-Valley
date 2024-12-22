@@ -1,5 +1,4 @@
 import SignalResponsiveObject from "./SignalResponsiveObject.js";
-import { fadeIn, fadeOut } from "../utils/AudioUtils.js";
 
 // 注意:角色的SignalResponse是错误的，需要修改
 export default class Character extends SignalResponsiveObject{
@@ -28,6 +27,11 @@ export default class Character extends SignalResponsiveObject{
     this.loadModel();
     this.audio = new Audio("./assets/audio/walking.wav");
     this.audio.loop = true;
+    this.audio.volume = 0;
+    this.isFade = false;
+    this.currentTween = null;
+    this.duration = 1;
+    this.maxVolume = 0.1;
   }
 
   loadModel() {
@@ -75,6 +79,50 @@ export default class Character extends SignalResponsiveObject{
     });
   }  
 
+  fadeIn() {
+
+    // 如果当前正在执行 fadeOut，停止它
+    if (this.currentTween) {
+        this.currentTween.stop();  // 停止当前的淡出动画
+    }
+
+    this.isFading = true;  // 设置状态为正在淡入
+
+    const durationMs = this.duration * 1000;
+    this.currentTween = new TWEEN.Tween({ volume: this.audio.volume })
+      .to({ volume: this.maxVolume }, durationMs)
+      .onUpdate(({ volume }) => {
+        this.audio.volume = volume;
+      })
+      .onStart(() => this.audio.play())
+      .onComplete(() => {
+        this.isFading = false;  // 动画完成后重置状态
+      })
+      .start();
+  }
+
+  fadeOut() {
+
+    // 如果当前正在执行 fadeIn，停止它
+    if (this.currentTween) {
+      this.currentTween.stop();  // 停止当前的淡入动画
+    }
+
+    this.isFading = true;  // 设置状态为正在淡出
+
+    const durationMs = this.duration * 1000;
+    this.currentTween = new TWEEN.Tween({ volume: this.audio.volume })
+      .to({ volume: 0 }, durationMs)
+      .onUpdate(({ volume }) => {
+        this.audio.volume = volume;
+      })
+      .onComplete(() => {
+        this.audio.pause();
+        this.isFading = false;  // 动画完成后重置状态
+      })
+      .start();
+  }
+
   setInitialQuad(quad) {
     this.currentQuad = quad;
     this.mesh.position.copy(quad.getCenter());
@@ -84,7 +132,6 @@ export default class Character extends SignalResponsiveObject{
   }
 
   followPath(path) {
-    fadeIn(this.audio, 1, 0.16);
     this.path = path; // 设置新的路径
     //console.log("path", path);
     this.path.shift(); // 移除第一个 Quad，因为当前位置已经在这个 Quad 上
@@ -98,6 +145,7 @@ export default class Character extends SignalResponsiveObject{
       // 获取当前 Quad 和目标 Quad 的交点
       const tuple = this.findKeypoints(this.currentQuad, nextQuad);
       if (!tuple) {
+        this.fadeOut();
         this.terminateMovement();
         return
       }
@@ -122,7 +170,7 @@ export default class Character extends SignalResponsiveObject{
       this.targetPosition = this.mesh.position.clone();
       this.targetQuad = this.currentQuad;
       this.movementPhase = null; // 停止移动
-      fadeOut(this.audio, 1);
+      this.fadeOut();
     }
   }
 
@@ -173,7 +221,6 @@ export default class Character extends SignalResponsiveObject{
 
   // 每帧更新位置的 tick 方法
   tick(delta) {
-    //console.log(this.path, this.currentQuad, this.targetPosition);
     if (this.mixer) this.mixer.update(delta); // 更新动画混合器
     // 如果当前 Quad 正在动画中，跟随移动
     if (!this.currentQuad) return;
@@ -184,14 +231,14 @@ export default class Character extends SignalResponsiveObject{
     }
     
     if (this.currentQuad.plate && !this.currentQuad.plate.isEmitted) {
+      this.fadeOut();
       this.terminateMovement();
       this.currentQuad.plate.emitSignals();      
     }
 
     const direction = new THREE.Vector3().subVectors(this.targetPosition, this.mesh.position);
     const distance = direction.length();
-    //console.log(this.direction, this.movementPhase, this.currentQuad, this.path, this.currentKeypoint, this.targetKeypoint, this.targetPosition);
-
+    
     if (distance > 0.01) {
         direction.normalize();
         const moveDistance = this.speed * delta;

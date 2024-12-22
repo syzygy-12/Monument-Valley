@@ -1,6 +1,6 @@
 export function fadeIn(audio, duration, maxVolume) {
     duration = duration * 1000;
-    new TWEEN.Tween({ volume: 0 })
+    new TWEEN.Tween({ volume: audio.volume })
       .to({ volume: maxVolume }, duration)
       .onUpdate(({ volume }) => {
         audio.volume = volume;

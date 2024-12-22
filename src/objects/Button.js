@@ -37,7 +37,7 @@ export default class Button extends TriggerObject {
     this.initInteraction();
     this.audioFiles = [];
     this.currentNote = 0;
-    for (let i = 0; i <= 5; i++) {
+    for (let i = 0; i <= 3; i++) {
       const audio = new Audio(`./assets/audio/harp${i}.wav`);
       this.audioFiles.push(audio);
     }
@@ -57,7 +57,7 @@ export default class Button extends TriggerObject {
     });
 
     audio.play();
-    this.currentNote = (this.currentNote + 1) % 6;
+    this.currentNote = (this.currentNote + 1) % 4;
   
   }
 

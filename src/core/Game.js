@@ -42,7 +42,7 @@ export default class Game {
     this.currentScreen = "levelSelect";
 
     this.audio = new Audio("./assets/audio/game.flac");
-    this.audio.volume = 0.15;
+    this.audio.volume = 0.1;
     this.audio.loop = true;
     this.audio.play();
 
