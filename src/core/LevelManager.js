@@ -1,6 +1,6 @@
 import Totem from "../objects/Totem.js";
 import { buildQuadGraph, isQuadsConnected, findQuadPath } from "../utils/QuadUtils.js";
-import { loadLevelData, loadLevelObjects, initializeCharacter } from "../utils/LevelLoadUtils.js";
+import { loadLevelData, loadLevelObjects } from "../utils/LevelLoadUtils.js";
 import { initializeConsole, generateWASDButtons } from "../utils/ConsoleUtils.js";
 import { setSignals, tick } from "../utils/SignalUtils.js";
 import { fadeIn, fadeOut } from "../utils/AudioUtils.js";
@@ -31,12 +31,10 @@ export default class LevelManager {
     this.levelNumber = levelNumber;
 
     const levelData = await loadLevelData(levelNumber); // 加载关卡数据
-    // 加载关卡中的物体
+    // 加载关卡中的物体，和角色
     await loadLevelObjects(levelData, this.sceneManager, this);
     // 构建 quad 连通性图
     this.buildGraph();
-    // 初始化角色
-    await initializeCharacter(this, this.sceneManager);
     this.sceneManager.updatables.push(this);
     // 操作角色移动
     window.addEventListener("click", (event) => this.onScreenClick(event));

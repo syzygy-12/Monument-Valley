@@ -90,7 +90,7 @@ export default class Totem extends SignalResponsiveObject {
 
   tryMove(dx, dy, dz) {
     // 检查是否正在移动，防止重复触发
-    if (this.isMoving) return;
+    if (this.isMoving || this.currentQuad.isAnimating) return;
   
     // 计算目标位置
     const targetPosition = this.currentQuad.position.clone().add(new THREE.Vector3(dx, dy, dz));
@@ -124,7 +124,8 @@ export default class Totem extends SignalResponsiveObject {
       if (targetQuad.occupied || targetQuad === this.levelManager.character.targetQuad
         || targetQuad === this.levelManager.character.currentQuad 
         || this.currentQuad === this.levelManager.character.currentQuad
-        || this.currentQuad === this.levelManager.character.targetQuad) {
+        || this.currentQuad === this.levelManager.character.targetQuad
+        || targetQuad.isAnimating) {
         return;
       }
       // 更新状态，开始移动
@@ -177,12 +178,19 @@ export default class Totem extends SignalResponsiveObject {
   tick(delta) {
     // 如果当前 Quad 正在动画中，跟随移动
     if (!this.currentQuad) return;
-    if (this.currentQuad.isAnimating) {
+    
+    if (this.currentQuad.isAnimating && !this.isMoving) {
       this.headQuad.isAnimating = true;
       this.mesh.position.copy(this.currentQuad.mesh.position);
+      const quaternion = this.prevQuaternion.clone();
+      quaternion.premultiply(this.currentQuad.tempQuaternion);
+      this.mesh.quaternion.copy(quaternion);
       this.updateHeadPosition();
       //this.targetPosition.copy(this.currentQuad.mesh.position);
       return;
+    }
+    else {
+      this.prevQuaternion = this.mesh.quaternion.clone();
     }
     
     if (this.currentQuad.plate && !this.currentQuad.plate.isEmitted) {

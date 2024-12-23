@@ -14,7 +14,7 @@ export function setSignals(levelManager, signals) {
         targetZoom: 3,
       },
       0: {
-        targetPosition: new THREE.Vector3(-10, 9, 24),
+        targetPosition: new THREE.Vector3(-28,  47, 19),
         targetZoom: 3,
       },
       5: {
@@ -177,7 +177,27 @@ export function setSignals(levelManager, signals) {
             (quad2 &&
             quad2.signalIdList &&
             quad2.signalIdList.includes(button.signals[0].id) &&
-            button.standStop)
+            button.standStop) ||
+            (totem && totem.currentQuad &&
+            totem.currentQuad.signalIdList && 
+            totem.currentQuad.signalIdList.includes(button.signals[0].id) &&
+            quad === totem.headQuad &&
+            button.standStop) ||
+            (totem && totem.targetQuad &&
+            totem.targetQuad.signalIdList &&
+            totem.targetQuad.signalIdList.includes(button.signals[0].id) &&
+            quad2 === totem.headQuad &&
+            button.standStop) ||
+            (quad &&
+            quad.signalIdList &&
+            quad.signalIdList.includes(button.signals[0].id) &&
+            character.movementPhase !== null &&
+            button.walkStop) ||
+            (quad2 &&
+            quad2.signalIdList &&
+            quad2.signalIdList.includes(button.signals[0].id) &&
+            character.movementPhase !== null &&
+            button.walkStop) 
           ) {
             button.toggleActive(false);
           } else {

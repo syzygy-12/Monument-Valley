@@ -3,11 +3,12 @@
   "backgroundColor": "0x87CEEB",
   "models": [
     {
-      "id": "scene1",
-      "path": "assets/scene1.glb",
-      "position": { "x": -18, "y": -5, "z": 4 },
-      "scale": { "x":2, "y": 2, "z": 2 },
-      "rotation": { "x": 0, "y": -1.5707963267948966192313216916398, "z": 0 }
+      "id": "plane",
+      "path": "assets/plane.glb",
+      "position": { "x": -5, "y": -6, "z": -5 },
+      "scale": { "x": 4, "y": 4, "z": 4 },
+      "rotation": { "x": 0, "y": 0, "z": 0 }
+
     },
     {
       "id": "scene2",
@@ -38,12 +39,11 @@
       "rotation": { "x": 0, "y": 0, "z": 0 }
     },
     {
-      "id": "plane",
-      "path": "assets/plane.glb",
-      "position": { "x": -5, "y": -6, "z": -5 },
-      "scale": { "x": 4, "y": 4, "z": 4 },
-      "rotation": { "x": 0, "y": 0, "z": 0 }
-
+      "id": "scene1",
+      "path": "assets/scene1.glb",
+      "position": { "x": -18, "y": -5, "z": 4 },
+      "scale": { "x":2, "y": 2, "z": 2 },
+      "rotation": { "x": 0, "y": -1.5707963267948966192313216916398, "z": 0 }
     }
   ],
   "platforms": [

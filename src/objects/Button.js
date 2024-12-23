@@ -13,6 +13,7 @@ export default class Button extends TriggerObject {
     signalIdList,
     standStop,
     levelManager, 
+    walkStop,
     color
   }) {
     const geometry = new THREE.BoxGeometry(width || 2, height || 2, depth || 2);
@@ -34,6 +35,7 @@ export default class Button extends TriggerObject {
     this.addSignals(signals);
     this.active = true;
     this.standStop = standStop || false;
+    this.walkStop = walkStop || false;
     this.initInteraction();
     this.audioFiles = [];
     this.currentNote = 0;

@@ -28,6 +28,7 @@ export default class SignalResponsiveObject {
         this.targetAngle = 0;
         this.rotateSpeed = Math.PI / 2;
         this.targetQuaternion = new THREE.Quaternion();
+        this.tempQuaternion = new THREE.Quaternion();
         this.translateTarget = new THREE.Vector3();
         this.translateSpeed = 6;
         this.isAnimating = false;
@@ -130,6 +131,7 @@ export default class SignalResponsiveObject {
                     this.currentAngle = 0;
                     this.targetQuaternion.setFromAxisAngle(this.axis, angle);
                     this.rotateSpeed = signal.rotateSpeed || Math.PI / 2;
+                    this.tempQuaternion = new THREE.Quaternion().set(0, 0, 0, 1);
                     this.animationType = "rotation";
                 } else if (signal.type === "translation") {
                     this.animationType = "translation";
@@ -249,6 +251,7 @@ export default class SignalResponsiveObject {
             const startAngle = this.currentAngle;
             const endAngle = this.targetAngle;
             const animatingTime = Math.abs(endAngle - startAngle) / this.rotateSpeed * 1000; // 1000ms = 1s
+            // 设为0,0,0,1
 
             // TWEEN 补间动画
             this.rotationTween = new TWEEN.Tween({ angle: startAngle })
@@ -265,6 +268,7 @@ export default class SignalResponsiveObject {
 
                     this.mesh.position.copy(newPosition);
                     this.mesh.quaternion.premultiply(quaternion);
+                    this.tempQuaternion.premultiply(quaternion);
                     this.position.copy(this.mesh.position);
                 })
                 .onComplete(() => {

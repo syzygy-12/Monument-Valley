@@ -10,6 +10,7 @@ import Character from "../objects/Character.js";
 import Ladder from "../objects/Ladder.js";
 import Ocean from "../objects/Ocean.js";
 import Lightning from "../objects/Lightning.js";
+import WaterSurface from "../objects/WaterSurface.js";
 
 export async function loadLevelData(levelNumber) {
   // 异步加载关卡 JSON 数据
@@ -32,6 +33,7 @@ export async function loadLevelData(levelNumber) {
     ocean: levelData.ocean || null,
     directionalLights: levelData.directionalLights || [],
     lightning: levelData.lightning || null,
+    waterSurface: levelData.waterSurface || null,
   };
 }
 
@@ -78,6 +80,13 @@ export async function loadLevelObjects(levelData, sceneManager, levelManager) {
     const lightning = new Lightning({ ...levelData.lightning, levelManager });
     levelManager.lightning = lightning;
     levelManager.lightning.strikeLightning();
+  }
+
+  // 加载水面
+  if (levelData.waterSurface) {
+    const waterSurface = new WaterSurface({ ...levelData.waterSurface, levelManager });
+    updatables.push(waterSurface);
+    levelManager.waterSurface = waterSurface;
   }
 
   // 加载平台
@@ -143,20 +152,17 @@ export async function loadLevelObjects(levelData, sceneManager, levelManager) {
     levelManager.signals.push(...button.signals);
   }
 
-  // 加载 3D 模型
-  if (levelData.models) {
-    await loadModels(levelData.models, scene, updatables);
-  }
-}
-
-export async function initializeCharacter(levelManager, sceneManager) {
-  const { scene, updatables } = sceneManager;
   const character = new Character(sceneManager, levelManager);
   await character.loadModel();
   character.setInitialQuad(levelManager.quads[0]);
   levelManager.character = character;
   scene.add(character.mesh);
   updatables.push(character);
+
+  // 加载 3D 模型
+  if (levelData.models) {
+    await loadModels(levelData.models, scene, updatables);
+  }
 }
 
 async function loadModels(models, scene, updatables) {
