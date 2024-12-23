@@ -50,7 +50,7 @@ function init() {
 
     const textureLoader = new THREE.TextureLoader();
     const texture = textureLoader.load(
-        '../assets/bg1.jpg', 
+        './assets/bg1.jpg', 
         () => {
           //console.log('Texture loaded successfully!');
         },
