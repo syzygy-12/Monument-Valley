@@ -17,19 +17,10 @@ export default class Game {
     this.levelSelectScript.src = `./src/utils/LevelSelectBox.js`;
     document.body.appendChild(this.levelSelectScript);
 
-    // 绑定事件
-    this.initEventListeners();
     this.listenForExternalLevelReady();
 
   }
 
-  initEventListeners() {
-    // 初始界面按键监听，鼠标监听
-    document.addEventListener("keydown", this.showLevelSelect.bind(this));
-    document.addEventListener("click", this.showLevelSelect.bind(this));
-    
-    
-  }
 
   // 监听来自外部的 levelReady 信号
   listenForExternalLevelReady() {
@@ -38,13 +29,6 @@ export default class Game {
       //console.log(`Received signal to start level ${level}`);
       this.startLevel(level);
     });
-  }
-
-  showLevelSelect() {
-    this.audio = new Audio("./assets/audio/game.flac");
-    this.audio.volume = 0.1;
-    this.audio.loop = true;
-    this.audio.play();
   }
 
   startLevel(level) {

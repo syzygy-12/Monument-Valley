@@ -13,7 +13,7 @@ export function setSignals(levelManager, signals) {
         targetPosition: new THREE.Vector3(-12, 27, 1),
         targetZoom: 3,
       },
-      0: {
+      3: {
         targetPosition: new THREE.Vector3(-28,  47, 19),
         targetZoom: 3,
       },
@@ -141,7 +141,7 @@ export function setSignals(levelManager, signals) {
     // 创建一个 div 元素
     const victoryDiv = document.createElement('div');
     victoryDiv.id = 'victoryMessage'; // 方便后续移除或修改
-    victoryDiv.innerText = 'Victory!'; // 显示的文本内容
+    victoryDiv.innerText = '抵达   彼岸'; // 显示的文本内容
   
     // 设置样式，使其居中显示
     victoryDiv.style.position = 'absolute';
@@ -150,8 +150,8 @@ export function setSignals(levelManager, signals) {
     victoryDiv.style.transform = 'translate(-50%, -50%)'; // 精确居中
     victoryDiv.style.fontSize = '5rem';
     victoryDiv.style.fontWeight = 'bold';
-    victoryDiv.style.color = '0x000000'; 
-    victoryDiv.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.5)'; // 文本阴影
+    victoryDiv.style.color = 'white';
+    victoryDiv.style.textShadow = '2px 2px 4px rgba(224, 224, 224, 0.5)'; // 文本阴影
     victoryDiv.style.zIndex = '1000'; // 确保在最上层
     victoryDiv.style.pointerEvents = 'none'; // 防止阻挡鼠标事件
     victoryDiv.style.transition = 'opacity 1s'; // 添加淡入效果

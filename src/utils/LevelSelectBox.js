@@ -1,4 +1,5 @@
 import { isDevMode } from "../params/IsDevMode.js";
+import { fadeOut } from "./AudioUtils.js";
 
 let scene, camera, renderer, model;
 let raycaster = new THREE.Raycaster();
@@ -12,7 +13,7 @@ let touchStartX = 0;
 let faceIndex = 1;
 let faces = [];
 let minLevel = isDevMode ? -1 : 1; // 开始的最小等级
-let maxLevel = 10;
+let maxLevel = 5;
 let isAbort = false;
 let animations = {};
 let gameStarted = false;
@@ -218,6 +219,7 @@ function waitForInput() {
 }
 
 function startGame() {
+    if (gameStarted) return;
     gameStarted = true;
     document.removeEventListener("keydown", startGame);
     document.removeEventListener("mousedown", startGame);
@@ -227,7 +229,7 @@ function startGame() {
     // camera.position.set(-50, 0, 0);
     // camera.lookAt(new THREE.Vector3(0, 0, 0));
     const tween = new TWEEN.Tween(camera.position)
-        .to({ x: -50, y: 0, z: 0 }, 300)
+        .to({ x: -50, y: 0, z: 0 }, 3000)
         .easing(TWEEN.Easing.Quadratic.InOut)
         .onUpdate(() => {
             //camera.lookAt(new THREE.Vector3(0, 0, 0));
@@ -383,6 +385,7 @@ function onMouseClick(event) {
 function levelReady(level) {
     const event = new CustomEvent("levelReadyEvent", { detail: { level: level } });
     window.dispatchEvent(event);
+    fadeOut(gameAudio, 2);
 }
 
 function listenForExternalDestroyLevelSelectBox() {

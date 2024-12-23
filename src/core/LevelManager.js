@@ -23,8 +23,6 @@ export default class LevelManager {
     this.isSignalReceived = false;
     this.graph = new Map();
     this.animatingObjects = [];
-
-    fadeOut(this.game.audio, 2);
   }
 
   async loadLevel(levelNumber) {
