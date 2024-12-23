@@ -20,7 +20,7 @@
   ],
   "rain": { "particlesCount": 1300, "areaSize": 150, "speed": 50, "signalIdList": [83] },
   "lightning": {
-    "gap": 6,
+    "gap": 8,
     "duration": 0.1,
     "signalIdList": [84]
   },

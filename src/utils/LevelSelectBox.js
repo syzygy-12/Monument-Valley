@@ -15,6 +15,7 @@ let minLevel = isDevMode ? -1 : 1; // 开始的最小等级
 let maxLevel = 10;
 let isAbort = false;
 let animations = {};
+let gameStarted = false;
 const snapAngle = Math.PI / 2; 
 const d = 5; // 正交相机范围
 const aspect = window.innerWidth / window.innerHeight;
@@ -27,20 +28,28 @@ for (let i = 0; i <= 3; i++) {
 }
 
 
+
+
+const gameAudio = new Audio("./assets/audio/game.flac");
+gameAudio.volume = 0.1;
+gameAudio.loop = true;
+
+
 init();
 animate();
 
 function init() {
     scene = new THREE.Scene();
     camera = new THREE.OrthographicCamera(-d * aspect, d * aspect, d, -d, 1, 1000);
-    camera.position.set(-50, 0, 0);
-    camera.lookAt(new THREE.Vector3(0, 0, 0));
+    camera.position.set(-50, 20, 0);
+    camera.lookAt(new THREE.Vector3(0, 20, 0));
 
-    scene.background = new THREE.Color(0x011b47); 
+
+    scene.background = new THREE.Color(0x808080); 
 
     const textureLoader = new THREE.TextureLoader();
     const texture = textureLoader.load(
-        '../assets/castle.png', 
+        '../assets/bg1.jpg', 
         () => {
           //console.log('Texture loaded successfully!');
         },
@@ -53,15 +62,15 @@ function init() {
     const material = new THREE.MeshBasicMaterial({
         map: texture,
         transparent: true,   
-        opacity: 0.3,        
+        opacity: 0.8,        
         side: THREE.DoubleSide  
     });
 
-    const planeGeometry = new THREE.PlaneGeometry(16,16);  
+    const planeGeometry = new THREE.PlaneGeometry(24,30);  
 
     const plane = new THREE.Mesh(planeGeometry, material);
     plane.rotation.y = -Math.PI / 2;
-    plane.position.set(10, 1.5, 0);
+    plane.position.set(10, 10, 0);
 
     scene.add(plane);
 
@@ -84,8 +93,42 @@ function init() {
     renderer.domElement.style.left = '0';
     renderer.domElement.style.zIndex = '0';
 
-    
+    // orbit controls
+    // const controls = new THREE.OrbitControls(camera, renderer.domElement);
+    // // 启用视角转动
+    // controls.enableRotate = true;
 
+
+    // 创建文字几何体
+    const fontLoader = new THREE.FontLoader();
+    fontLoader.load('./assets/font3.json', function(font) {
+        const textGeometry = new THREE.TextGeometry('纪念碑谷', {
+            font: font,
+            size: 1.2,
+            height: 0.1,
+            curveSegments: 12,
+            bevelEnabled: false
+        });
+        const textMaterial = new THREE.MeshBasicMaterial({ color: 0xffffff });
+        const text = new THREE.Mesh(textGeometry, textMaterial);
+        text.position.set(0, 20, -3);
+        text.rotation.y = -Math.PI / 2;
+        scene.add(text);
+        const textGeometry2 = new THREE.TextGeometry('Monument Valley', {
+            font: font,
+            size: 0.5,
+            height: 0.1,
+            curveSegments: 12,
+            bevelEnabled: false
+        });
+        const text2 = new THREE.Mesh(textGeometry2, textMaterial);
+        text2.position.set(0, 19, -3);
+        text2.rotation.y = -Math.PI / 2;
+        scene.add(text2);
+
+    });
+
+    // 创建材质
     const loader = new THREE.GLTFLoader();
     loader.load('./assets/level_select.glb', (gltf) => {
         model = gltf.scene;
@@ -163,6 +206,34 @@ function init() {
     document.addEventListener('touchend', onTouchEnd, { passive: true });     // 添加触摸事件
     document.addEventListener('click', onMouseClick, false);
     listenForExternalDestroyLevelSelectBox();
+    waitForInput();
+}
+
+function waitForInput() {
+    if (!gameStarted) {
+        document.addEventListener("keydown", startGame);
+        document.addEventListener("mousedown", startGame);
+        document.addEventListener("touchstart", startGame, { passive: true });
+    }
+}
+
+function startGame() {
+    gameStarted = true;
+    document.removeEventListener("keydown", startGame);
+    document.removeEventListener("mousedown", startGame);
+    document.removeEventListener("touchstart", startGame);
+    gameAudio.play();
+    // 改为使用tween的平滑过渡，摄像机始终面向前方
+    // camera.position.set(-50, 0, 0);
+    // camera.lookAt(new THREE.Vector3(0, 0, 0));
+    const tween = new TWEEN.Tween(camera.position)
+        .to({ x: -50, y: 0, z: 0 }, 300)
+        .easing(TWEEN.Easing.Quadratic.InOut)
+        .onUpdate(() => {
+            //camera.lookAt(new THREE.Vector3(0, 0, 0));
+            //console.log(camera.position);
+        })
+        .start();
 }
 
 function convertToRoman(number) {
@@ -325,6 +396,7 @@ function animate() {
         return;
     }
     requestAnimationFrame(animate);
+    TWEEN.update();
     if (model) {
         const deltaTime = clock.getDelta();
         model.rotation.y = THREE.MathUtils.damp(model.rotation.y, targetRotationY, 5, deltaTime);

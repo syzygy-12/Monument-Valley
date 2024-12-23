@@ -8,11 +8,14 @@ export default class Game {
     this.unlockedLevels = 1; // 已解锁关卡数
 
     // 获取界面元素
-    this.startScreen = document.getElementById("start-screen");
     this.levelSelectScreen = document.getElementById("level-select");
     this.gameContainer = document.getElementById("game");
 
-    this.currentScreen = "start"; // 跟踪当前界面状态
+    this.currentScreen = "levelSelect"; // 跟踪当前界面状态
+    this.levelSelectScript = document.createElement("script");
+    this.levelSelectScript.type = "module";
+    this.levelSelectScript.src = `./src/utils/LevelSelectBox.js`;
+    document.body.appendChild(this.levelSelectScript);
 
     // 绑定事件
     this.initEventListeners();
@@ -23,7 +26,7 @@ export default class Game {
   initEventListeners() {
     // 初始界面按键监听，鼠标监听
     document.addEventListener("keydown", this.showLevelSelect.bind(this));
-    this.startScreen.addEventListener("click", this.showLevelSelect.bind(this));
+    document.addEventListener("click", this.showLevelSelect.bind(this));
     
     
   }
@@ -38,29 +41,10 @@ export default class Game {
   }
 
   showLevelSelect() {
-    if (this.currentScreen !== "start") return;
-    this.currentScreen = "levelSelect";
-
     this.audio = new Audio("./assets/audio/game.flac");
     this.audio.volume = 0.1;
     this.audio.loop = true;
     this.audio.play();
-
-    this.startScreen.classList.add("hidden");
-    this.levelSelectScreen.classList.add("show");
-    //console.log("Level Select Box 已启动");
-
-    // 动态加载 LevelSelectBox.js
-    if (!this.levelSelectBoxLoaded) {
-      this.levelSelectScript = document.createElement("script");
-      this.levelSelectScript.type = "module";
-      this.levelSelectScript.src = `./src/utils/LevelSelectBox.js`;
-      this.levelSelectScript.onload = () => {
-        //console.log("LevelSelectBox.js 已加载");
-      }
-      document.body.appendChild(this.levelSelectScript);
-      this.levelSelectBoxLoaded = true;
-    }
   }
 
   startLevel(level) {
