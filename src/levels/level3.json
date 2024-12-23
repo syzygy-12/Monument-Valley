@@ -541,7 +541,7 @@
   ],
   "buttons": [
     {
-      "glbFile": "assets/button2.glb",
+      "glbFile": "assets/button4.glb",
       "scale": { "x": 2, "y": 2, "z": 2 },
       "rotation": { "x": 1.5707963267948966, "y": 0, "z": 0 },
       "position": { "x": -8, "y": 4, "z": 17.5 },
@@ -565,7 +565,7 @@
       "walkStop" : true
     },
     {
-      "glbFile": "assets/button2.glb",
+      "glbFile": "assets/button4.glb",
       "scale": { "x": 2, "y": 2, "z": 2 },
       "rotation": { "x": 0, "y": 0, "z": 1.5707963267948966 },
       "position": { "x": -16, "y": 4, "z": 6 },
